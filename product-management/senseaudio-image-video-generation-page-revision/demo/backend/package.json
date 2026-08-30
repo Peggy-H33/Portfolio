@@ -1,0 +1,12 @@
+{
+  "name": "senseaudio-local-generation-backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node --check server.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

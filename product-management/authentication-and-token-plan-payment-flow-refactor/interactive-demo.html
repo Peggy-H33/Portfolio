@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>X-Design 总入口 Demo · 弹窗版 V2（登录 → 身份 → Token Plan / 实例）</title>
+<style>
+  :root{
+    --bg:#F6F4EF;--surface:#FFFFFF;--card:#F4F3F1;--border:#E7E6E1;--hairline:#EDEBE6;
+    --text:#1A1A1A;--muted:#8C8B84;--muted2:#B6B4AD;--coral:#BD5E3C;--green:#1E9E5A;
+    --blue:#3D5AFE;--blue-soft:#5B7CFF;--blue-grad:linear-gradient(135deg,#5B7CFF,#8FA2FF);
+    --login-bg:#DCE0F2;--rail:76px;--side:236px;
+    --font:"Inter","Helvetica Neue",-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:var(--font);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;overflow:hidden}
+  button{font-family:inherit;cursor:pointer;border:none;background:none}
+  input{font-family:inherit}
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-thumb{background:#d9d7d0;border-radius:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+
+  .app-shell{height:100vh;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+  .body-shell{flex:1;min-height:0;display:flex}
+  .windowbar{height:42px;background:var(--bg);border-bottom:1px solid var(--hairline);display:flex;align-items:center;padding:0 18px;gap:14px;position:relative;z-index:20;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+  .windowbar .tb-tab{margin-left:0;background:#f3f4f5;border-color:#dddfe3;color:#333}
+  .windowbar .tb-folder{color:#666}
+  .window-actions{margin-left:auto;display:flex;align-items:center;gap:10px;color:#9a988f}
+  .window-actions button{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;color:inherit}
+  .window-actions button:hover{background:#f3f2ef;color:#555}
+  .window-actions svg{width:17px;height:17px}
+  #app{display:flex;flex:1;min-height:0;position:relative}
+  /* ---- icon rail ---- */
+  .rail{width:var(--rail);flex:0 0 auto;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding-top:18px;gap:6px;z-index:50}
+  .rail .logo{width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#3a3f4a,#15171c);display:grid;place-items:center;margin-bottom:14px;cursor:pointer}
+  .rail .logo svg{width:22px;height:22px}
+  .rail .divider{width:30px;height:1px;background:var(--border);margin:2px 0 8px}
+  .rail .ric{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:#7a7872;transition:.15s;position:relative}
+  .rail .ric:hover{background:#fbeae2;color:var(--coral)}
+  .rail .ric.active{background:#fbeae2;color:var(--coral)}
+  .rail .ric svg{width:21px;height:21px}
+  .rail .ric::after{content:attr(data-tip);position:absolute;left:50px;top:50%;transform:translateY(-50%) translateX(-4px);background:#1d1d1f;color:#fff;border-radius:8px;padding:6px 9px;font-size:12px;line-height:1;white-space:nowrap;opacity:0;pointer-events:none;transition:.15s;box-shadow:0 10px 24px -16px rgba(0,0,0,.45);z-index:80}
+  .rail .ric::before{content:"";position:absolute;left:44px;top:50%;transform:translateY(-50%);border:5px solid transparent;border-right-color:#1d1d1f;opacity:0;transition:.15s;z-index:80}
+  .rail .ric:hover::after,.rail .ric:hover::before{opacity:1;transform:translateY(-50%) translateX(0)}
+
+  /* ---- main ---- */
+  .main{flex:1;min-width:0;display:flex;flex-direction:column;overflow:hidden}
+  .topbar{height:58px;flex:0 0 auto;display:flex;align-items:center;padding:0 22px;border-bottom:1px solid var(--border);background:#fff;gap:14px;position:relative;z-index:120}
+  .brand-switch{position:relative;height:38px;display:flex;align-items:center;margin-right:8px}
+  .brand-logo{height:34px;border-radius:11px;padding:0 12px;display:flex;align-items:center;font-size:18px;font-weight:900;letter-spacing:-.04em;color:#111;cursor:pointer}
+  .brand-logo:hover{background:#efede8}
+  .tb-folder{display:flex;align-items:center;gap:7px;font-size:13.5px;color:#555;font-weight:500}
+  .tb-folder svg{width:16px;height:16px;color:var(--muted2)}
+  .tb-tab{display:flex;align-items:center;gap:8px;background:#efedE8;border:1px solid var(--border);border-radius:9px;padding:6px 12px;font-size:13px;color:#444;margin-left:6px}
+  .tb-tab svg{width:14px;height:14px}.tb-tab .x{color:var(--muted2);font-size:14px;line-height:1}
+  .tb-right{margin-left:auto;display:flex;align-items:center;gap:8px;color:var(--muted);position:relative}
+  .tb-right svg{width:18px;height:18px;cursor:pointer}
+  .top-action{height:34px;min-width:34px;border:1px solid transparent;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:6px;color:#666;font-size:13px;padding:0 9px;transition:.15s;position:relative}
+  .top-action:hover{background:#efede8;color:#222}
+  .top-action svg{width:16px;height:16px}
+  .top-action .dot{position:absolute;right:6px;top:6px;width:6px;height:6px;border-radius:50%;background:#e5484d}
+  .user-only{display:none}#app.logged .user-only{display:flex}
+  .user-chip{padding-right:12px}
+  .top-avatar{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#d9e4ff,#9bb0ff);display:inline-block}
+  .top-menu{position:absolute;right:0;top:42px;width:318px;background:#fff;border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 50px -30px rgba(0,0,0,.45);padding:10px;display:none;z-index:140}
+  .top-menu.show{display:block}
+  .menu-account{display:grid;grid-template-columns:48px 1fr auto auto;align-items:center;gap:10px;background:#faf9f6;border-radius:14px;padding:12px;margin-bottom:8px}
+  .account-avatar{width:48px;height:48px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,#cfe1ff 38%,#f4d6a8 64%,#a9c6e8);box-shadow:inset 0 0 0 1px rgba(255,255,255,.8)}
+  .account-phone{font-size:15px;font-weight:800;color:#222;white-space:nowrap}
+  .account-badge{font-size:12px;font-weight:800;color:#fff;background:#333;border-radius:999px;padding:6px 10px;white-space:nowrap}
+  .logout-btn{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:#e5484d;position:relative}
+  .logout-btn:hover{background:#fff1ef}
+  .logout-btn svg{width:18px;height:18px}
+  .logout-btn::after{content:"退出登录";position:absolute;right:0;top:36px;background:#1d1d1f;color:#fff;border-radius:8px;padding:6px 9px;font-size:12px;white-space:nowrap;opacity:0;pointer-events:none;transform:translateY(-3px);transition:.15s;z-index:5}
+  .logout-btn:hover::after{opacity:1;transform:translateY(0)}
+  .menu-row{display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:10px;font-size:13.5px;color:#333;cursor:pointer}
+  .menu-row:hover{background:#f5f4f1}
+  .menu-row .mi{width:20px;text-align:center;color:#777}
+  .menu-row .mi svg{width:18px;height:18px;display:block}
+  .menu-row.danger{color:#d94a3a;border-top:1px solid var(--hairline);margin-top:8px;padding-top:12px}
+  .menu-row.danger .mi{color:#d94a3a}
+  .menu-plan{margin:6px 4px;border:1px solid var(--hairline);border-radius:12px;padding:11px 12px;background:#fafafa}
+  .menu-plan .mp-title{font-size:13px;font-weight:800;color:#222;margin-bottom:8px}
+  .menu-plan .mp-line{display:flex;justify-content:space-between;font-size:12.5px;color:#222;line-height:1.8}
+  .menu-usage{border-top:1px solid var(--hairline);margin-top:8px;padding-top:9px}
+  .usage-head{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;color:#222;margin-bottom:5px}
+  .usage-head svg{width:15px;height:15px;color:#555}
+  .usage-row{display:grid;grid-template-columns:56px 1fr 52px;gap:8px;align-items:center;font-size:12.5px;line-height:1.8}
+  .usage-row .label{font-weight:700;color:#222}
+  .usage-row .pct{text-align:right;color:#8c8b84;font-weight:700}
+  .usage-row .time{text-align:right;color:#8c8b84;font-weight:700}
+  .menu-plan b{color:#8c8b84;font-weight:800}
+  .scroll{flex:1;overflow-y:auto;overflow-x:hidden}
+  .scroll-pad{padding:0 0 70px}
+  .gear{position:absolute;top:78px;right:30px;color:var(--muted2);z-index:5}.gear svg{width:20px;height:20px}
+
+  /* top demo popovers */
+  .prod-pop{position:absolute;left:0;top:38px;width:188px;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:0 18px 50px -30px rgba(0,0,0,.5);padding:6px;z-index:200;display:none}
+  .brand-switch:hover .prod-pop{display:block}
+  .prod-pop.show{display:block}
+  .prod-current,.prod-item{height:34px;border-radius:8px;display:flex;align-items:center;gap:9px;padding:0 10px;font-size:14px}
+  .prod-current{background:#f7f7f6;font-weight:700}
+  .prod-item:hover{background:#f6f5f2}
+  .prod-icon{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;color:#fff;font-size:11px;background:var(--blue-grad)}
+  .prod-item:nth-child(1) .prod-icon{background:linear-gradient(135deg,#f05a37,#b31111)}
+  .prod-item:nth-child(2) .prod-icon{background:linear-gradient(135deg,#2c69e8,#102b78)}
+  .prod-item:nth-child(3) .prod-icon{background:linear-gradient(135deg,#1ca37a,#0d5545)}
+  .prod-current .prod-icon{background:var(--blue-grad)}
+  .info-modal{position:fixed;inset:0;z-index:360;display:none;align-items:center;justify-content:center;background:rgba(20,20,25,.3);backdrop-filter:blur(2px)}
+  .info-modal.show{display:flex}
+  .info-card{width:390px;max-width:90vw;background:#fff;border-radius:22px;box-shadow:0 36px 90px -42px rgba(0,0,0,.55);padding:22px}
+  .info-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .info-top h3{font-size:18px}.info-close{font-size:22px;color:#999;width:30px;height:30px;border-radius:9px}.info-close:hover{background:#f3f2ef}
+  .manual-note{background:#f7f7f5;border-radius:10px;padding:11px 12px;font-size:12.5px;color:#777;margin-bottom:12px}
+  .manual-list{border:1px solid var(--border);border-radius:14px;overflow:hidden}
+  .manual-row{padding:13px 14px;border-bottom:1px solid var(--hairline)}
+  .manual-row:last-child{border-bottom:none}
+  .manual-row b{display:block;font-size:13.5px;margin-bottom:4px}.manual-row span{font-size:12.5px;color:#777;line-height:1.5}
+
+  /* ---- hero ---- */
+  .hero{max-width:920px;margin:0 auto;padding:60px 24px 0;text-align:center}
+  .hero-logo{display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:26px}
+  .hero-logo .mk{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#3a3f4a,#15171c)}
+  .hero-logo b{font-size:20px;font-weight:700}
+  .hero h1{font-size:38px;font-weight:700;letter-spacing:.02em;margin-bottom:30px}
+  .composer{background:var(--surface);border:1px solid var(--border);border-radius:18px;box-shadow:0 6px 28px -18px rgba(0,0,0,.22);padding:18px 18px 12px;text-align:left;transition:.15s}
+  .composer.focus{border-color:#c9c7c0;box-shadow:0 10px 34px -16px rgba(0,0,0,.26)}
+  .composer textarea{width:100%;border:none;outline:none;resize:none;background:transparent;font-family:inherit;font-size:15.5px;line-height:1.6;color:var(--text);height:96px}
+  .composer textarea::placeholder{color:var(--muted2)}
+  .composer-bar{display:flex;align-items:center;margin-top:6px;border-top:1px dashed var(--hairline);padding-top:10px}
+  .attach{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:#9a988f}.attach:hover{background:#f3f2ef}
+  .send{margin-left:auto;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:#1d1d1f;color:#fff;transition:.15s}
+  .send:disabled{background:#e6e4df;color:#b9b7b0;cursor:not-allowed}
+  .send svg{width:18px;height:18px}
+  .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px}
+  .chip{display:flex;align-items:center;gap:7px;border:1px solid var(--border);background:var(--surface);border-radius:11px;padding:9px 15px;font-size:13.5px;color:#555;font-weight:500;transition:.15s}
+  .chip:hover{border-color:#cfcdC6;color:#222}.chip.more{padding:9px 12px}
+
+  .sec{max-width:1640px;margin:0 auto;padding:0 40px}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;margin:46px 0 18px}
+  .sec-head h2{font-size:21px;font-weight:700}
+  .sec-head .more-link{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:4px}
+  .sec-head .more-link svg{width:14px;height:14px}
+
+  #recent{display:none}#app.logged #recent{display:block}
+  .recent-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+  .proj{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:.18s}
+  .proj:hover{box-shadow:0 10px 26px -18px rgba(0,0,0,.3);transform:translateY(-2px)}
+  .proj .thumb{height:118px;background:#111}
+  .proj .meta{padding:11px 12px 13px}
+  .badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:6px;font-weight:600;margin-bottom:8px}
+  .badge.proto{background:#eaf0ff;color:#5566cc}.badge.media{background:#e9f3ec;color:#3a9a63}
+  .proj .title{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .proj .status{font-size:12px;color:var(--muted);margin-top:7px}
+  .proj .status .ok{color:var(--green)}.proj .status .fail{color:var(--coral)}
+
+  .filters{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+  .ftab{border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:8px 14px;font-size:13px;color:#555;font-weight:500;display:flex;align-items:center;gap:7px}
+  .ftab .n{color:var(--muted2);font-size:12px}
+  .ftab.saved{color:var(--coral);border-color:#e7c8ba}.ftab.saved svg{width:14px;height:14px}
+  .ftab.active{background:var(--coral);color:#fff;border-color:var(--coral)}.ftab.active .n{color:#f3d8cc}
+  .fsearch{margin-left:auto;display:flex;align-items:center;gap:8px;border:1px solid var(--border);background:var(--surface);border-radius:10px;padding:9px 14px;width:280px;color:var(--muted2);font-size:13px}
+  .fsearch svg{width:15px;height:15px}
+  .comm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .tpl{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:.18s}
+  .tpl:hover{box-shadow:0 12px 30px -20px rgba(0,0,0,.32);transform:translateY(-3px)}
+  .tpl .frame{height:226px;background:#fff;border-bottom:1px solid var(--hairline);overflow:hidden;position:relative}
+  .tpl .bar{position:absolute;bottom:0;left:0;right:0;height:30px;background:#f4f3f0;border-top:1px solid var(--hairline);display:flex;align-items:center;gap:6px;padding:0 12px}
+  .tpl .bar .d{width:8px;height:8px;border-radius:50%}.tpl .bar .fn{font-size:11px;color:var(--muted2);margin-left:8px}
+  .tpl .foot{display:flex;align-items:center;justify-content:space-between;padding:13px 14px}
+  .tpl .foot .t{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .official{display:flex;align-items:center;gap:5px;font-size:12px;color:#5b6cc8;background:#eef0fb;border-radius:20px;padding:4px 10px;flex:0 0 auto;margin-left:10px}
+  .official .od{width:6px;height:6px;border-radius:50%;background:#5b6cc8}
+
+  /* ===================== FUNNEL MODAL v2 · S-Design 登录/开通 ===================== */
+  #funnel{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;
+    background:rgba(24,22,20,.45);backdrop-filter:blur(3px);opacity:0;transition:opacity .25s;
+    --org:#F2622E;--orgD:#E0511C;--orgSoft:#FDEDE3;--red:#E22C38;--panel:#F7F6F2;--ink:#1A1A1A;--ln:#E9E7E1}
+  #funnel.show{display:flex;opacity:1}
+  .fn-card{width:1150px;max-width:96vw;height:716px;max-height:94vh;background:#fff;border-radius:26px;overflow:hidden;
+    display:flex;padding:12px;gap:6px;position:relative;box-shadow:0 50px 110px -45px rgba(0,0,0,.55);
+    transform:translateY(14px) scale(.985);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+  #funnel.show .fn-card{transform:none}
+  .fn-close{position:absolute;top:18px;right:18px;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#8c8b84;font-size:22px;z-index:9}
+  .fn-close:hover{background:#f3f2ef;color:#333}
+
+  /* ---------- 左侧：营销面板（随步骤切换） ---------- */
+  .fn-left{width:54.5%;flex:0 0 auto;background:var(--panel);border-radius:18px;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;padding:34px 26px 12px}
+  .mk-slides{flex:1;position:relative;min-height:0}
+  .mk-slide{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;transform:translateX(22px);transition:opacity .35s,transform .35s;pointer-events:none}
+  .mk-slide.on{opacity:1;transform:none;pointer-events:auto}
+  .mk-title{font-size:25px;font-weight:800;text-align:center;letter-spacing:.03em}
+  .mk-sub{font-size:13.5px;color:#9a988f;text-align:center;margin-top:12px}
+  .mk-stage{flex:1;position:relative;margin-top:12px;min-height:0}
+  .mcard{position:absolute;background:#fff;border-radius:16px;box-shadow:0 22px 48px -28px rgba(35,28,22,.35)}
+  .dots{display:flex;gap:5px}.dots i{width:8px;height:8px;border-radius:50%;display:block}
+  .dots i:nth-child(1){background:#FF5F57}.dots i:nth-child(2){background:#FEBC2E}.dots i:nth-child(3){background:#28C840}
+  .oico{position:absolute;width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,#F98543,#EE571E);
+    box-shadow:0 14px 26px -12px rgba(238,87,30,.65);display:grid;place-items:center;color:#fff;z-index:4}
+  .oico svg{width:22px;height:22px}
+  .dash{position:absolute;border:0;border-top:2px dashed #F0C7AA;z-index:1}
+  .dash.v{border-top:0;border-left:2px dashed #F0C7AA}
+  .dotgrid{position:absolute;width:66px;height:66px;background:radial-gradient(#E8D6C8 1.6px,transparent 1.7px);background-size:13px 13px;opacity:.9;z-index:0}
+
+  /* slide 1 · 工作中 */
+  .st1-main{left:50%;top:6px;transform:translateX(-50%);width:378px;padding:14px 16px 18px;z-index:2}
+  .work-inner{background:#fff;border:1px solid #F2F0EB;border-radius:13px;box-shadow:0 14px 30px -22px rgba(0,0,0,.25);padding:14px 16px 16px;margin-top:11px}
+  .work-title{font-size:15px;font-weight:800}
+  .cta-orange{display:inline-block;background:linear-gradient(135deg,#F9803F,#EF5B21);color:#fff;font-size:13px;font-weight:700;border-radius:10px;padding:10px 16px;margin-top:12px;box-shadow:0 12px 22px -10px rgba(239,91,33,.55)}
+  .bub{display:table;background:#fff;border:1px solid #F0EEE9;box-shadow:0 8px 18px -12px rgba(0,0,0,.16);border-radius:12px;padding:9px 14px;font-size:12px;color:#444;margin-top:12px}
+  .flt{position:absolute;background:#fff;border-radius:14px;box-shadow:0 20px 44px -26px rgba(35,28,22,.4);z-index:3}
+  .flt .ft{font-size:12.5px;font-weight:800}
+  .mini-lab{font-size:10px;color:#9a988f;margin-top:9px}
+  .mini-inp{background:#F5F4F0;border-radius:7px;padding:6px 8px;font-size:10px;color:#777;margin-top:4px;white-space:nowrap;overflow:hidden}
+  .mini-btn{display:inline-flex;align-items:center;gap:5px;background:#1a1a1a;color:#fff;border-radius:8px;font-size:10.5px;font-weight:600;padding:7px 11px;margin-top:11px}
+  .fr{display:flex;gap:9px;align-items:flex-start;margin-top:11px}
+  .fr .fi{width:24px;height:24px;border-radius:7px;background:var(--orgSoft);color:var(--org);display:grid;place-items:center;flex:0 0 auto}
+  .fr .fi svg{width:13px;height:13px}
+  .fr .ft2{font-size:11px;font-weight:800}
+  .fr .fd{font-size:9.5px;color:#9a988f;margin-top:2px;line-height:1.35}
+
+  /* slide 2 · 多端输出 */
+  .s2-head{display:flex;align-items:center;gap:12px}
+  .s2-head b{flex:1;text-align:center;font-size:14px;font-weight:800;margin-right:23px}
+  .req-box{border:1.5px solid #F5A67B;border-radius:12px;padding:10px 13px;font-size:11px;color:#555;line-height:1.7;margin-top:13px;background:#fff;box-shadow:0 12px 26px -18px rgba(239,91,33,.4)}
+  .thumb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 10px;margin-top:10px}
+  .tg-lab{font-size:9.5px;font-weight:700;color:#333;margin-bottom:4px}
+  .tg-box{height:42px;border-radius:8px;position:relative;overflow:hidden}
+  .tg-box span{position:absolute;left:6px;bottom:4px;font-size:7.5px;font-weight:800;color:#fff;letter-spacing:.04em}
+  .sl-row{margin-top:12px}.sl-row:first-of-type{margin-top:10px}
+  .sl-head{display:flex;justify-content:space-between;font-size:10.5px}
+  .sl-head b{font-weight:800}.sl-head span{color:#8c8b84}
+  .sl-track{height:4px;background:#F1E4D8;border-radius:4px;position:relative;margin-top:7px}
+  .sl-fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#F7B27E,#EF5B21);border-radius:4px}
+  .sl-dot{position:absolute;top:50%;transform:translate(-50%,-50%);width:11px;height:11px;border-radius:50%;background:#fff;border:2.5px solid #EF5B21;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+  .ring-badge{position:absolute;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #F6E3D4;box-shadow:0 12px 24px -14px rgba(0,0,0,.25);display:grid;place-items:center;color:var(--org);z-index:4}
+  .ring-badge svg{width:20px;height:20px}
+
+  /* slide 3 · 实例运行 */
+  .s3-inner{background:#fff;border:1px solid #F2F0EB;border-radius:13px;box-shadow:0 14px 30px -22px rgba(0,0,0,.22);padding:13px 14px 15px;margin-top:11px}
+  .s3-row1{display:flex;align-items:center;justify-content:space-between}
+  .s3-row1 b{font-size:14.5px;font-weight:800}
+  .run-tag{font-size:10.5px;color:#1E9E5A;font-weight:700;display:flex;align-items:center;gap:4px}
+  .run-tag i{width:6px;height:6px;border-radius:50%;background:#1E9E5A;display:block}
+  .stat{background:#F7F6F2;border-radius:10px;padding:9px 12px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#666;margin-top:9px}
+  .stat b{font-size:11.5px;color:#222}
+  .prog{height:8px;border-radius:6px;background:linear-gradient(90deg,#F9975B,#EE571E);margin-top:14px;width:56%}
+  .skel{height:7px;border-radius:6px;background:#EDEBE6;margin-top:9px}
+  .feat3{position:absolute;width:148px;background:#fff;border:1px solid #F6D9C6;border-radius:14px;padding:15px 12px 13px;text-align:center;box-shadow:0 16px 34px -24px rgba(238,87,30,.4);z-index:3}
+  .feat3 svg{width:26px;height:26px;color:var(--org)}
+  .f3-t{font-size:12.5px;font-weight:800;margin-top:8px}
+  .f3-d{font-size:10px;color:#9a988f;margin-top:5px;line-height:1.5}
+
+  /* 底部步骤 tab */
+  .fn-tabs{display:flex;justify-content:center;gap:38px;padding:14px 0 6px;position:relative;z-index:3}
+  .fn-tab{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:13px;color:#b6b4ad;font-weight:600;letter-spacing:.06em}
+  .fn-tab i{width:46px;height:3px;border-radius:3px;background:#E4E2DC;display:block;transition:.25s}
+  .fn-tab.on{color:var(--org)}.fn-tab.on i{background:var(--org)}
+  .fn-tab.done{color:#8c8b84}.fn-tab.done i{background:#D4D2CB}
+
+  /* ---------- 右侧：功能面板 ---------- */
+  .fn-right{flex:1;min-width:0;position:relative;display:flex;flex-direction:column}
+  .fn-back{position:absolute;top:8px;left:8px;width:34px;height:34px;border-radius:10px;display:none;place-items:center;color:#555;font-size:24px;z-index:9;line-height:1}
+  .fn-back.show{display:grid}
+  .fn-back:hover{background:#f3f2ef}
+  .fn-pane{position:absolute;inset:0;padding:56px 38px 22px;display:flex;flex-direction:column;background:#fff;
+    opacity:0;transform:translateX(24px);pointer-events:none;transition:opacity .32s,transform .32s;overflow-y:auto}
+  .fn-pane.on{opacity:1;transform:none;pointer-events:auto}
+  .fn-pane.out-left{transform:translateX(-24px)}
+  .p-head{font-size:22px;font-weight:800}
+  .p-sub{font-size:13.5px;color:#555;margin-top:14px}
+
+  /* step 1 · 登录（图1样式） */
+  .fn-pane.login{justify-content:center;padding:30px 46px}
+  .sa-logo{position:relative;text-align:center;margin-bottom:36px;padding-top:26px}
+  .sa-arcs{position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:170px;height:64px;color:#DEDBD3}
+  .sa-word{font-size:27px;font-weight:900;letter-spacing:.02em;position:relative}
+  .sa-tag{font-size:12.5px;color:#9a988f;margin-top:10px;position:relative}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:13px;font-weight:700;margin-bottom:8px;color:#222}
+  .inp{display:flex;align-items:center;border:1px solid var(--ln);border-radius:10px;padding:0 13px;height:46px;background:#fff;transition:.15s}
+  .inp:focus-within{border-color:#F0A277;box-shadow:0 0 0 3px rgba(242,98,46,.1)}
+  .inp.err{border-color:#e0584e;background:#fdf5f4}
+  .inp .pre{color:#666;margin-right:9px;font-size:13.5px;display:flex;align-items:center;gap:7px}
+  .inp .pre svg{width:16px;height:16px;color:#9a988f}
+  .inp input{border:none;outline:none;background:transparent;font-size:14px;flex:1;color:#222;min-width:0}
+  .inp input::placeholder{color:#B9B7B0}
+  .code-row{display:flex;gap:10px}
+  .code-row .inp{flex:1}
+  .getcode{border:1px solid var(--ln);background:#fff;color:#333;font-size:13px;font-weight:600;border-radius:10px;padding:0 16px;white-space:nowrap;transition:.15s}
+  .getcode:hover{border-color:#cfcdc6}
+  .getcode:disabled{color:#b6b4ad;cursor:not-allowed;background:#FAFAF8}
+  .err-hint{color:#e0584e;font-size:12px;margin-top:6px;display:none}
+  .err-hint.show{display:block}
+  .invite{font-size:13px;color:#222;font-weight:600;margin:4px auto 20px;cursor:pointer;width:fit-content;text-align:center}
+  .invite:hover{color:var(--org)}
+  .invite-field{display:none;margin:-8px 0 16px}
+  .invite-field.show{display:block}
+  .primary{width:100%;height:48px;border-radius:10px;background:#EFEDE8;color:#B4B2AB;font-size:15px;font-weight:600;letter-spacing:.4em;text-indent:.4em;transition:.2s;display:flex;align-items:center;justify-content:center}
+  .primary.ready{background:#1a1a1a;color:#fff}
+  .primary.ready:hover{background:#000}
+  .agree{display:flex;align-items:flex-start;justify-content:center;gap:8px;font-size:12px;color:#8c8b84;margin-top:18px;cursor:pointer;line-height:1.5}
+  .agree .ck{width:15px;height:15px;border:1.5px solid #C9C7C0;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;transition:.15s;margin-top:1px}
+  .agree.ok .ck{background:var(--org);border-color:var(--org)}
+  .agree .ck svg{width:9px;height:9px;color:#fff;opacity:0;transition:.15s}
+  .agree.ok .ck svg{opacity:1}
+  .agree a{color:#3D6FF2;text-decoration:none}
+  .agree.shake{animation:shake .4s}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+
+  /* step 2 · 选择登录身份（图2样式） */
+  .fn-pane.identity{padding-top:150px}
+  .idv-card{border:1.5px solid #1a1a1a;border-radius:16px;padding:17px 18px;display:flex;align-items:center;gap:15px;cursor:pointer;margin-top:26px;background:#fff}
+  .idv-ico{width:54px;height:54px;border-radius:14px;background:#17181C;color:#fff;display:grid;place-items:center;flex:0 0 auto}
+  .idv-ico svg{width:26px;height:26px}
+  .idv-txt{min-width:0;flex:1}
+  .idv-name{font-size:16px;font-weight:800}
+  .idv-desc{font-size:13px;color:#8c8b84;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .idv-arrow{color:#8c8b84;font-size:24px;line-height:1}
+  .idv-note{background:#F5F4F0;border-radius:12px;padding:14px 16px;font-size:13px;color:#6b6a64;line-height:1.55;margin-top:16px}
+  .go-dark{width:100%;height:52px;border-radius:12px;background:#1a1a1a;color:#fff;font-size:15px;font-weight:700;margin-top:24px;transition:.15s;display:flex;align-items:center;justify-content:center}
+  .go-dark:hover{background:#000}
+  .go-dark:disabled{background:#3a3a3a;cursor:wait}
+
+  /* step 3A · Token Plan（新增页） */
+  .gift{display:flex;gap:9px;align-items:flex-start;background:#FFF4EC;border:1px solid #F8D8C2;color:#A44718;border-radius:12px;padding:10px 13px;font-size:12px;line-height:1.6;margin-top:12px}
+  .gift b{color:#DE4E14}
+  .gift .gi{font-size:14px;line-height:1.4}
+  .tp-wrap{position:relative;margin:2px -10px 0}
+  .tp-scroll{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:15px 10px 4px;scrollbar-width:none}
+  .tp-scroll::-webkit-scrollbar{display:none}
+  .tp-nav{position:absolute;top:45%;transform:translateY(-50%);width:31px;height:31px;border-radius:50%;background:#fff;border:1px solid var(--ln);box-shadow:0 8px 20px -10px rgba(0,0,0,.3);display:grid;place-items:center;color:#555;font-size:18px;z-index:5;line-height:1;padding-bottom:2px}
+  .tp-nav:hover{color:#000;border-color:#cfcdc6}
+  .tp-nav.l{left:-2px}.tp-nav.r{right:-2px}
+  .tp-card{scroll-snap-align:center;flex:0 0 224px;border:1.5px solid var(--ln);border-radius:16px;padding:15px 15px 13px;background:#fff;cursor:pointer;position:relative;transition:border-color .18s,box-shadow .18s}
+  .tp-card:hover{border-color:#CFCDc6}
+  .tp-card.sel{border-color:#1a1a1a;box-shadow:0 0 0 1px #1a1a1a}
+  .tp-card.max.sel{border-color:var(--red);box-shadow:0 0 0 1px var(--red)}
+  .tp-ribbon{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-size:10px;font-weight:700;border-radius:999px;padding:4px 12px;letter-spacing:.2em;white-space:nowrap;box-shadow:0 6px 14px -6px rgba(226,44,56,.6)}
+  .tp-name{font-size:16.5px;font-weight:800;display:flex;align-items:center;gap:7px}
+  .tp-tag{font-size:10px;border:1px solid #DAD8D2;color:#8c8b84;border-radius:6px;padding:2px 6px;font-weight:600}
+  .tp-tag.red{color:var(--red);border-color:#F3B9BD;background:#FDF1F1}
+  .tp-desc{font-size:11px;color:#9a988f;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .tp-price{margin-top:10px;font-weight:800;min-height:38px;display:flex;align-items:baseline}
+  .tp-price .y{font-size:14px;margin-right:1px}
+  .tp-price .big{font-size:32px;letter-spacing:-1px;line-height:1}
+  .tp-price .free{font-size:28px;letter-spacing:.02em;line-height:1.2}
+  .tp-price .u{font-size:11.5px;color:#9a988f;font-weight:500;margin-left:3px}
+  .tp-card.max .tp-price .y,.tp-card.max .tp-price .big{color:var(--red)}
+  .tp-line{border-top:1px dashed var(--ln);margin:11px 0 10px}
+  .tp-credit{background:#F6F5F1;border-radius:10px;padding:8px 12px 9px}
+  .tp-credit .tc-n{font-size:19px;font-weight:800;line-height:1.2}
+  .tp-credit .tc-n i{font-style:normal;font-size:12px;color:#6b6a64;margin-left:2px;font-weight:800}
+  .tp-credit .tc-u{font-size:10px;color:#9a988f;margin-top:2px}
+  .tp-card.max .tp-credit{background:#FCEFEF}
+  .tp-card.max .tc-n{color:var(--red)}
+  .tp-feat{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:10.5px;color:#6b6a64;padding:7px 1px;border-bottom:1px solid #F1EFEA}
+  .tp-feat b{font-size:11px;color:#222;flex:0 0 auto}
+  .tp-feat:last-of-type{border-bottom:none}
+  .tp-gift{margin-top:7px;display:inline-flex;align-items:center;gap:5px;font-size:10.5px;color:#A44718;background:#FFF1E7;border-radius:7px;padding:4px 9px;font-weight:700}
+  .tp-gift.none{color:#9a988f;background:#F3F2EE}
+
+  /* step 3B · 创建实例（图3样式） */
+  .krow{display:flex;align-items:center;gap:14px;margin-top:15px}
+  .krow .k{font-size:13.5px;color:#222;width:74px;flex:0 0 auto}
+  .apill{border:1.5px solid #1a1a1a;border-radius:10px;padding:8px 22px;font-weight:700;font-size:14px;position:relative}
+  .apill .pok{position:absolute;right:-1px;bottom:-1px;width:17px;height:17px;background:#1a1a1a;color:#fff;border-radius:0 9px 0 9px;display:grid;place-items:center;font-size:9px}
+  .pmx{border:1.5px solid var(--ln);border-radius:10px;padding:8px 14px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px;color:#444;cursor:pointer;transition:.15s;position:relative}
+  .pmx:hover{border-color:#cfcdc6}
+  .pmx.sel{border-color:#1a1a1a;color:#111}
+  .pmx .tick{display:none;font-size:11px;margin-left:1px}
+  .pmx.sel .tick{display:inline}
+  .pmx .wx{width:17px;height:17px;border-radius:5px;background:#21C45D;display:grid;place-items:center;color:#fff}
+  .pmx .wx svg{width:11px;height:11px}
+  .pmx .al{width:17px;height:17px;border-radius:5px;background:#1677FF;display:grid;place-items:center;color:#fff;font-size:10.5px;font-weight:800}
+  .ddl{flex:1;max-width:300px;border:1px solid var(--ln);border-radius:10px;padding:10px 14px;font-size:13.5px;color:#444;display:flex;align-items:center;cursor:pointer}
+  .ddl .ar{margin-left:auto;color:#b6b4ad}
+  .ci-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:19px}
+  .ci-card{border:1.5px solid var(--ln);border-radius:16px;padding:16px 16px 12px;cursor:pointer;transition:.18s}
+  .ci-card:hover{border-color:#cfcdc6}
+  .ci-card.sel{border-color:#1a1a1a;box-shadow:0 0 0 1px #1a1a1a}
+  .ci-name{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px}
+  .ci-rec{font-size:10px;background:#1a1a1a;color:#fff;border-radius:6px;padding:3px 7px;font-weight:600}
+  .ci-desc{font-size:11px;color:#9a988f;margin-top:6px;line-height:1.5;min-height:32px}
+  .ci-price{margin-top:6px;font-weight:800}
+  .ci-price .y{font-size:15px;vertical-align:top}
+  .ci-price .big{font-size:34px;letter-spacing:-1px}
+  .ci-price .u{font-size:12px;color:#9a988f;font-weight:500}
+  .ci-line{border-top:1px dashed var(--ln);margin:11px 0 9px}
+  .ci-feat{display:flex;align-items:center;gap:8px;font-size:12px;color:#444;padding:4px 0}
+  .ci-feat svg{width:13px;height:13px;color:#222;flex:0 0 auto}
+
+  /* step 3 通用底部 */
+  .selbar{background:#F5F4F0;border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#8c8b84;margin-top:13px}
+  .selbar b{color:#222;font-weight:700;font-size:13.5px}
+  .fn-foot{margin-top:auto;display:flex;align-items:center;gap:10px;padding-top:13px}
+  .fn-foot .total{font-size:14px;color:#333;margin-right:auto;white-space:nowrap}
+  .fn-foot .total b{font-size:23px;color:var(--red);margin-left:6px;letter-spacing:-.5px}
+  .btn-ghost{border:1.5px solid var(--ln);border-radius:12px;padding:12px 16px;font-size:13.5px;font-weight:600;background:#fff;color:#444;white-space:nowrap;transition:.15s}
+  .btn-ghost:hover{color:#111;border-color:#cfcdc6}
+  .btn-dark{background:#1a1a1a;color:#fff;border-radius:12px;padding:12px 22px;font-size:14px;font-weight:700;white-space:nowrap;transition:.15s}
+  .btn-dark:hover{background:#000}
+  .pm-row{display:flex;align-items:center;gap:10px;margin-top:13px}
+  .pm-row .k{font-size:13px;color:#222;flex:0 0 auto}
+
+  /* 成功浮层 */
+  .fn-success{position:absolute;inset:0;background:#fff;z-index:8;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;border-radius:0 18px 18px 0}
+  .fn-success.show{display:flex}
+  .succ-ring{width:84px;height:84px;border-radius:50%;background:#eef7f0;display:grid;place-items:center}
+  .succ-ring svg{width:42px;height:42px;color:var(--green)}
+  .succ-ring svg path{stroke-dasharray:40;stroke-dashoffset:40;animation:draw .5s .1s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .fn-success .st{font-size:19px;font-weight:700}
+  .fn-success .sd{font-size:13px;color:var(--muted);text-align:center;padding:0 30px;line-height:1.6}
+
+  /* 演示设置面板 */
+  .demo-panel{position:fixed;left:18px;bottom:16px;z-index:400;background:#fff;border:1px solid var(--border);border-radius:14px;padding:12px 14px;width:250px;box-shadow:0 12px 30px -18px rgba(0,0,0,.35)}
+  .demo-panel .dp-t{font-size:12px;font-weight:800;color:#222;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+  .demo-panel .dp-t i{width:6px;height:6px;border-radius:50%;background:#F2622E;display:block}
+  .demo-panel .dp-row{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#333;cursor:pointer;font-weight:600}
+  .demo-panel input{accent-color:#F2622E;width:14px;height:14px;cursor:pointer}
+  .demo-panel .dp-hint{font-size:11px;color:#9a988f;line-height:1.55;margin-top:8px}
+
+  .reset{position:fixed;right:18px;bottom:16px;z-index:400;background:#fff;border:1px solid var(--border);border-radius:20px;padding:8px 16px;font-size:12.5px;color:#666;box-shadow:0 8px 24px -14px rgba(0,0,0,.3)}
+  .reset:hover{color:#222}
+  .toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(20px);z-index:500;background:#1d1d1f;color:#fff;font-size:13px;padding:11px 20px;border-radius:12px;opacity:0;transition:.25s;pointer-events:none}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media (max-width:900px){.fn-card{width:96vw;height:auto;max-height:94vh;padding:10px}.fn-left{display:none}.fn-right{min-height:620px}.fn-pane{padding:52px 22px 18px}.demo-panel{display:none}}
+
+  /* ===== 限时优惠 · 创建实例弹窗（新增） ===== */
+  #ciPro{position:relative}
+  .ci-burst{position:absolute;top:-18px;right:-10px;width:78px;height:78px;transform:rotate(9deg);z-index:3;
+    filter:drop-shadow(0 6px 12px rgba(244,63,30,.32));animation:ciPop 1.8s ease-in-out infinite;pointer-events:none}
+  @keyframes ciPop{0%,100%{transform:rotate(9deg) scale(1)}50%{transform:rotate(9deg) scale(1.07)}}
+  @media (prefers-reduced-motion:reduce){.ci-burst{animation:none}}
+  .ci-was{font-size:11.5px;color:#b6b4ad;margin-top:6px}
+  .ci-was s{text-decoration-thickness:1.5px}
+  .ci-price.promo{margin-top:0;display:flex;align-items:flex-end;gap:6px}
+  .ci-price.promo .now{font-size:11px;font-weight:700;color:#DE4E14;margin-bottom:5px}
+  .ci-price.promo .y,.ci-price.promo .big{background:linear-gradient(120deg,#F43F1E,#FF9426);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .ci-sum{display:flex;align-items:baseline;font-size:13px;color:#444;padding:11px 16px 0}
+  .ci-sum .k2{color:#8c8b84;flex:0 0 auto}
+  .ci-sum .m{width:88px}
+  .ci-sum .o{width:110px;font-weight:700;color:#222}
+  .ci-sum .d{color:#DE4E14;font-weight:800;margin-left:auto}
+  .ci-sum-note{font-size:11px;color:#b0aea6;padding:4px 16px 0}
+  .ddl{position:relative}
+  .ddl .ar{transition:.15s}
+  .ddl.open .ar{transform:rotate(180deg)}
+  .ddl-menu{position:absolute;left:-1px;right:-1px;top:calc(100% + 6px);background:#fff;border:1px solid var(--ln);
+    border-radius:10px;box-shadow:0 14px 30px -14px rgba(0,0,0,.25);display:none;z-index:6;overflow:hidden}
+  .ddl.open .ddl-menu{display:block}
+  .ddl-opt{padding:10px 14px;font-size:13px;color:#444}
+  .ddl-opt:hover{background:#F5F4F0}
+  .ddl-opt.sel{font-weight:700;color:#111}
+
+  /* ===== Token Plan 全宽模式：账号无套餐时隐藏左侧插画，套餐大屏展示，步骤条居中沉底 ===== */
+  .fn-card.tpwide .fn-left{position:absolute;left:12px;right:12px;bottom:10px;width:auto;height:auto;
+    padding:0;background:transparent;overflow:visible;z-index:7;pointer-events:none}
+  .fn-card.tpwide .mk-slides{display:none}
+  .fn-card.tpwide .fn-tabs{pointer-events:auto;padding:10px 0 6px}
+  .fn-card.tpwide #pane3t{padding:40px 46px 64px}
+  .fn-card.tpwide #pane3t .gift{margin-top:10px}
+  .fn-card.tpwide #pane3t .pm-row{margin-top:11px}
+  .fn-card.tpwide #pane3t .selbar{margin-top:11px}
+  .fn-card.tpwide #pane3t .fn-foot{padding-top:11px}
+</style>
+</head>
+<body>
+
+<div class="app-shell" id="app">
+    <div class="topbar">
+      <div class="brand-switch" id="brandSwitch">
+        <button class="brand-logo" id="homeLogo">SENSEAUDIO</button>
+        <div class="prod-pop" id="productPop">
+          <div class="prod-item" data-product="创作台"><span class="prod-icon">●</span><span>创作台</span></div>
+          <div class="prod-item" data-product="API平台"><span class="prod-icon">API</span><span>API平台</span></div>
+          <div class="prod-item" data-product="X-Agent"><span class="prod-icon">X</span><span>X-Agent</span></div>
+          <div class="prod-current" data-product="X-Design"><span class="prod-icon">◎</span><span>X-Design</span></div>
+        </div>
+      </div>
+      <div class="tb-right">
+        <button class="top-action user-only" id="updateBtn" title="更新"><span class="dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a9 9 0 10-3 6.7"/><path d="M21 4v6h-6"/></svg></button>
+        <button class="top-action" id="manualBtn" title="说明手册"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.7 2.7 0 115 1.8c-1.3.8-2.1 1.4-2.1 3"/><path d="M12 17h.01"/></svg></button>
+        <button class="top-action user-only user-chip" id="userBtn"><span class="top-avatar"></span><span>林小满</span><span>⌄</span></button>
+        <div class="top-menu" id="userMenu">
+          <div class="menu-account">
+            <div class="account-avatar"></div>
+            <div class="account-phone">188****0000</div>
+            <div class="account-badge">企业版</div>
+            <button class="logout-btn" id="logoutBtn" title="退出登录"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M14 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h6a2 2 0 002-2v-2"/><path d="M10 12h10"/><path d="M17 9l3 3-3 3"/></svg></button>
+          </div>
+          <div class="menu-row" id="renewBtn"><span class="mi">↗</span><span>升级 / 续费</span></div>
+          <div class="menu-row" id="menuTradeBtn"><span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 7.5h13a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2z"/><path d="M7 7.5V5.8A2 2 0 019 3.8h6a2 2 0 012 2v1.7"/><path d="M15.5 13.5H20"/><path d="M16.5 11.5h2.2a1.3 1.3 0 010 2.6h-2.2a1.3 1.3 0 010-2.6z"/></svg></span><span>交易记录</span></div>
+          <div class="menu-plan">
+            <div class="mp-title">我的套餐</div>
+            <div class="mp-line"><span>套餐等级</span><b>高级套餐</b></div>
+            <div class="mp-line"><span>剩余天数</span><b>27 天</b></div>
+            <div class="menu-usage">
+              <div class="usage-head">剩余用量</div>
+              <div class="usage-row"><span class="label">5 小时</span><span class="pct">79%</span><span class="time">18:57</span></div>
+              <div class="usage-row"><span class="label">1 周</span><span class="pct">96%</span><span class="time">6月30日</span></div>
+            </div>
+          </div>
+          <div class="menu-row danger" id="resetAgentBtn"><span class="mi">↺</span><span>重置 Agent</span></div>
+        </div>
+      </div>
+    </div>
+
+  <div class="body-shell">
+    <nav class="rail">
+      <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="#cfd2d8" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></div>
+      <button class="ric" data-tip="新建项目"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></button>
+      <div class="divider"></div>
+      <button class="ric active" data-tip="主页"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg></button>
+      <button class="ric" data-tip="项目"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7a2 2 0 012-2h4l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2z"/></svg></button>
+      <button class="ric" data-tip="自动化"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 10h16M9 5v14"/></svg></button>
+      <button class="ric" data-tip="设计体系"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 4h6v3a2 2 0 104 0V4h1v16H4V4h1v3a2 2 0 104 0z"/></svg></button>
+      <button class="ric" data-tip="插件"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></button>
+    </nav>
+
+    <div class="main">
+      <div class="windowbar">
+        <div class="tb-tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/></svg> 主页 <span class="x">×</span></div>
+        <div class="tb-folder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7a2 2 0 012-2h4l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2z"/></svg> 几句话</div>
+        <div class="window-actions">
+          <button title="新建"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></button>
+          <button title="搜索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+        </div>
+      </div>
+
+    <div class="scroll">
+      <div class="gear"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-.1-1l2-1.6-2-3.4-2.4 1a7 7 0 00-1.7-1L14.4 2h-4l-.4 2.4a7 7 0 00-1.7 1l-2.4-1-2 3.4 2 1.6a7 7 0 000 2l-2 1.6 2 3.4 2.4-1a7 7 0 001.7 1l.4 2.4h4l.4-2.4a7 7 0 001.7-1l2.4 1 2-3.4-2-1.6A7 7 0 0019 12z"/></svg></div>
+      <div class="scroll-pad">
+        <section class="hero">
+          <div class="hero-logo"><span class="mk"></span><b>X-Design</b></div>
+          <h1>你想设计什么？</h1>
+          <div class="composer" id="composer">
+            <textarea id="draft" placeholder="描述你想生成的内容…"></textarea>
+            <div class="composer-bar">
+              <button class="attach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 11l-8.5 8.5a4 4 0 01-5.7-5.7l8.5-8.5a2.7 2.7 0 013.8 3.8L10.5 17a1.4 1.4 0 01-2-2L16 7.5"/></svg></button>
+              <button class="send" id="sendBtn" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V6M6 12l6-6 6 6"/></svg></button>
+            </div>
+          </div>
+          <div class="chips">
+            <button class="chip">◎ 原型</button><button class="chip">⟳ 实时制品</button><button class="chip">▭ 幻灯片</button>
+            <button class="chip">▦ 图片</button><button class="chip">▷ 视频</button><button class="chip">✦ HyperFrames</button>
+            <button class="chip">🎙 音频</button><button class="chip more">···</button>
+          </div>
+        </section>
+
+        <section class="sec" id="recent">
+          <div class="sec-head"><h2>最近项目</h2><span class="more-link">查看全部 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></span></div>
+          <div class="recent-grid" id="recentGrid"></div>
+        </section>
+
+        <section class="sec">
+          <div class="sec-head"><h2>Community</h2><span class="more-link">浏览插件市场</span></div>
+          <div class="filters">
+            <button class="ftab saved"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.9L12 16.9 6.8 19.2l1-5.9L3.5 9.2l5.9-.9z"/></svg> Saved <span class="n">0</span></button>
+            <button class="ftab active">全部 <span class="n">388</span></button>
+            <button class="ftab">原型 <span class="n">59</span></button>
+            <button class="ftab">Live Artifact <span class="n">5</span></button>
+            <button class="ftab">幻灯片 <span class="n">60</span></button>
+            <button class="ftab">图片 <span class="n">46</span></button>
+            <button class="ftab">视频 <span class="n">48</span></button>
+            <button class="ftab">HyperFrames <span class="n">13</span></button>
+            <button class="ftab">音频 <span class="n">1</span></button>
+            <div class="fsearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg> 搜索插件…</div>
+          </div>
+          <div class="comm-grid" id="commGrid"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="info-modal" id="manualModal">
+  <div class="info-card">
+    <div class="info-top"><h3>用户使用手册</h3><button class="info-close" id="manualClose">×</button></div>
+    <div class="manual-note">以下为 X-Design 的重要说明。</div>
+    <div class="manual-list">
+      <div class="manual-row"><b>购买限制</b><span>X-Design 当前仅可购买 1 个云实例。</span></div>
+      <div class="manual-row"><b>重置说明</b><span>重置将清空实例工作区并重新初始化，操作不可撤销。</span></div>
+      <div class="manual-row"><b>到期与数据</b><span>实例到期后，相关数据将保留 15 天，逾期后系统将自动清理。</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== FUNNEL MODAL v2 · 登录 → 身份 → 解锁权益 ===================== -->
+<div id="funnel">
+  <div class="fn-card">
+    <button class="fn-close" id="fnClose">×</button>
+
+    <!-- ============ 左侧：营销面板（随步骤切换） ============ -->
+    <div class="fn-left">
+      <div class="mk-slides">
+
+        <!-- slide 1 · 登录 -->
+        <div class="mk-slide on" id="slide1">
+          <div class="mk-title">一句话生成完整设计作品</div>
+          <div class="mk-sub">让创意概念快速转化为高品质设计资产</div>
+          <div class="mk-stage">
+            <div class="dash" style="left:64px;top:96px;width:120px"></div>
+            <div class="dash v" style="right:96px;top:56px;height:120px"></div>
+            <div class="dash" style="right:36px;top:250px;width:90px"></div>
+            <div class="mcard st1-main">
+              <div class="dots"><i></i><i></i><i></i></div>
+              <div class="work-inner">
+                <div class="work-title">✦ S-Design 正在工作中…</div>
+                <div class="cta-orange">帮我做一个产品介绍PPT</div>
+                <div class="bub">好的，现在为您生成</div>
+                <div class="bub">先为您规划内容…</div>
+              </div>
+            </div>
+            <div class="oico" style="right:36px;top:40px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M14.5 4l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9zM4 20l8.5-8.5M12.5 11.5l1.6 1.6"/></svg></div>
+            <div class="oico" style="left:44px;bottom:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 14V3M8 7l4-4 4 4"/><path d="M5 13v6h14v-6"/></svg></div>
+            <div class="flt" style="left:0;top:112px;width:176px;padding:12px 13px">
+              <div class="ft">调用 S-Design Agent</div>
+              <div class="mini-lab">自然语言输入</div>
+              <div class="mini-inp">帮我做一个产品介绍PPT</div>
+              <div class="mini-lab">设计目标输出</div>
+              <div class="mini-inp">结构化设计任务</div>
+              <div class="mini-btn">⁘ 生成设计</div>
+            </div>
+            <div class="flt" style="right:0;top:186px;width:202px;padding:13px 14px 10px">
+              <div class="ft">AI 设计生产流程</div>
+              <div class="fr"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10c.8.8 1 1.6 1 3h6c0-1.4.2-2.2 1-3a6 6 0 00-4-10z"/></svg></span><span><span class="ft2">理解需求</span><div class="fd">正在分析需求与目标受众</div></span></div>
+              <div class="fr"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span><span><span class="ft2">拆解结构</span><div class="fd">正在把规划内容转为页面逻辑</div></span></div>
+              <div class="fr"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M10 12h6M10 16h6"/></svg></span><span><span class="ft2">生成内容</span><div class="fd">正在生成文案与图文内容</div></span></div>
+              <div class="fr"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 10v10"/></svg></span><span><span class="ft2">设计版式</span><div class="fd">正在匹配视觉风格与排版布局</div></span></div>
+              <div class="fr"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 15V4M8 8l4-4 4 4"/><rect x="5" y="15" width="14" height="5" rx="1.5"/></svg></span><span><span class="ft2">输出成果</span><div class="fd">正在导出多格式设计文件</div></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- slide 2 · 身份选择 -->
+        <div class="mk-slide" id="slide2">
+          <div class="mk-title">一站式需求落地平台</div>
+          <div class="mk-sub">让每个创意快速转化为完整设计作品</div>
+          <div class="mk-stage">
+            <div class="dash v" style="left:110px;top:170px;height:110px"></div>
+            <div class="dash" style="right:60px;top:236px;width:80px"></div>
+            <div class="mcard" style="left:56px;top:4px;width:400px;padding:14px 18px 18px;z-index:2">
+              <div class="s2-head"><span class="dots"><i></i><i></i><i></i></span><b>一站式多形态内容生成工作台</b></div>
+              <div style="display:flex;align-items:center;gap:12px;margin-top:16px">
+                <span style="font-size:15px;font-weight:800">✦ 一次输入，多端输出</span>
+                <span class="mini-btn" style="margin-top:0">⁘ 开始生成</span>
+              </div>
+              <div class="req-box">产品介绍、核心功能、应用场景、<br>客户价值、市场优势、案例展示…</div>
+            </div>
+            <div class="flt" style="right:0;top:36px;width:150px;padding:13px 14px">
+              <div style="height:7px;border-radius:5px;width:74%;background:linear-gradient(90deg,#F9975B,#EE571E)"></div>
+              <div style="height:6px;border-radius:5px;width:100%;background:#EDEBE6;margin-top:9px"></div>
+              <div style="height:6px;border-radius:5px;width:88%;background:#EDEBE6;margin-top:8px"></div>
+              <div style="height:6px;border-radius:5px;width:60%;background:#EDEBE6;margin-top:8px"></div>
+            </div>
+            <div class="ring-badge" style="right:132px;top:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/><path d="M10 12h6M10 16h4"/></svg></div>
+            <div class="flt" style="left:0;top:198px;width:252px;padding:13px 15px 15px;z-index:3">
+              <div class="ft">多类型设计成果预览</div>
+              <div class="thumb-grid">
+                <div><div class="tg-lab">PPT 演示文稿</div><div class="tg-box" style="background:linear-gradient(135deg,#9FB6AE,#5E7A74)"><span>NST</span></div></div>
+                <div><div class="tg-lab">图片</div><div class="tg-box" style="background:linear-gradient(180deg,#BFD4E6 55%,#7FA3BF 55%)"><span>⛵</span></div></div>
+                <div><div class="tg-lab">Web UI</div><div class="tg-box" style="background:linear-gradient(135deg,#DCE9F6,#C4D9F0)"><span style="color:#4A6FA8">Create.</span></div></div>
+                <div><div class="tg-lab">数据看板</div><div class="tg-box" style="background:linear-gradient(135deg,#2A2C33,#101216)"><span>◐</span></div></div>
+                <div><div class="tg-lab">海报</div><div class="tg-box" style="background:#F2F1EC"><span style="color:#2B4FD8">Signals.</span></div></div>
+                <div><div class="tg-lab">视频</div><div class="tg-box" style="background:linear-gradient(135deg,#4C7B3F,#274A22)"><span>▶</span></div></div>
+              </div>
+            </div>
+            <div class="oico" style="right:186px;top:210px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 15.4 7.2 17.9l.9-5.4L4.2 8.7l5.4-.8z"/></svg></div>
+            <div class="flt" style="right:0;top:238px;width:204px;padding:13px 15px 15px;z-index:3">
+              <div class="ft">生成能力调节</div>
+              <div class="sl-row"><div class="sl-head"><b>结构严谨度</b><span>高</span></div><div class="sl-track"><div class="sl-fill" style="width:86%"></div><div class="sl-dot" style="left:86%"></div></div></div>
+              <div class="sl-row"><div class="sl-head"><b>视觉风格</b><span>现代简约</span></div><div class="sl-track"><div class="sl-fill" style="width:58%"></div><div class="sl-dot" style="left:58%"></div></div></div>
+              <div class="sl-row"><div class="sl-head"><b>信息密度</b><span>中等</span></div><div class="sl-track"><div class="sl-fill" style="width:50%"></div><div class="sl-dot" style="left:50%"></div></div></div>
+              <div class="sl-row"><div class="sl-head"><b>商业表达强度</b><span>较强</span></div><div class="sl-track"><div class="sl-fill" style="width:76%"></div><div class="sl-dot" style="left:76%"></div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- slide 3 · 解锁权益 -->
+        <div class="mk-slide" id="slide3">
+          <div class="mk-title">即刻开始创作</div>
+          <div class="mk-sub" id="mkSub3">创建实例即可获取超多权益</div>
+          <div class="mk-stage">
+            <div class="dotgrid" style="left:8px;top:230px"></div>
+            <div class="dotgrid" style="right:118px;top:36px"></div>
+            <div class="dash v" style="left:88px;top:196px;height:96px"></div>
+            <div class="dash v" style="right:78px;top:216px;height:74px"></div>
+            <div class="mcard" style="left:50%;top:12px;transform:translateX(-50%);width:364px;padding:14px 16px 18px;z-index:2">
+              <div class="s2-head"><span class="dots"><i></i><i></i><i></i></span><b>创建S-Design实例</b></div>
+              <div class="s3-inner">
+                <div class="s3-row1"><b>✦S-Design</b><span class="run-tag"><i></i>运行中</span></div>
+                <div class="stat"><span>运行时长</span><b>1分钟 36秒</b></div>
+                <div class="stat"><span>任务运行状态</span><b style="color:#1E9E5A">● 正常</b></div>
+                <div class="prog"></div>
+                <div class="skel" style="width:92%"></div>
+                <div class="skel" style="width:70%"></div>
+                <div class="skel" style="width:44%"></div>
+              </div>
+            </div>
+            <div class="feat3" style="left:0;top:56px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="7" r="1.6"/><circle cx="17" cy="7" r="1.6"/><circle cx="7" cy="17" r="1.6"/><circle cx="17" cy="17" r="1.6"/><path d="M9 7h6M7 9v6M17 9v6M9 17h6"/></svg>
+              <div class="f3-t">灵活配置资源</div>
+              <div class="f3-d">CPU / 内存自由选择</div>
+            </div>
+            <div class="feat3" style="right:0;top:52px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg>
+              <div class="f3-t">稳定高效运行</div>
+              <div class="f3-d">高可用架构<br>保障稳定可靠</div>
+            </div>
+            <div class="feat3" style="left:6px;top:290px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15c-1.5-3.5-1-7.5 2-10.5 2.4-2.4 5.5-2.6 5.5-2.6s-.2 3.1-2.6 5.5c-3 3-7 3.5-10.5 2"/><path d="M9 15l-4.5 4.5M12 15l-1 4M9 12l-4 1"/></svg>
+              <div class="f3-t">一键启动</div>
+              <div class="f3-d">即刻部署，立即启动</div>
+            </div>
+            <div class="feat3" style="right:2px;top:286px">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="M8 8.5l1.2 1.2 2-2.2M13 9h4M8 14.5l1.2 1.2 2-2.2M13 15h4"/></svg>
+              <div class="f3-t">满足多种需求</div>
+              <div class="f3-d">日常轻量使用<br>高频复杂任务</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部步骤 tab -->
+      <div class="fn-tabs">
+        <div class="fn-tab on" id="fnTab1"><i></i><span>登 录</span></div>
+        <div class="fn-tab" id="fnTab2"><i></i><span>身份选择</span></div>
+        <div class="fn-tab" id="fnTab3"><i></i><span>解锁权益</span></div>
+      </div>
+    </div>
+
+    <!-- ============ 右侧：功能面板 ============ -->
+    <div class="fn-right">
+      <button class="fn-back" id="fnBack">‹</button>
+
+      <!-- step 1 · 登录 -->
+      <div class="fn-pane login on" id="pane1">
+        <div class="sa-logo">
+          <svg class="sa-arcs" viewBox="0 0 170 64" fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M65 62a20 20 0 0140 0"/><path d="M53 62a32 32 0 0164 0"/><path d="M41 62a44 44 0 0188 0"/><path d="M29 62a56 56 0 01112 0"/>
+          </svg>
+          <div class="sa-word">SENSE AUDIO</div>
+          <div class="sa-tag">一个让你爱上声音的强大工具</div>
+        </div>
+        <div class="field">
+          <label>手机号</label>
+          <div class="inp" id="phoneWrap"><span class="pre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>+86</span><input id="phone" placeholder="请输入手机号（演示可随意输入）" /></div>
+          <div class="err-hint" id="phoneErr">请输入手机号</div>
+        </div>
+        <div class="field">
+          <label>验证码</label>
+          <div class="code-row">
+            <div class="inp" id="codeWrap"><span class="pre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg></span><input id="vcode" inputmode="numeric" maxlength="6" placeholder="请输入6位验证码" /></div>
+            <button class="getcode" id="getCode">获取验证码</button>
+          </div>
+          <div class="err-hint" id="codeErr">请输入验证码</div>
+        </div>
+        <div class="invite" id="invite">填写邀请码 ›</div>
+        <div class="field invite-field" id="inviteField">
+          <div class="inp"><span class="pre">✦</span><input id="inviteCode" placeholder="请输入邀请码（选填）" /></div>
+        </div>
+        <button class="primary" id="doLogin">登 录</button>
+        <div class="agree" id="agree"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M5 13l4 4L19 7"/></svg></span><span>我已阅读并同意 <a href="#" onclick="return false">用户协议</a> 与 <a href="#" onclick="return false">隐私政策</a></span></div>
+      </div>
+
+      <!-- step 2 · 选择登录身份 -->
+      <div class="fn-pane identity" id="pane2">
+        <div class="p-head">选择登录身份</div>
+        <div class="p-sub" id="idSub">+86 186****5776 请确认本次要进入的身份。</div>
+        <div class="idv-card" id="idCard">
+          <div class="idv-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20a6.5 6.5 0 0113 0"/></svg></div>
+          <div class="idv-txt">
+            <div class="idv-name">个人账号</div>
+            <div class="idv-desc" id="idDesc">5776手机用户 186****5776 手机用户</div>
+          </div>
+          <span class="idv-arrow">›</span>
+        </div>
+        <div class="idv-note" id="idNote">已选择个人账号：可为当前身份开通 S-Design，并创建远程主机实例。</div>
+        <button class="go-dark" id="idGo">登 录</button>
+      </div>
+
+      <!-- step 3A · Token Plan（账号无套餐时展示） -->
+      <div class="fn-pane" id="pane3t">
+        <div class="p-head">订阅 Token Plan</div>
+        <div class="gift"><span class="gi">🎁</span><div>限时权益：现在开通<b>任意付费套餐</b>，即赠 <b>S-Design 云实例（Cloud Pro · 1 个月）</b>，无需再单独购买实例。</div></div>
+        <div class="tp-wrap">
+          <button class="tp-nav l" id="tpPrev">‹</button>
+          <div class="tp-scroll" id="tpScroll"></div>
+          <button class="tp-nav r" id="tpNext">›</button>
+        </div>
+        <div class="pm-row"><span class="k">支付方式：</span>
+          <div class="pmx" id="tpWx"><span class="wx"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 4C5 4 2 6.5 2 9.7c0 1.8 1 3.4 2.5 4.4l-.6 2 2.2-1.2c.8.2 1.6.4 2.4.4h.4A5.4 5.4 0 0115.5 9h.4C15.4 6.2 12.3 4 8.5 4zM22 14.6c0-2.7-2.6-4.8-5.7-4.8s-5.7 2.1-5.7 4.8 2.6 4.8 5.7 4.8c.7 0 1.3-.1 1.9-.3l1.9 1-.5-1.7c1.5-.9 2.4-2.3 2.4-3.8z"/></svg></span>微信支付<span class="tick">✓</span></div>
+          <div class="pmx sel" id="tpAl"><span class="al">支</span>支付宝支付<span class="tick">✓</span></div>
+        </div>
+        <div class="selbar"><span>已选</span><b id="tpSelTxt">Max版 · 1 个月</b></div>
+        <div class="fn-foot">
+          <div class="total">实付 <b id="tpTotal">¥699.00</b></div>
+          <button class="btn-ghost" id="tpLater">暂不开通</button>
+          <button class="btn-dark" id="tpGo">确认支付</button>
+        </div>
+      </div>
+
+      <!-- step 3B · 创建实例（账号已有 Token Plan 时展示，图3样式） -->
+      <div class="fn-pane" id="pane3i">
+        <div class="p-head">创建 S-Design</div>
+        <div class="krow"><span class="k">Agent：</span><span class="apill">S-Design<span class="pok">✓</span></span></div>
+        <div class="krow"><span class="k">支付方式：</span>
+          <div class="pmx" id="ciWx"><span class="wx"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.5 4C5 4 2 6.5 2 9.7c0 1.8 1 3.4 2.5 4.4l-.6 2 2.2-1.2c.8.2 1.6.4 2.4.4h.4A5.4 5.4 0 0115.5 9h.4C15.4 6.2 12.3 4 8.5 4zM22 14.6c0-2.7-2.6-4.8-5.7-4.8s-5.7 2.1-5.7 4.8 2.6 4.8 5.7 4.8c.7 0 1.3-.1 1.9-.3l1.9 1-.5-1.7c1.5-.9 2.4-2.3 2.4-3.8z"/></svg></span>微信支付<span class="tick">✓</span></div>
+          <div class="pmx sel" id="ciAl"><span class="al">支</span>支付宝支付<span class="tick">✓</span></div>
+        </div>
+        <div class="krow"><span class="k">购买时长：</span><div class="ddl" id="ciDur"><span id="ciDurTxt">1 个月 · ¥88</span><span class="ar">⌄</span><div class="ddl-menu" id="ciDurMenu"><div class="ddl-opt sel" data-m="1">1 个月 · ¥88</div><div class="ddl-opt" data-m="12">12 个月 · ¥1056</div></div></div></div>
+        <div class="ci-grid">
+          <div class="ci-card" id="ciLite">
+            <div class="ci-name">Cloud Lite</div>
+            <div class="ci-desc">日常轻量使用，满足基础运行需求。</div>
+            <div class="ci-price"><span class="y">¥</span><span class="big">45</span><span class="u">/月</span></div>
+            <div class="ci-line"></div>
+            <div class="ci-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7"/></svg>CPU：1 核</div>
+            <div class="ci-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7"/></svg>内存：2G</div>
+            <div class="ci-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7"/></svg>独享 10G 持久存储空间</div>
+          </div>
+          <div class="ci-card sel" id="ciPro">
+            <svg class="ci-burst" viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="ciBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F43F1E"/><stop offset="1" stop-color="#FF9426"/></linearGradient></defs><polygon points="60.0,2.0 68.6,16.8 82.2,6.4 84.4,23.4 101.0,19.0 96.6,35.6 113.6,37.8 103.2,51.4 118.0,60.0 103.2,68.6 113.6,82.2 96.6,84.4 101.0,101.0 84.4,96.6 82.2,113.6 68.6,103.2 60.0,118.0 51.4,103.2 37.8,113.6 35.6,96.6 19.0,101.0 23.4,84.4 6.4,82.2 16.8,68.6 2.0,60.0 16.8,51.4 6.4,37.8 23.4,35.6 19.0,19.0 35.6,23.4 37.8,6.4 51.4,16.8" fill="url(#ciBg)"/><text x="60" y="55" text-anchor="middle" fill="#fff" font-size="23" font-weight="900" letter-spacing="1">限时</text><text x="60" y="80" text-anchor="middle" fill="#fff" font-size="23" font-weight="900" letter-spacing="1">优惠</text></svg>
+            <div class="ci-name">Cloud Pro <span class="ci-rec">推荐</span></div>
+            <div class="ci-desc">高频和复杂任务，运行更稳定流畅。</div>
+            <div class="ci-was">原价 <s>¥88/月</s></div>
+            <div class="ci-price promo"><span class="now">现价</span><span class="y">¥</span><span class="big">0</span></div>
+            <div class="ci-line"></div>
+            <div class="ci-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7"/></svg>CPU：1 核</div>
+            <div class="ci-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7"/></svg>内存：2G</div>
+            <div class="ci-feat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7"/></svg>独享 20G 持久存储空间</div>
+          </div>
+        </div>
+        <div class="selbar"><span>已选</span><b id="ciSelTxt">Cloud Pro · 1 个月</b></div>
+        <div class="ci-sum"><span class="k2">订单：</span><span class="m" id="ciSumM">1 个月</span><span class="o" id="ciSumO">¥88</span><span class="d">限时优惠 <span id="ciSumD">-¥88</span></span></div>
+        <div class="ci-sum-note" id="ciSumN">限时活动：下单即赠 1 个月 Cloud Pro（价值 ¥88）</div>
+        <div class="fn-foot">
+          <div class="total">实付 <b id="ciTotal">¥0.00</b></div>
+          <button class="btn-ghost" id="ciLater">暂不开通</button>
+          <button class="btn-dark" id="ciGo">确认支付</button>
+        </div>
+      </div>
+
+      <!-- 成功浮层 -->
+      <div class="fn-success" id="fnSuccess">
+        <div class="succ-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></div>
+        <div class="st" id="succTitle">登录成功</div>
+        <div class="sd" id="succDesc">正在获取账号信息…</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 演示设置：模拟后台账号状态 -->
+<div class="demo-panel">
+  <div class="dp-t"><i></i>演示设置</div>
+  <label class="dp-row"><input type="checkbox" id="simPlan"><span>模拟：该账号已有 Token Plan</span></label>
+  <div class="dp-hint">开启：登录识别后直接进入「创建实例」（图3）；关闭：识别为无套餐，进入「订阅 Token Plan」页。</div>
+</div>
+
+<button class="reset" id="reset">↺ 重置 Demo（回到未登录）</button>
+<div class="toast" id="toast"></div>
+
+<script>
+const app=document.getElementById('app');
+const composer=document.getElementById('composer');
+const draft=document.getElementById('draft');
+const sendBtn=document.getElementById('sendBtn');
+const funnel=document.getElementById('funnel');
+const pane1=document.getElementById('pane1');
+const pane2=document.getElementById('pane2');
+const pane3t=document.getElementById('pane3t');
+const pane3i=document.getElementById('pane3i');
+const fnSuccess=document.getElementById('fnSuccess');
+const toastEl=document.getElementById('toast');
+const productPop=document.getElementById('productPop');
+const manualModal=document.getElementById('manualModal');
+const userMenu=document.getElementById('userMenu');
+let loggedIn=false, identityChecked=false, hasTokenPlan=false, hasInstance=false, step=1, pane3mode='token';
+
+/* toast */
+let tTimer;
+function toast(m){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(tTimer);tTimer=setTimeout(()=>toastEl.classList.remove('show'),1700);}
+
+/* top actions */
+document.getElementById('homeLogo').addEventListener('click',()=>toast('Demo：跳转到 SENSEAUDIO 首页'));
+document.querySelectorAll('.prod-item').forEach(item=>item.addEventListener('click',()=>{
+  productPop.classList.remove('show');
+  toast(`Demo：跳转到 ${item.dataset.product} 首页`);
+}));
+document.getElementById('manualBtn').addEventListener('click',()=>manualModal.classList.add('show'));
+document.getElementById('manualClose').addEventListener('click',()=>manualModal.classList.remove('show'));
+manualModal.addEventListener('click',e=>{if(e.target===manualModal)manualModal.classList.remove('show');});
+document.getElementById('userBtn').addEventListener('click',e=>{
+  e.stopPropagation();
+  userMenu.classList.toggle('show');
+});
+document.getElementById('logoutBtn').addEventListener('click',e=>{
+  e.stopPropagation();
+  loggedIn=false;
+  identityChecked=false;
+  hasTokenPlan=false;
+  hasInstance=false;
+  syncSim();
+  app.classList.remove('logged');
+  userMenu.classList.remove('show');
+  toast('已退出登录');
+});
+document.getElementById('updateBtn').addEventListener('click',()=>toast('Demo：发现新版本，点击后进入更新说明'));
+document.getElementById('menuTradeBtn').addEventListener('click',()=>{userMenu.classList.remove('show');toast('Demo：跳转到交易记录');});
+document.getElementById('renewBtn').addEventListener('click',()=>{
+  userMenu.classList.remove('show');
+  funnel.classList.add('show');
+  identityChecked=true;
+  setStep(3,'token');
+  toast('升级 / 续费：选择新的 Token Plan');
+});
+document.getElementById('resetAgentBtn').addEventListener('click',()=>{
+  userMenu.classList.remove('show');
+  toast('Demo：已重置 Agent');
+});
+document.addEventListener('click',()=>{userMenu.classList.remove('show');});
+
+/* composer */
+draft.addEventListener('input',()=>sendBtn.disabled=draft.value.trim()==='');
+draft.addEventListener('focus',()=>composer.classList.add('focus'));
+draft.addEventListener('blur',()=>composer.classList.remove('focus'));
+sendBtn.addEventListener('click',()=>{
+  if(draft.value.trim()==='')return;
+  if(loggedIn && identityChecked && hasTokenPlan && hasInstance){
+    toast('S-Design 已就绪，正在进入创作');
+    return;
+  }
+  openFunnel();   // 其余情况：进入 登录 → 身份 → 解锁权益 漏斗（自动定位到对应步骤）
+});
+
+/* ================= 漏斗弹窗 v2：登录 → 身份 → 解锁权益（Token Plan / 实例分流） ================= */
+const fnBack=document.getElementById('fnBack');
+const slide1=document.getElementById('slide1');
+const slide2=document.getElementById('slide2');
+const slide3=document.getElementById('slide3');
+const fnTab1=document.getElementById('fnTab1');
+const fnTab2=document.getElementById('fnTab2');
+const fnTab3=document.getElementById('fnTab3');
+const mkSub3=document.getElementById('mkSub3');
+const simPlan=document.getElementById('simPlan');
+
+function syncSim(){simPlan.checked=hasTokenPlan;}
+simPlan.addEventListener('change',()=>{
+  hasTokenPlan=simPlan.checked;
+  hasInstance=false;
+  toast(simPlan.checked?'演示：已模拟该账号持有 Token Plan':'演示：已模拟该账号暂无 Token Plan');
+});
+
+/* open funnel at the right step */
+function openFunnel(){
+  funnel.classList.add('show');
+  if(!loggedIn){ setStep(1); }
+  else if(!identityChecked){ setStep(2); }
+  else{ setStep(3, hasTokenPlan?'inst':'token'); }
+}
+function closeFunnel(){ funnel.classList.remove('show'); }
+document.getElementById('fnClose').addEventListener('click',closeFunnel);
+funnel.addEventListener('click',e=>{if(e.target===funnel)closeFunnel();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&funnel.classList.contains('show'))closeFunnel();});
+
+/* pane / slide / tab switching */
+function setStep(n,mode){
+  step=n;
+  pane3mode=(n===3&&mode==='inst')?'inst':'token';
+  const showT=n===3&&pane3mode==='token';
+  const showI=n===3&&pane3mode==='inst';
+  // panes
+  pane1.classList.toggle('on',n===1);pane1.classList.toggle('out-left',n>1);
+  pane2.classList.toggle('on',n===2);pane2.classList.toggle('out-left',n>2);
+  pane3t.classList.toggle('on',showT);pane3t.classList.remove('out-left');
+  pane3i.classList.toggle('on',showI);pane3i.classList.remove('out-left');
+  document.querySelector('.fn-card').classList.toggle('tpwide',showT);
+  // left slides
+  slide1.classList.toggle('on',n===1);
+  slide2.classList.toggle('on',n===2);
+  slide3.classList.toggle('on',n===3);
+  mkSub3.textContent=showT?'订阅任意套餐，即赠云实例权益':'创建实例即可获取超多权益';
+  // tabs
+  [[fnTab1,1],[fnTab2,2],[fnTab3,3]].forEach(([el,i])=>{
+    el.classList.toggle('on',i===n);
+    el.classList.toggle('done',i<n);
+  });
+  // back button
+  fnBack.classList.toggle('show',n>1);
+  // token 页打开时把主推套餐滚动到可见区域
+  if(showT){requestAnimationFrame(()=>{const s=tpScroll.querySelector('.tp-card.sel');if(s){const d=s.getBoundingClientRect(),t=tpScroll.getBoundingClientRect();tpScroll.scrollLeft+=(d.left+d.width/2)-(t.left+t.width/2);}});}
+}
+fnBack.addEventListener('click',()=>{
+  if(step===3){identityChecked=false;setStep(2);}
+  else if(step===2){setStep(1);}
+});
+
+/* 成功浮层 */
+function showSuccess(t,d,then){
+  document.getElementById('succTitle').textContent=t;
+  document.getElementById('succDesc').textContent=d;
+  fnSuccess.classList.add('show');
+  setTimeout(()=>{fnSuccess.classList.remove('show');if(then)then();},1600);
+}
+
+/* ---- step 1: login form ---- */
+const phone=document.getElementById('phone');
+const vcode=document.getElementById('vcode');
+const inviteCode=document.getElementById('inviteCode');
+const inviteField=document.getElementById('inviteField');
+const invite=document.getElementById('invite');
+const agree=document.getElementById('agree');
+const doLogin=document.getElementById('doLogin');
+let agreed=false, codeSent=false, countdown=0, cdTimer;
+
+function refreshLoginBtn(){doLogin.classList.toggle('ready',phone.value.trim()!==''&&vcode.value.trim()!=='');}
+[phone,vcode].forEach(inp=>inp.addEventListener('input',()=>{
+  if(inp===vcode) inp.value=inp.value.replace(/\D/g,'');   // 手机号放开，验证码仅数字
+  document.getElementById('phoneErr').classList.remove('show');
+  document.getElementById('codeErr').classList.remove('show');
+  document.getElementById('phoneWrap').classList.remove('err');
+  document.getElementById('codeWrap').classList.remove('err');
+  refreshLoginBtn();
+}));
+agree.addEventListener('click',()=>{agreed=!agreed;agree.classList.toggle('ok',agreed);});
+invite.addEventListener('click',()=>{
+  const show=!inviteField.classList.contains('show');
+  inviteField.classList.toggle('show',show);
+  invite.textContent=show?'收起邀请码 ˄':'填写邀请码 ›';
+  if(show) setTimeout(()=>inviteCode.focus(),80);
+});
+
+document.getElementById('getCode').addEventListener('click',()=>{
+  if(phone.value.trim()===''){document.getElementById('phoneWrap').classList.add('err');document.getElementById('phoneErr').classList.add('show');return;}
+  if(countdown>0)return;
+  codeSent=true;countdown=60;
+  const btn=document.getElementById('getCode');btn.disabled=true;
+  vcode.value='123456';            // demo 便捷：自动填入验证码
+  refreshLoginBtn();
+  toast('验证码已发送（演示：123456）');
+  cdTimer=setInterval(()=>{countdown--;btn.textContent=countdown+'s 后重发';if(countdown<=0){clearInterval(cdTimer);btn.disabled=false;btn.textContent='获取验证码';}},1000);
+});
+
+/* 手机号脱敏 */
+function maskPhone(){
+  const d=phone.value.replace(/\D/g,'');
+  if(d.length>=7) return d.slice(0,3)+'****'+d.slice(-4);
+  return d||'186****5776';
+}
+function phoneTail(){
+  const d=phone.value.replace(/\D/g,'');
+  return d.length>=4?d.slice(-4):'5776';
+}
+function fillIdentity(){
+  document.getElementById('idSub').textContent=`+86 ${maskPhone()} 请确认本次要进入的身份。`;
+  document.getElementById('idDesc').textContent=`${phoneTail()}手机用户 ${maskPhone()} 手机用户`;
+}
+
+doLogin.addEventListener('click',()=>{
+  let ok=true;
+  if(phone.value.trim()===''){document.getElementById('phoneWrap').classList.add('err');document.getElementById('phoneErr').classList.add('show');ok=false;}
+  if(vcode.value.trim()===''){document.getElementById('codeWrap').classList.add('err');document.getElementById('codeErr').classList.add('show');ok=false;}
+  if(!agreed){agree.classList.add('shake');setTimeout(()=>agree.classList.remove('shake'),420);ok=false;}
+  if(!ok)return;
+  doLogin.textContent='登录中…';
+  setTimeout(()=>{
+    loggedIn=true;
+    app.classList.add('logged');            // reveal 最近项目 behind modal
+    fillIdentity();
+    showSuccess('登录成功','正在获取账号信息…',()=>{setStep(2);});
+    doLogin.textContent='登 录';
+  },420);
+});
+
+/* ---- step 2: 确认身份 → 识别 Token Plan / 实例 ---- */
+const idGo=document.getElementById('idGo');
+idGo.addEventListener('click',()=>{
+  identityChecked=true;
+  idGo.disabled=true;
+  idGo.textContent='正在识别账号权益…';
+  setTimeout(()=>{
+    idGo.disabled=false;
+    idGo.textContent='登 录';
+    if(hasTokenPlan){
+      setStep(3,'inst');
+      toast('识别完成：该账号已订阅 Token Plan，可直接创建实例');
+    }else{
+      setStep(3,'token');
+      toast('识别完成：该账号暂无 Token Plan');
+    }
+  },850);
+});
+
+/* ---- step 3A: Token Plan（6 档，可横向滑动，Max 主推标红，购买即送实例） ---- */
+const TP=[
+  {id:'free', name:'Free版',  tag:'',    desc:'试用体验',           price:0,    priceTxt:'',      credit:'1',     conc:1,  five:'10000',   week:'10000',   gift:false},
+  {id:'lite', name:'Lite版',  tag:'体验', desc:'轻量测试与个人试用',   price:36,   priceTxt:'36',    credit:'10',    conc:2,  five:'100000',  week:'100000',  gift:true},
+  {id:'plus', name:'Plus版',  tag:'入门', desc:'个人项目与小规模接入', price:99,   priceTxt:'99',    credit:'35',    conc:5,  five:'350000',  week:'350000',  gift:true},
+  {id:'pro',  name:'Pro版',   tag:'基础', desc:'日常编码与实验',       price:199,  priceTxt:'199',   credit:'224',   conc:10, five:'64000',   week:'448000',  gift:true},
+  {id:'max',  name:'Max版',   tag:'推荐', desc:'主力开发与长时运行',   price:699,  priceTxt:'699',   credit:'1,120', conc:10, five:'320000',  week:'2240000', gift:true, hot:true},
+  {id:'ultra',name:'Ultra版', tag:'畅用', desc:'先进企业高管尊享',     price:1899, priceTxt:'1,899', credit:'4,480', conc:10, five:'1280000', week:'8960000', gift:true},
+];
+const tpScroll=document.getElementById('tpScroll');
+let tpSel='max';
+function money(n){return '¥'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function tpFind(id){return TP.find(p=>p.id===id);}
+function renderTP(){
+  tpScroll.innerHTML=TP.map(p=>`
+    <div class="tp-card ${p.hot?'max':''} ${p.id===tpSel?'sel':''}" data-id="${p.id}">
+      ${p.hot?'<div class="tp-ribbon">工程师之选</div>':''}
+      <div class="tp-name">${p.name}${p.tag?`<span class="tp-tag ${p.hot?'red':''}">${p.tag}</span>`:''}</div>
+      <div class="tp-desc">${p.desc}</div>
+      <div class="tp-price">${p.price===0?'<span class="big free">免费</span>':`<span class="y">¥</span><span class="big">${p.priceTxt}</span><span class="u">/月</span>`}</div>
+      <div class="tp-line"></div>
+      <div class="tp-credit"><div class="tc-n">${p.credit} <i>w</i></div><div class="tc-u">积分 / 月</div></div>
+      <div class="tp-feat"><span>多模态理解模型最大并发数</span><b>${p.conc}</b></div>
+      <div class="tp-feat"><span>5小时积分</span><b>${p.five}</b></div>
+      <div class="tp-feat"><span>每周全部模型积分</span><b>${p.week}</b></div>
+      ${p.gift?'<div class="tp-gift">🎁 赠 Cloud Pro 实例 · 1 个月</div>':'<div class="tp-gift none">不含赠送实例</div>'}
+    </div>`).join('');
+  [...tpScroll.querySelectorAll('.tp-card')].forEach(card=>card.addEventListener('click',()=>pickTP(card.dataset.id,true)));
+}
+function pickTP(id,scroll){
+  tpSel=id;
+  const p=tpFind(id);
+  [...tpScroll.querySelectorAll('.tp-card')].forEach(c=>c.classList.toggle('sel',c.dataset.id===id));
+  document.getElementById('tpSelTxt').textContent=`${p.name} · 1 个月`;
+  document.getElementById('tpTotal').textContent=money(p.price);
+  document.getElementById('tpGo').textContent=p.price===0?'免费开通':'确认支付';
+  if(scroll){const c=tpScroll.querySelector('.tp-card.sel');if(c)c.scrollIntoView({inline:'nearest',block:'nearest',behavior:'smooth'});}
+}
+renderTP();pickTP('max');
+document.getElementById('tpPrev').addEventListener('click',()=>tpScroll.scrollBy({left:-236,behavior:'smooth'}));
+document.getElementById('tpNext').addEventListener('click',()=>tpScroll.scrollBy({left:236,behavior:'smooth'}));
+document.getElementById('tpWx').addEventListener('click',()=>{document.getElementById('tpWx').classList.add('sel');document.getElementById('tpAl').classList.remove('sel');});
+document.getElementById('tpAl').addEventListener('click',()=>{document.getElementById('tpAl').classList.add('sel');document.getElementById('tpWx').classList.remove('sel');});
+document.getElementById('tpGo').addEventListener('click',()=>{
+  const p=tpFind(tpSel);
+  hasTokenPlan=true;
+  syncSim();
+  if(p.price===0){
+    hasInstance=false;
+    showSuccess('Free 版已开通','Free 版不含云实例，下次进入可单独创建',()=>{closeFunnel();toast('（Demo）Free 版已开通');});
+  }else{
+    hasInstance=true;
+    showSuccess('开通成功',`${p.name} 已生效 · 已赠送 Cloud Pro 实例 1 个月`,()=>{closeFunnel();toast('（Demo）套餐已开通，实例已赠送');});
+  }
+});
+document.getElementById('tpLater').addEventListener('click',()=>{closeFunnel();toast('已暂不开通，回到首页');});
+
+/* ---- step 3B: 创建实例（账号已有 Token Plan，图3样式） ---- */
+const ciLite=document.getElementById('ciLite'),ciPro=document.getElementById('ciPro');
+let ciMonths=1;
+function ciUpdate(){
+  const pro=ciPro.classList.contains('sel');
+  const price=pro?88:45,name=pro?'Cloud Pro':'Cloud Lite';
+  const total=price*ciMonths,disc=pro?88:0,pay=total-disc;
+  document.getElementById('ciDurTxt').textContent=`${ciMonths} 个月 · ¥${total}`;
+  document.querySelectorAll('#ciDurMenu .ddl-opt').forEach(o=>{
+    const m=+o.dataset.m;
+    o.textContent=`${m} 个月 · ¥${price*m}`;
+    o.classList.toggle('sel',m===ciMonths);
+  });
+  document.getElementById('ciSelTxt').textContent=`${name} · ${ciMonths} 个月`;
+  document.getElementById('ciSumM').textContent=`${ciMonths} 个月`;
+  document.getElementById('ciSumO').textContent=`¥${total}`;
+  document.getElementById('ciSumD').textContent=`-¥${disc}`;
+  document.querySelector('.ci-sum .d').style.display=pro?'':'none';
+  document.getElementById('ciSumN').textContent=pro
+    ?'限时活动：下单即赠 1 个月 Cloud Pro（价值 ¥88）'
+    :'限时活动仅限 Cloud Pro：开通即赠 1 个月（价值 ¥88）';
+  document.getElementById('ciTotal').textContent=`¥${pay.toFixed(2)}`;
+}
+function ciPick(pro){
+  ciPro.classList.toggle('sel',pro);ciLite.classList.toggle('sel',!pro);
+  ciUpdate();
+}
+const ciDur=document.getElementById('ciDur');
+ciDur.addEventListener('click',e=>{e.stopPropagation();ciDur.classList.toggle('open');});
+document.querySelectorAll('#ciDurMenu .ddl-opt').forEach(o=>o.addEventListener('click',e=>{
+  e.stopPropagation();ciMonths=+o.dataset.m;ciDur.classList.remove('open');ciUpdate();
+}));
+document.addEventListener('click',()=>ciDur.classList.remove('open'));
+ciUpdate();
+ciLite.addEventListener('click',()=>ciPick(false));
+ciPro.addEventListener('click',()=>ciPick(true));
+document.getElementById('ciWx').addEventListener('click',()=>{document.getElementById('ciWx').classList.add('sel');document.getElementById('ciAl').classList.remove('sel');});
+document.getElementById('ciAl').addEventListener('click',()=>{document.getElementById('ciAl').classList.add('sel');document.getElementById('ciWx').classList.remove('sel');});
+document.getElementById('ciGo').addEventListener('click',()=>{
+  hasInstance=true;
+  showSuccess('创建成功','S-Design 实例已就绪，去创作吧',()=>{closeFunnel();toast('（Demo）实例创建完成');});
+});
+document.getElementById('ciLater').addEventListener('click',()=>{closeFunnel();toast('已暂不开通，回到首页');});
+
+/* reset */
+document.getElementById('reset').addEventListener('click',()=>{
+  loggedIn=false;identityChecked=false;hasTokenPlan=false;hasInstance=false;step=1;agreed=false;
+  app.classList.remove('logged');
+  draft.value='';sendBtn.disabled=true;
+  funnel.classList.remove('show');fnSuccess.classList.remove('show');
+  phone.value='';vcode.value='';inviteCode.value='';inviteField.classList.remove('show');invite.textContent='填写邀请码 ›';agree.classList.remove('ok');
+  doLogin.classList.remove('ready');doLogin.textContent='登 录';
+  clearInterval(cdTimer);countdown=0;
+  const gb=document.getElementById('getCode');gb.disabled=false;gb.textContent='获取验证码';
+  simPlan.checked=false;
+  pickTP('max');ciMonths=1;ciPick(true);tpScroll.scrollLeft=0;
+  document.getElementById('tpAl').classList.add('sel');document.getElementById('tpWx').classList.remove('sel');
+  document.getElementById('ciAl').classList.add('sel');document.getElementById('ciWx').classList.remove('sel');
+  setStep(1);
+  toast('已重置为未登录状态');
+});
+
+
+
+/* recent projects */
+const recentData=[
+  {cls:'proto',tag:'原型',title:'poster',status:'失败',ok:false,time:'17 小时前',thumb:'linear-gradient(135deg,#101216,#23262e)'},
+  {cls:'media',tag:'媒体',title:'Media generation (defa…',status:'已完成',ok:true,time:'18 小时前',thumb:'linear-gradient(135deg,#e9e4d8,#cfd6df)'},
+  {cls:'media',tag:'媒体',title:'Media generation (defa…',status:'已完成',ok:true,time:'1 天前',thumb:'linear-gradient(135deg,#3a3f4a,#1b1d22)'},
+  {cls:'media',tag:'媒体',title:'Media generation (defa…',status:'已完成',ok:true,time:'2 天前',thumb:'linear-gradient(135deg,#2b2f3a,#14161b)'},
+  {cls:'media',tag:'媒体',title:'Media generation (defa…',status:'已完成',ok:true,time:'2 天前',thumb:'linear-gradient(135deg,#1d2230,#0e1118)'},
+  {cls:'proto',tag:'原型',title:'帮我生成类似原型',status:'已完成',ok:true,time:'2026/6/17',thumb:'radial-gradient(circle at 70% 40%,#7b4bd6,#1a1430)'},
+];
+document.getElementById('recentGrid').innerHTML=recentData.map(p=>`
+  <div class="proj"><div class="thumb" style="background:${p.thumb}"></div>
+  <div class="meta"><span class="badge ${p.cls}">${p.tag}</span><div class="title">${p.title}</div>
+  <div class="status"><span class="${p.ok?'ok':'fail'}">${p.status}</span> · ${p.time}</div></div></div>`).join('');
+
+/* community */
+const tpls=[
+  {t:'X-Design 落地页',bg:'linear-gradient(135deg,#efe7d6,#e3d3c6)',mk:'editorial'},
+  {t:'看板',bg:'#fafafa',mk:'kanban'},
+  {t:'社交媒体轮播图',bg:'#0f1115',mk:'dark3'},
+  {t:'博客文章',bg:'#fbfaf7',mk:'blog'},
+  {t:'Kami 羊皮纸文档',bg:'#f6f3ec',mk:'doc'},
+  {t:'实时仪表板',bg:'#ffffff',mk:'dash'},
+  {t:'Notion 风格团队仪表板（实时…）',bg:'#ffffff',mk:'notion'},
+  {t:'社媒矩阵数据追踪面板模板',bg:'#0e1015',mk:'darkdash'},
+];
+function previewHTML(mk){switch(mk){
+  case 'editorial':return `<div style="padding:22px 20px;font-family:Georgia,serif"><div style="font-size:9px;letter-spacing:.2em;color:#999;margin-bottom:14px">X-DESIGN · STUDIO</div><div style="font-size:30px;font-weight:800;line-height:1.05;color:#2a2a2a">Designing<br><i>intelligence</i><br>with skills,<br>taste, <b>and code</b><span style="color:#d06a4a">.</span></div><div style="margin-top:18px;display:flex;gap:6px"><span style="background:#d06a4a;color:#fff;font-size:8px;padding:4px 10px;border-radius:12px">Browse</span><span style="border:1px solid #ccc;font-size:8px;padding:4px 10px;border-radius:12px;color:#666">Docs</span></div></div>`;
+  case 'kanban':return `<div style="padding:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:7px">${[0,1,2,3].map(c=>`<div><div style="font-size:7px;color:#999;margin-bottom:5px">列 ${c+1}</div>${[0,1,2].map(()=>`<div style="background:#f3f2ef;border-radius:5px;height:${22+Math.random()*16}px;margin-bottom:5px"></div>`).join('')}</div>`).join('')}</div>`;
+  case 'dark3':return `<div style="padding:26px 18px"><div style="font-size:11px;color:#cfcabb;font-style:italic;text-align:center;margin-bottom:18px">Three posts. One beat.</div><div style="display:flex;gap:8px">${['#4a5a3e','#2c2e3a','#553a4a'].map((c,i)=>`<div style="flex:1;background:${c};border-radius:8px;height:80px;padding:8px;color:#fff;font-size:9px;font-style:italic">${['onwards.','to the next one.','looking ahead.'][i]}</div>`).join('')}</div></div>`;
+  case 'blog':return `<div style="padding:22px 20px;font-family:Georgia,serif"><div style="font-size:8px;letter-spacing:.18em;color:#b06b4a;margin-bottom:8px">ENGINEERING</div><div style="font-size:19px;font-weight:800;line-height:1.15">Why we rewrote our sync engine in Rust</div><div style="font-size:8px;color:#aaa;margin:8px 0 12px">By Mira Hassan · 8 min read</div><div style="height:54px;background:linear-gradient(135deg,#c89a85,#b07a63);border-radius:6px"></div></div>`;
+  case 'doc':return `<div style="padding:24px 22px;font-family:Georgia,serif"><div style="font-size:26px;color:#2a2a2a">Designing<br><i style="color:#4a5a8a">intelligence</i><br>on warm paper.</div><div style="font-size:8px;color:#888;margin-top:16px;line-height:1.7">The open-source design studio for editorial documents and slide decks.</div></div>`;
+  case 'dash':return `<div style="padding:18px"><div style="font-weight:700;font-size:13px;margin-bottom:14px">Team Dashboard</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px">${[['144','TASKS'],['24','DONE'],['12','MEMBERS'],['8','REVIEW']].map(x=>`<div><div style="font-size:18px;font-weight:800">${x[0]}</div><div style="font-size:7px;color:#aaa">${x[1]}</div></div>`).join('')}</div><div style="height:46px;background:linear-gradient(180deg,#eef3ff,#fff);border-radius:6px;border:1px solid #eee"></div></div>`;
+  case 'notion':return `<div style="padding:18px"><div style="font-weight:800;font-size:16px;margin-bottom:10px">Team Dashboard</div><div style="background:#f6f5f1;border-radius:8px;padding:10px;font-size:8px;color:#888;margin-bottom:12px">This page is a Live Artifact. Numbers pulled from your Notion workspace.</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">${[['143','TOTAL TASKS'],['24','DONE THIS WEEK']].map(x=>`<div><div style="font-size:7px;color:#aaa">${x[1]}</div><div style="font-size:24px;font-weight:800">${x[0]}</div></div>`).join('')}</div></div>`;
+  case 'darkdash':return `<div style="padding:18px;color:#eee;font-family:Georgia,serif"><div style="font-size:13px;margin-bottom:14px">You shipped 6 posts on LinkedIn this week.</div><div style="display:flex;gap:14px;font-size:8px;color:#9aa">${['184K','42.7K','287K','96.4K'].map(n=>`<div><div style="color:#fff;font-size:13px;font-weight:700">${n}</div>followers</div>`).join('')}</div><div style="height:40px;margin-top:14px;background:linear-gradient(90deg,#3a2f6a,#6a4faf);border-radius:5px;opacity:.5"></div></div>`;
+  default:return '';
+}}
+document.getElementById('commGrid').innerHTML=tpls.map(x=>`
+  <div class="tpl"><div class="frame" style="background:${x.bg}">${previewHTML(x.mk)}
+  <div class="bar"><span class="d" style="background:#ff5f57"></span><span class="d" style="background:#febc2e"></span><span class="d" style="background:#28c840"></span><span class="fn">example.html</span></div></div>
+  <div class="foot"><span class="t">${x.t}</span><span class="official"><span class="od"></span>Official</span></div></div>`).join('');
+</script>
+</body>
+</html>
