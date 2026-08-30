@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Career Studio · PM 实习求职助手</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:     #F5F0E8;
+  --linen:     #EDE6D6;
+  --rose:      #C9A99A;
+  --rose-dark: #A87868;
+  --sage:      #8FA88C;
+  --sage-dark: #6B8A68;
+  --clay:      #B8956A;
+  --clay-lt:   #D4B48C;
+  --slate:     #7A8FA6;
+  --slate-dk:  #5A6F86;
+  --mist:      #C8D0D8;
+  --ink:       #3A3530;
+  --ink-lt:    #6B6158;
+  --border:    #DDD5C8;
+  --white:     #FFFFFF;
+  --shadow:    0 1px 4px rgba(58,53,48,0.06);
+  --shadow-md: 0 4px 16px rgba(58,53,48,0.08);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  background: var(--cream); color: var(--ink);
+  font-family: 'DM Sans', sans-serif; font-weight: 300;
+  line-height: 1.6; -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+.layout { display: flex; min-height: 100vh; }
+
+/* Preview banner */
+.preview-banner {
+  position: fixed; top: 0; left: 0; right: 0;
+  background: var(--ink); color: var(--cream);
+  padding: 8px 20px; font-size: 11.5px;
+  letter-spacing: 0.06em; text-align: center; z-index: 100;
+  font-family: 'DM Sans', sans-serif;
+}
+.preview-banner strong { color: var(--clay-lt); }
+
+/* Sidebar */
+.sidebar {
+  width: 230px; min-height: 100vh; background: var(--linen);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  padding: 68px 0 28px;
+  position: fixed; top: 0; left: 0; height: 100vh;
+  overflow-y: auto; z-index: 10;
+}
+.main-content { margin-left: 230px; flex: 1; padding: 72px 52px 44px; max-width: 860px; }
+.logo { padding: 0 28px 28px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.logo-title { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 500;
+  color: var(--rose-dark); letter-spacing: 0.03em; line-height: 1.2; }
+.logo-sub { font-size: 10.5px; font-weight: 400; color: var(--ink-lt);
+  letter-spacing: 0.13em; text-transform: uppercase; margin-top: 3px; }
+.nav-section { padding: 14px 28px 6px; font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--mist); font-weight: 400; }
+.nav-item { display: flex; align-items: center; gap: 11px; padding: 11px 28px;
+  cursor: pointer; font-size: 13px; letter-spacing: 0.02em; color: var(--ink-lt);
+  border-left: 3px solid transparent; transition: all 0.18s ease; user-select: none; }
+.nav-item:hover { background: rgba(0,0,0,0.03); color: var(--ink); }
+.nav-item.active { border-left-color: var(--rose);
+  background: rgba(201,169,154,0.13); color: var(--rose-dark); font-weight: 500; }
+.nav-icon { font-size: 15px; width: 20px; text-align: center; flex-shrink: 0; }
+.nav-footer { margin-top: auto; padding: 0 28px; }
+.user-chip { display: flex; align-items: center; gap: 9px; padding: 10px 12px;
+  background: var(--white); border: 1px solid var(--border); border-radius: 9px; }
+.avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--rose-dark);
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 14px; flex-shrink: 0; }
+.user-email { font-size: 11.5px; color: var(--ink); overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; max-width: 120px; }
+.user-sub { font-size: 10.5px; color: var(--ink-lt); cursor: pointer; margin-top: 2px; }
+.record-count { font-size: 10.5px; color: var(--mist); margin-top: 10px; }
+
+/* Page heading */
+.page-title { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 300;
+  color: var(--ink); letter-spacing: 0.01em; line-height: 1.15; }
+.page-sub { font-size: 13px; color: var(--ink-lt); font-weight: 300;
+  margin-top: 6px; margin-bottom: 34px; }
+
+/* Cards */
+.card { background: var(--white); border: 1px solid var(--border); border-radius: 12px;
+  padding: 28px 32px; margin-bottom: 20px; box-shadow: var(--shadow); }
+.card-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 500;
+  color: var(--ink); margin-bottom: 18px; letter-spacing: 0.02em;
+  display: flex; align-items: center; gap: 10px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rose); flex-shrink: 0; }
+
+/* Form */
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+.form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--clay); font-weight: 500; }
+input[type="text"], input[type="email"], input[type="password"], select, textarea {
+  width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 7px;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 300;
+  color: var(--ink); background: var(--cream); outline: none;
+  transition: border-color 0.2s, background 0.2s; appearance: none;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--rose); background: var(--white); }
+input::placeholder, textarea::placeholder { color: var(--mist); }
+textarea { resize: vertical; line-height: 1.75; font-family: 'DM Sans', sans-serif; }
+
+/* Upload */
+.upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+.upload-zone { border: 1.5px dashed var(--border); border-radius: 9px;
+  padding: 22px 16px; text-align: center; cursor: pointer;
+  transition: all 0.2s; background: var(--cream); user-select: none; }
+.upload-zone:hover { border-color: var(--rose); background: rgba(201,169,154,0.06); }
+.upload-zone.filled { border-style: solid; border-color: var(--sage);
+  background: rgba(143,168,140,0.06); }
+.upload-icon { font-size: 22px; margin-bottom: 7px; }
+.upload-label { font-size: 12px; color: var(--ink-lt); font-weight: 400; }
+.upload-name { font-size: 11px; color: var(--sage-dark); margin-top: 4px; font-weight: 500; }
+.upload-hint { font-size: 10.5px; color: var(--mist); margin-top: 3px; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 22px; border-radius: 7px; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400;
+  letter-spacing: 0.04em; border: none; transition: all 0.18s ease; white-space: nowrap; }
+.btn-primary { background: var(--rose-dark); color: #fff; }
+.btn-primary:hover { background: #996658; transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(168,120,104,0.28); }
+.btn-sage { background: var(--sage-dark); color: #fff; }
+.btn-sage:hover { background: #588055; transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(107,138,104,0.28); }
+.btn-ghost { background: transparent; color: var(--slate); border: 1px solid var(--mist); }
+.btn-ghost:hover { border-color: var(--slate); background: rgba(122,143,166,0.06); }
+.btn-danger { background: transparent; color: #b87a7a; border: 1px solid #e0c4c4;
+  font-size: 12px; padding: 6px 14px; }
+.btn-danger:hover { background: rgba(184,122,122,0.08); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+.btn-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 18px; }
+
+/* AI output */
+.ai-result { background: linear-gradient(135deg, rgba(143,168,140,0.07), rgba(201,169,154,0.07));
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 24px 28px; margin-top: 20px;
+  font-size: 13.5px; line-height: 1.85; color: var(--ink);
+  white-space: pre-wrap; animation: fadeUp 0.35s ease; }
+.ai-badge { display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.11em;
+  color: var(--sage); font-weight: 500; margin-bottom: 14px; }
+.ai-badge::before { content: ''; display: block; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--sage); }
+
+/* Stats */
+.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
+.stat-box { background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px 22px; box-shadow: var(--shadow); }
+.stat-num { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 300;
+  color: var(--rose-dark); line-height: 1; }
+.stat-label { font-size: 11px; color: var(--ink-lt); margin-top: 5px;
+  text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* Interview list */
+.interview-list { display: flex; flex-direction: column; gap: 12px; }
+.interview-card { background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px 24px; cursor: pointer;
+  transition: all 0.18s; display: flex; justify-content: space-between;
+  align-items: flex-start; box-shadow: var(--shadow); }
+.interview-card:hover { border-color: var(--rose); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.interview-card.selected { border-color: var(--rose); background: rgba(201,169,154,0.04); }
+.ic-company { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 500; color: var(--ink); }
+.ic-role { font-size: 12px; color: var(--ink-lt); margin-top: 2px; }
+.ic-date { font-size: 11px; color: var(--mist); white-space: nowrap; margin-left: 20px; }
+.ic-tags { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.tag { font-size: 10px; padding: 3px 10px; border-radius: 20px;
+  letter-spacing: 0.06em; font-weight: 400; }
+.tag-rose { background: rgba(201,169,154,0.2); color: var(--rose-dark); }
+.tag-sage { background: rgba(143,168,140,0.2); color: var(--sage-dark); }
+.tag-slate { background: rgba(122,143,166,0.18); color: var(--slate-dk); }
+.score-chip { font-size: 11px; padding: 2px 9px; border-radius: 20px; font-weight: 500; }
+.score-hi { background: rgba(143,168,140,0.18); color: var(--sage-dark); }
+.score-md { background: rgba(201,169,154,0.18); color: var(--rose-dark); }
+
+/* Detail panel */
+.detail-panel { background: var(--cream); border: 1px solid var(--border);
+  border-top: none; border-radius: 0 0 10px 10px;
+  padding: 24px 28px; animation: fadeUp 0.25s ease; }
+.detail-section-title { font-family: 'Cormorant Garamond', serif; font-size: 16px;
+  font-weight: 500; color: var(--ink); margin-bottom: 10px; }
+.detail-text { font-size: 13px; color: var(--ink-lt); line-height: 1.8; white-space: pre-wrap; }
+
+/* Empty & toast */
+.empty-state { text-align: center; padding: 56px 24px; color: var(--mist);
+  font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; }
+.loading-dots span { display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+  background: var(--rose); margin: 0 2px; animation: bounce 1.2s infinite ease-in-out; }
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+.toast { position: fixed; bottom: 28px; right: 28px; background: var(--ink);
+  color: var(--cream); padding: 11px 20px; border-radius: 8px;
+  font-size: 13px; font-weight: 400; letter-spacing: 0.02em; z-index: 999;
+  animation: fadeUp 0.25s ease; box-shadow: 0 4px 20px rgba(58,53,48,0.2); }
+hr.divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes bounce { 0%, 80%, 100% { transform: scale(0.55); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
+.fade-in { animation: fadeUp 0.35s ease forwards; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+/* Auth page */
+.auth-wrapper { min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  padding: 40px 20px; padding-top: 70px;
+  background: radial-gradient(circle at 30% 20%, rgba(201,169,154,0.18), transparent 60%),
+              radial-gradient(circle at 70% 80%, rgba(143,168,140,0.15), transparent 60%), var(--cream); }
+.auth-panel { width: 100%; max-width: 420px; background: var(--white);
+  border: 1px solid var(--border); border-radius: 14px; padding: 44px 40px;
+  box-shadow: 0 8px 32px rgba(58,53,48,0.08); }
+.auth-brand { text-align: center; margin-bottom: 32px; }
+.auth-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 500;
+  color: var(--rose-dark); letter-spacing: 0.02em; }
+.auth-sub { font-size: 11.5px; color: var(--ink-lt); letter-spacing: 0.08em; margin-top: 4px; }
+.auth-tabs { display: flex; gap: 2px; background: var(--cream);
+  border-radius: 8px; padding: 4px; margin-bottom: 24px; }
+.auth-tabs button { flex: 1; border: none; background: transparent;
+  padding: 9px; border-radius: 6px; font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 400; color: var(--ink-lt); cursor: pointer; transition: all 0.15s; }
+.auth-tabs button.active { background: var(--white); color: var(--rose-dark);
+  font-weight: 500; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.auth-divider { display: flex; align-items: center; margin: 24px 0 18px;
+  color: var(--mist); font-size: 11px; letter-spacing: 0.06em; }
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.auth-divider span { padding: 0 14px; }
+.auth-oauth { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.auth-oauth button { justify-content: center; }
+.auth-note { font-size: 10.5px; color: var(--mist); text-align: center; margin-top: 24px; line-height: 1.7; }
+
+/* Filter buttons */
+.filter-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.filter-btn { font-size: 12px; padding: 7px 16px; }
+</style>
+</head>
+<body>
+
+<div class="preview-banner">
+  🎨 <strong>预览模式</strong> · 所有功能可点击体验，AI 回复为演示样本 · 实际部署后会连接真实 Claude API 与 Supabase 数据库
+</div>
+
+<div id="app"></div>
+
+<script>
+// ==========================================
+// MOCK DATA & STATE
+// ==========================================
+const DEMO_INTERVIEW = `Q：如果让你负责抖音的创作者激励体系，你会怎么设计？
+A：我会先做现状诊断，看现在的激励结构（现金 + 流量 + 权益）在不同量级创作者身上的转化效果，然后用 RFM 模型分层……
+
+Q：用一个数据驱动的案例说明你的产品能力。
+A：在上一段实习中，我发现某功能的 DAU 在新用户侧高、老用户侧低，通过漏斗分析定位到第三步的引导文案问题……
+反馈：面试官认可分析框架，但追问了假设检验部分。`
+
+const DEMO_QA_2 = `Q：你觉得小红书和抖音在种草链路上的本质差异是什么？
+A：小红书是"搜索驱动"，用户带着明确意图来找攻略，所以种草更偏决策前……
+
+Q：介绍一个你做过的 0 到 1 项目。
+A：在社团做过一个内部协作工具，从需求调研到原型到上线……`
+
+let state = {
+  page: 'login',   // 'login' | 'home' | 'resume' | 'analyze' | 'log' | 'prep' | 'history'
+  loggedIn: false,
+  user: { email: 'demo@career.studio' },
+  authMode: 'signin',
+  records: [
+    { id: '1', company: '字节跳动', role: '产品经理实习生', round: '产品能力面',
+      created_at: '2026-04-15', match_score: 8,
+      qa_text: DEMO_INTERVIEW, analyze_result: '', prep_result: '', jd_text: '' },
+    { id: '2', company: '小红书', role: 'PM Intern', round: '终面',
+      created_at: '2026-04-08', match_score: 7,
+      qa_text: DEMO_QA_2, analyze_result: '', prep_result: '', jd_text: '' },
+    { id: '3', company: '美团', role: '到店事业群 PM', round: 'HR初筛',
+      created_at: '2026-03-28', match_score: 6,
+      qa_text: '', analyze_result: '', prep_result: '', jd_text: '' },
+  ],
+  hasResume: true,
+  resume: '张三 / 产品经理实习生候选人\n复旦大学 管理学 · 2023-2027\n\n实习经历：\n- 某互联网大厂 产品实习生 (2025.07-2025.12)\n  负责 xxx 功能的用户增长优化，通过 A/B 测试将核心漏斗转化率提升 18%\n- 校内创业项目 产品负责人 (2024.09-至今)\n  从 0 到 1 搭建校园二手交易平台，上线 3 个月累计 GMV 50w+\n\n技能：SQL / Python / Figma / Axure / 用户访谈 / 竞品分析',
+  toast: '',
+  // form states
+  analyzeResult: '', analyzeScore: null, analyzeLoading: false,
+  analyzeCompany: '', analyzeRole: '', jdText: '',
+  logCompany: '', logRole: '', logRound: 'HR初筛', logQA: '',
+  prepJd: '', prepCompany: '', prepRole: '', prepResult: '', prepLoading: false,
+  selectedRecord: null, filter: 'all',
+  authEmail: '', authPassword: '', authLoading: false, authErr: '', authMsg: '',
+  resumeContent: '', resumeFileName: '', resumeSaving: false,
+};
+
+// Initialize resume content from current resume
+state.resumeContent = state.resume;
+state.resumeFileName = '张三_简历_v3.pdf';
+
+// ==========================================
+// MOCK AI RESPONSES
+// ==========================================
+const MOCK_ANALYZE = `📊 匹配度评分：8/10
+整体匹配度不错，项目经验与岗位要求方向一致，但数据颗粒度和业务深度还有提升空间。
+
+🎯 核心优势
+- 你有完整的 0-1 产品落地经历（校园二手平台），契合岗位对"端到端产品思维"的要求
+- 数据驱动的实习成果（A/B 测试 + 18% 转化提升）直接匹配 JD 中的"用数据闭环驱动业务"
+- 技能栈 SQL + Python + Figma 覆盖了 PM 岗位的全链路工具要求
+
+⚡ 优先修改建议
+1. **项目经历**：把"GMV 50w+"拆解得更具体。建议改写为：
+   原：上线 3 个月累计 GMV 50w+
+   改：设计信任体系（实名+评价+担保）将交易纠纷率从 12% 降至 3%，3 个月 GMV 50w+，MAU 2800+
+2. **实习经验**：补充你在方法论上的思考，体现"PM 视角"。
+   在 A/B 测试旁边加一句"基于漏斗分析假设：Step3 的 CTA 文案不够具体，改写后 p 值 < 0.01"
+3. **技能模块**：目前偏工具，建议新增一行"方法论"：用户访谈 · Jobs-to-be-Done · RICE 优先级 · OKR
+
+📌 建议补充关键词
+用户增长 · 留存漏斗 · 数据埋点 · 需求优先级 · 竞品分析 · B 端 / C 端 · 跨部门协作
+
+✨ 一句话定位
+拥有 0-1 产品落地经验、擅长用数据定位问题与驱动增长的 PM 候选人，在校园场景跑通过完整商业闭环，期望将方法论复用到互联网大厂的增长业务中。`;
+
+const MOCK_PREP = `🔍 岗位解析
+字节跳动的 PM 岗位非常重视「用数据说话」和「用户视角」。从你历史面试看出，他们会追问假设检验的严谨性，你需要准备好 p 值、置信区间、Sample size 的基础概念。同时"抖音系"岗位会重点考察对短视频生态、创作者激励、算法分发的理解。
+
+💡 预测高频题（5 道）
+1. **设计一个抖音创作者成长体系**
+   答题思路：先分层（粉丝量/活跃度/商业化阶段）→ 每层定义北极星 → 设计对应激励组合（流量/收益/曝光/权益）→ 用数据验证假设
+2. **你怎么看短视频行业的"娱乐化"与"内容价值"的矛盾？**
+   答题思路：从用户分层切入，年轻用户偏娱乐、高知用户偏价值，产品可以通过 feed 算法做个性化平衡
+3. **如果抖音 DAU 下降 5%，你会怎么排查？**
+   答题思路：先看是面还是点（版本/地区/人群）→ 再看是留存还是新增 → 用漏斗定位到具体环节 → 假设 + 验证
+4. **你最喜欢的一款非字节的产品？为什么？**
+   答题思路：准备 1 个「非常规答案」+ 你的改进建议，体现产品敏感度
+5. **如何衡量一个功能的成功？**
+   答题思路：北极星 + 护栏指标 + 长短期平衡，举一个你实习中的真实例子
+
+🎯 你的制胜角度
+基于你之前在「字节跳动产品面」被追问假设检验的经历，这次主动讲出：
+- 校园二手平台的信任体系设计 → 体现你对 C 端用户心智的理解
+- 实习中的 A/B 测试 → 这次准备好讲清楚 sample size 和 p 值
+- 把"小红书种草链路"的思考迁移过来 → 体现跨产品的思辨
+
+⚠️ 注意弱项
+- 上次面试被追问假设检验细节时回答不够深入 —— 重点复习 A/B 测试的统计学基础
+- 对 B 端 / 商业化产品的理解偏弱 —— 准备 1-2 个关于商业变现的思考案例
+- 回答普遍偏长 —— 练习用 STAR 框架在 90 秒内讲清楚一个案例
+
+📝 实战练习题
+**你是抖音电商团队的 PM，现在发现"购物车转化率"比行业基准低 15%，你会如何定位问题并制定改进方案？**
+提示：先拆漏斗（曝光→点击→加购→下单→支付），分别看每一步的转化率，找出洼地；再做用户访谈 + 数据看行为差异；形成假设后用 A/B 测试验证。`;
+
+// ==========================================
+// RENDER FUNCTIONS
+// ==========================================
+function showToast(msg) {
+  state.toast = msg;
+  render();
+  setTimeout(() => { state.toast = ''; render(); }, 2500);
+}
+
+function setState(updates) { Object.assign(state, updates); render(); }
+
+function renderToast() {
+  return state.toast ? `<div class="toast">${state.toast}</div>` : '';
+}
+
+// Sidebar
+function renderSidebar() {
+  const navItems = [
+    { page: 'home',    icon: '⌂', label: '仪表盘' },
+    { page: 'resume',  icon: '☰', label: '我的简历' },
+    { page: 'analyze', icon: '◈', label: '简历匹配分析' },
+    { page: 'log',     icon: '✎', label: '记录面试' },
+    { page: 'prep',    icon: '⊹', label: '面试准备' },
+    { page: 'history', icon: '◷', label: '历史记录' },
+  ];
+  return `
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-title">Career Studio</div>
+        <div class="logo-sub">PM 实习求职助手</div>
+      </div>
+      <div class="nav-section">菜单</div>
+      ${navItems.map(n => `
+        <div class="nav-item ${state.page === n.page ? 'active' : ''}" onclick="nav('${n.page}')">
+          <span class="nav-icon">${n.icon}</span>${n.label}
+        </div>
+      `).join('')}
+      <div class="nav-footer">
+        <div class="user-chip">
+          <div class="avatar">${state.user.email[0].toUpperCase()}</div>
+          <div style="min-width:0;flex:1">
+            <div class="user-email">${state.user.email}</div>
+            <div class="user-sub" onclick="logout()">退出登录 →</div>
+          </div>
+        </div>
+        <div class="record-count">${state.records.length} 条记录</div>
+      </div>
+    </aside>
+  `;
+}
+
+// ===== Login page =====
+function renderLogin() {
+  return `
+    <div class="auth-wrapper">
+      <div class="auth-panel fade-in">
+        <div class="auth-brand">
+          <div class="auth-title">Career Studio</div>
+          <div class="auth-sub">PM 实习求职 · 简历优化 · 面试复盘</div>
+        </div>
+        <div class="auth-tabs">
+          <button class="${state.authMode === 'signin' ? 'active' : ''}" onclick="setAuthMode('signin')">登录</button>
+          <button class="${state.authMode === 'signup' ? 'active' : ''}" onclick="setAuthMode('signup')">注册</button>
+        </div>
+        <div class="form-group" style="margin-bottom:12px">
+          <label class="form-label">邮箱</label>
+          <input type="email" value="${state.authEmail}" placeholder="you@example.com"
+            oninput="state.authEmail = this.value"/>
+        </div>
+        <div class="form-group" style="margin-bottom:18px">
+          <label class="form-label">密码</label>
+          <input type="password" value="${state.authPassword}" placeholder="至少 6 位"
+            oninput="state.authPassword = this.value"/>
+        </div>
+        ${state.authMsg ? `<div style="background:rgba(143,168,140,0.12);color:var(--sage-dark);font-size:12px;padding:9px 12px;border-radius:6px;margin-bottom:14px">${state.authMsg}</div>` : ''}
+        <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="doLogin()">
+          ${state.authMode === 'signin' ? '登录' : '创建账号'}
+        </button>
+        <div class="auth-divider"><span>或使用第三方登录</span></div>
+        <div class="auth-oauth">
+          <button class="btn btn-ghost" onclick="doLogin()"><span style="font-size:15px">G</span> Google</button>
+          <button class="btn btn-ghost" onclick="doLogin()"><span style="font-size:15px">◆</span> GitHub</button>
+        </div>
+        <div class="auth-note">
+          💡 这是预览模式，点击任意按钮即可进入演示
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ===== Home / Dashboard =====
+function renderHome() {
+  const companies = [...new Set(state.records.map(r => r.company))].length;
+  const scoredRecords = state.records.filter(r => r.match_score);
+  const avgScore = scoredRecords.length
+    ? (scoredRecords.reduce((a, r) => a + r.match_score, 0) / scoredRecords.length).toFixed(1)
+    : '—';
+
+  return `
+    ${renderSidebar()}
+    <main class="main-content fade-in">
+      <div class="page-title">Career Studio</div>
+      <p class="page-sub">PM 实习求职 · 简历优化 · 面试复盘</p>
+
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-num">${state.records.length}</div><div class="stat-label">投递记录</div></div>
+        <div class="stat-box"><div class="stat-num">${companies}</div><div class="stat-label">公司数量</div></div>
+        <div class="stat-box"><div class="stat-num">${avgScore}</div><div class="stat-label">平均匹配分</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="dot"></span> 从这里开始</div>
+        <p style="font-size:13px;color:var(--ink-lt);line-height:1.85;margin-bottom:22px">
+          上传简历与岗位描述，AI 会给出 <strong>匹配度评分</strong> 与 <strong>逐条修改建议</strong>。<br/>
+          面试结束后，记录问答内容，下次投递时 AI 会基于你的历史经验给出个性化备考建议。
+        </p>
+        <div class="btn-row" style="margin-top:0">
+          <button class="btn btn-primary" onclick="nav('analyze')">✦ 简历匹配分析</button>
+          <button class="btn btn-ghost" onclick="nav('log')">+ 记录面试</button>
+          <button class="btn btn-ghost" onclick="nav('prep')">⊹ 面试准备</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="dot" style="background:var(--sage)"></span> 最近投递</div>
+        ${state.records.slice(0, 4).map((r, i, arr) => `
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:${i < arr.length - 1 ? '1px solid var(--border)' : 'none'}">
+            <div style="flex:1">
+              <div style="font-size:15px;font-family:'Cormorant Garamond',serif;color:var(--ink);font-weight:500">${r.company}</div>
+              <div style="font-size:12px;color:var(--ink-lt);margin-top:2px">${r.role} · ${r.round}</div>
+            </div>
+            ${r.match_score ? `<div class="score-chip ${r.match_score >= 7 ? 'score-hi' : 'score-md'}" style="margin-right:14px">${r.match_score}/10</div>` : ''}
+            <div style="font-size:11px;color:var(--mist)">${r.created_at}</div>
+          </div>
+        `).join('')}
+      </div>
+    </main>
+  `;
+}
+
+// ===== Resume page =====
+function renderResume() {
+  return `
+    ${renderSidebar()}
+    <main class="main-content fade-in">
+      <div class="page-title">我的简历</div>
+      <p class="page-sub">上传或粘贴主简历，后续分析和面试准备会自动复用</p>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span> 上传简历文件</div>
+        <div class="upload-zone ${state.resumeFileName ? 'filled' : ''}" onclick="simulateUpload('resume')" style="margin-bottom:20px">
+          <div class="upload-icon">${state.resumeFileName ? '📄' : '📎'}</div>
+          <div class="upload-label">${state.resumeFileName || '点击上传简历'}</div>
+          <div class="upload-hint">支持 PDF / DOCX / TXT（最大 10MB）</div>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">简历内容（可手动编辑）</label>
+          <textarea rows="18" oninput="state.resumeContent = this.value" placeholder="在此粘贴或编辑简历内容…">${state.resumeContent}</textarea>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="saveResume()">保存主简历</button>
+          <span style="font-size:12px;color:var(--ink-lt)">${state.resumeContent.length} 字符</span>
+        </div>
+      </div>
+    </main>
+  `;
+}
+
+// ===== Analyze page =====
+function renderAnalyze() {
+  return `
+    ${renderSidebar()}
+    <main class="main-content fade-in">
+      <div class="page-title">简历匹配分析</div>
+      <p class="page-sub">AI 给出匹配度评分，并提供逐条修改建议</p>
+
+      <div class="card">
+        <div class="card-title"><span class="dot"></span> 投递信息（可选）</div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">公司名称</label>
+            <input type="text" value="${state.analyzeCompany}" placeholder="例：字节跳动"
+              oninput="state.analyzeCompany = this.value"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">岗位</label>
+            <input type="text" value="${state.analyzeRole}" placeholder="例：产品经理实习生"
+              oninput="state.analyzeRole = this.value"/>
+          </div>
+        </div>
+        <div style="font-size:11.5px;color:var(--ink-lt);margin-top:-4px">💡 填写公司名称后，分析结果会自动存入历史记录</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="dot" style="background:var(--sage)"></span> 我的简历</div>
+        <div style="padding:10px 14px;background:rgba(143,168,140,0.1);border-radius:7px;font-size:12.5px;color:var(--sage-dark);border:1px solid rgba(143,168,140,0.25);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center">
+          <span>✓ 正在使用你的主简历（<a href="#" onclick="event.preventDefault();nav('resume')" style="color:var(--sage-dark);text-decoration:underline">编辑</a>）</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="dot" style="background:var(--slate)"></span> 岗位描述 JD</div>
+        <div class="upload-zone" onclick="simulateUpload('jd')" style="margin-bottom:14px">
+          <div class="upload-icon">📋</div>
+          <div class="upload-label">上传岗位描述</div>
+          <div class="upload-hint">PDF / DOCX / TXT</div>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">或直接粘贴岗位描述</label>
+          <textarea rows="6" oninput="state.jdText = this.value" placeholder="在此粘贴完整的岗位描述…">${state.jdText}</textarea>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="doAnalyze()" ${state.analyzeLoading ? 'disabled' : ''}>
+            ${state.analyzeLoading ? '<span class="loading-dots"><span></span><span></span><span></span></span>' : '✦ 开始分析'}
+          </button>
+        </div>
+      </div>
+
+      ${state.analyzeResult ? `
+        <div class="ai-result">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:14px">
+            <div class="ai-badge" style="margin-bottom:0">AI 简历教练</div>
+            ${state.analyzeScore !== null ? `
+              <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:${state.analyzeScore >= 7 ? 'var(--sage-dark)' : 'var(--rose-dark)'};line-height:1">
+                ${state.analyzeScore}<span style="font-size:14px;color:var(--mist)"> / 10</span>
+              </div>
+            ` : ''}
+          </div>
+          <div>${escapeHTML(state.analyzeResult)}</div>
+        </div>
+      ` : ''}
+    </main>
+  `;
+}
+
+// ===== Log page =====
+function renderLog() {
+  return `
+    ${renderSidebar()}
+    <main class="main-content fade-in">
+      <div class="page-title">记录面试</div>
+      <p class="page-sub">记录每次面试的问答与反馈，积累个人经验库</p>
+      <div class="card">
+        <div class="card-title"><span class="dot" style="background:var(--slate)"></span> 面试信息</div>
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label class="form-label">公司名称 *</label>
+            <input type="text" value="${state.logCompany}" placeholder="例：美团" oninput="state.logCompany = this.value"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">岗位</label>
+            <input type="text" value="${state.logRole}" placeholder="例：产品实习生" oninput="state.logRole = this.value"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">面试轮次</label>
+            <select oninput="state.logRound = this.value">
+              ${['HR初筛','产品能力面','技术面','案例分析','交叉面','终面','其他'].map(o => `<option ${state.logRound === o ? 'selected' : ''}>${o}</option>`).join('')}
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">面试问答内容 *</label>
+          <textarea rows="11" oninput="state.logQA = this.value" placeholder="记录面试中的问题、你的回答和面试官反馈…">${state.logQA}</textarea>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="saveLog()">+ 保存面试记录</button>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--ink-lt);padding-left:2px;line-height:1.7">
+        💡 建议在面试结束当天记录，细节最为完整<br/>
+        💡 记录越丰富，AI 生成的面试准备建议就越精准
+      </div>
+    </main>
+  `;
+}
+
+// ===== Prep page =====
+function renderPrep() {
+  const histCount = state.records.filter(r => r.qa_text).length;
+  return `
+    ${renderSidebar()}
+    <main class="main-content fade-in">
+      <div class="page-title">面试准备</div>
+      <p class="page-sub">结合你的历史面试经验，AI 生成针对性备考计划</p>
+      <div class="card">
+        <div class="card-title"><span class="dot" style="background:var(--sage)"></span> 目标岗位</div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label class="form-label">公司（可选）</label>
+            <input type="text" value="${state.prepCompany}" placeholder="例：腾讯" oninput="state.prepCompany = this.value"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">岗位</label>
+            <input type="text" value="${state.prepRole}" placeholder="例：PCG 产品实习" oninput="state.prepRole = this.value"/>
+          </div>
+        </div>
+        <div class="upload-zone" onclick="simulateUpload('prep-jd')" style="margin-bottom:14px">
+          <div class="upload-icon">📋</div>
+          <div class="upload-label">上传岗位描述</div>
+          <div class="upload-hint">PDF / DOCX / TXT</div>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">或粘贴岗位描述</label>
+          <textarea rows="6" oninput="state.prepJd = this.value" placeholder="粘贴你即将投递的岗位描述…">${state.prepJd}</textarea>
+        </div>
+        <div style="margin-top:14px">
+          <div style="padding:10px 14px;background:rgba(143,168,140,0.1);border-radius:7px;font-size:12.5px;color:var(--sage-dark);border:1px solid rgba(143,168,140,0.25)">
+            ✓ 将结合你的 <strong>${histCount}</strong> 条历史面试记录生成个性化建议
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn-sage" onclick="doPrep()" ${state.prepLoading ? 'disabled' : ''}>
+            ${state.prepLoading ? '<span class="loading-dots"><span></span><span></span><span></span></span>' : '⊹ 生成备考计划'}
+          </button>
+        </div>
+      </div>
+      ${state.prepResult ? `
+        <div class="ai-result">
+          <div class="ai-badge">AI 面试教练</div>
+          <div>${escapeHTML(state.prepResult)}</div>
+        </div>
+      ` : ''}
+    </main>
+  `;
+}
+
+// ===== History page =====
+function renderHistory() {
+  const filtered = state.records.filter(r => {
+    if (state.filter === 'all') return true;
+    if (state.filter === 'qa') return r.qa_text;
+    if (state.filter === 'analyze') return r.analyze_result;
+    if (state.filter === 'prep') return r.prep_result;
+    return true;
+  });
+
+  return `
+    ${renderSidebar()}
+    <main class="main-content fade-in">
+      <div class="page-title">历史记录</div>
+      <p class="page-sub">所有投递、面试笔记与 AI 分析结果</p>
+      <div class="filter-row">
+        ${[
+          ['all', '全部', state.records.length],
+          ['analyze', 'AI分析', state.records.filter(r => r.analyze_result).length],
+          ['qa', '面试笔记', state.records.filter(r => r.qa_text).length],
+          ['prep', '备考计划', state.records.filter(r => r.prep_result).length],
+        ].map(([k, label, count]) => `
+          <button class="btn ${state.filter === k ? 'btn-primary' : 'btn-ghost'} filter-btn" onclick="setFilter('${k}')">${label} · ${count}</button>
+        `).join('')}
+      </div>
+
+      ${filtered.length === 0 ? `<div class="empty-state">暂无记录</div>` : `
+        <div class="interview-list">
+          ${filtered.map(r => `
+            <div>
+              <div class="interview-card ${state.selectedRecord === r.id ? 'selected' : ''}" onclick="toggleDetail('${r.id}')"
+                style="border-radius:${state.selectedRecord === r.id ? '10px 10px 0 0' : '10px'}">
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+                    <div class="ic-company">${r.company}</div>
+                    ${r.match_score ? `<span class="score-chip ${r.match_score >= 7 ? 'score-hi' : 'score-md'}">${r.match_score}/10</span>` : ''}
+                  </div>
+                  <div class="ic-role">${r.role || '—'} · ${r.round}</div>
+                  <div class="ic-tags">
+                    ${r.qa_text ? '<span class="tag tag-sage">面试笔记</span>' : ''}
+                    ${r.analyze_result ? '<span class="tag tag-rose">AI分析</span>' : ''}
+                    ${r.prep_result ? '<span class="tag tag-slate">备考计划</span>' : ''}
+                    ${r.jd_text ? '<span class="tag tag-slate">JD</span>' : ''}
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex-shrink:0">
+                  <div class="ic-date">${r.created_at}</div>
+                  <button class="btn btn-danger" onclick="event.stopPropagation();deleteRecord('${r.id}')">删除</button>
+                </div>
+              </div>
+              ${state.selectedRecord === r.id ? `
+                <div class="detail-panel">
+                  ${r.qa_text ? `
+                    <div class="detail-section-title">📝 面试问答记录</div>
+                    <div class="detail-text" style="margin-bottom:18px">${escapeHTML(r.qa_text)}</div>
+                  ` : ''}
+                  ${r.analyze_result ? `
+                    ${r.qa_text ? '<hr class="divider"/>' : ''}
+                    <div class="detail-section-title">✦ AI 简历分析</div>
+                    <div class="detail-text">${escapeHTML(r.analyze_result)}</div>
+                  ` : ''}
+                  ${!r.qa_text && !r.analyze_result && !r.prep_result ? `<div style="font-size:13px;color:var(--mist);font-style:italic">暂无详细内容</div>` : ''}
+                </div>
+              ` : ''}
+            </div>
+          `).join('')}
+        </div>
+      `}
+    </main>
+  `;
+}
+
+// ==========================================
+// ACTIONS
+// ==========================================
+function nav(page) { state.page = page; state.selectedRecord = null; render(); window.scrollTo(0, 0); }
+function logout() { state.loggedIn = false; state.page = 'login'; render(); }
+function setAuthMode(mode) { state.authMode = mode; state.authErr = ''; state.authMsg = ''; render(); }
+function doLogin() {
+  state.loggedIn = true; state.page = 'home';
+  render();
+  showToast('✓ 登录成功（演示模式）');
+}
+function saveResume() {
+  showToast('✓ 主简历已保存');
+}
+function simulateUpload(type) {
+  if (type === 'jd') {
+    state.jdText = '【岗位：产品经理实习生 @ 字节跳动】\n负责抖音创作者生态相关功能的产品设计与优化：\n• 深入理解创作者需求，提出数据驱动的产品方案\n• 参与从需求定义、方案设计到上线迭代的全流程\n• 通过 A/B 测试等方式验证假设、衡量效果\n\n任职要求：\n• 本科及以上学历，在校学生，每周到岗不少于 4 天\n• 具备较强的逻辑思维和数据分析能力\n• 熟悉 SQL、Figma / Axure 等工具\n• 对短视频、内容生态有深刻理解者优先';
+    showToast('✓ 已解析 字节-抖音PM实习JD.pdf');
+  } else if (type === 'prep-jd') {
+    state.prepJd = '【岗位：产品经理实习生 @ 字节跳动】\n负责抖音创作者生态相关功能的产品设计与优化，涉及创作者激励体系、涨粉工具、数据看板等方向……';
+    showToast('✓ 已解析 字节-抖音PM实习JD.pdf');
+  } else {
+    state.resumeFileName = '张三_简历_v3.pdf';
+    showToast('✓ 已解析 张三_简历_v3.pdf');
+  }
+  render();
+}
+function doAnalyze() {
+  if (!state.jdText.trim()) { showToast('请先提供岗位描述'); return; }
+  state.analyzeLoading = true; state.analyzeResult = ''; render();
+  setTimeout(() => {
+    state.analyzeLoading = false;
+    state.analyzeResult = MOCK_ANALYZE;
+    state.analyzeScore = 8;
+    if (state.analyzeCompany) {
+      state.records.unshift({
+        id: String(Date.now()),
+        company: state.analyzeCompany,
+        role: state.analyzeRole,
+        round: '待投递',
+        created_at: new Date().toISOString().slice(0, 10),
+        match_score: 8,
+        qa_text: '', analyze_result: MOCK_ANALYZE, prep_result: '', jd_text: state.jdText,
+      });
+      showToast('✓ 分析结果已保存到历史');
+    }
+    render();
+  }, 1800);
+}
+function saveLog() {
+  if (!state.logCompany || !state.logQA) { showToast('请填写公司和面试内容'); return; }
+  state.records.unshift({
+    id: String(Date.now()),
+    company: state.logCompany,
+    role: state.logRole,
+    round: state.logRound,
+    created_at: new Date().toISOString().slice(0, 10),
+    match_score: null,
+    qa_text: state.logQA, analyze_result: '', prep_result: '', jd_text: '',
+  });
+  state.logCompany = ''; state.logRole = ''; state.logQA = '';
+  showToast('✓ 面试记录已保存');
+  render();
+}
+function doPrep() {
+  if (!state.prepJd.trim()) { showToast('请先提供岗位描述'); return; }
+  state.prepLoading = true; state.prepResult = ''; render();
+  setTimeout(() => {
+    state.prepLoading = false;
+    state.prepResult = MOCK_PREP;
+    render();
+  }, 2200);
+}
+function setFilter(f) { state.filter = f; state.selectedRecord = null; render(); }
+function toggleDetail(id) { state.selectedRecord = state.selectedRecord === id ? null : id; render(); }
+function deleteRecord(id) {
+  if (!confirm('确认删除这条记录？')) return;
+  state.records = state.records.filter(r => r.id !== id);
+  if (state.selectedRecord === id) state.selectedRecord = null;
+  showToast('已删除');
+  render();
+}
+function escapeHTML(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// ==========================================
+// MAIN RENDER
+// ==========================================
+function render() {
+  const root = document.getElementById('app');
+  if (!state.loggedIn) {
+    root.innerHTML = renderLogin() + renderToast();
+    return;
+  }
+  const pages = { home: renderHome, resume: renderResume, analyze: renderAnalyze,
+                  log: renderLog, prep: renderPrep, history: renderHistory };
+  const renderFn = pages[state.page] || renderHome;
+  root.innerHTML = `<div class="layout">${renderFn()}</div>` + renderToast();
+
+  // Restore cursor position for text inputs (re-rendering breaks focus)
+}
+
+render();
+</script>
+</body>
+</html>
