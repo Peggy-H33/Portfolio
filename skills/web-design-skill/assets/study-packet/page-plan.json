@@ -1,0 +1,123 @@
+{
+  "subject": "REPLACE",
+  "audience": "REPLACE",
+  "page_job": "REPLACE",
+  "art_direction": {
+    "thesis": "REPLACE",
+    "signature": "REPLACE",
+    "selected_type": "REPLACE",
+    "selected_layout": "REPLACE",
+    "selected_color": "REPLACE"
+  },
+  "hero_contract": {
+    "mode": "cinematic-full-bleed",
+    "locked": true,
+    "desktop_media_coverage_min": 0.9,
+    "copy_safe_zone": "REPLACE with normalized coordinates",
+    "subject_safe_zone": "REPLACE with normalized coordinates",
+    "interaction_safe_zone": "REPLACE with normalized coordinates",
+    "regeneration_policy": "regenerate-before-layout-change",
+    "mobile_transformation": "preserve a large intentional media field; move copy only when safe zones require it",
+    "locked_fields": ["hero_media_mode", "media_box", "subject_focal_zone", "section_structure", "macro_grid", "color_system", "motion_system"]
+  },
+  "visual_quality_contract": {
+    "hero_subject_signals": ["REPLACE with subject-specific material", "REPLACE with subject-specific gesture or setting"],
+    "unrelated_brand_substitution_passed": true,
+    "neutral_material_area_target": 0.75,
+    "high_chroma_area_target": 0.15,
+    "max_consecutive_accent_dominant_sections": 1,
+    "fullpage_desktop_capture": "study/screenshots/qa-fullpage-desktop.png",
+    "fullpage_phone_capture": "study/screenshots/qa-fullpage-phone.png",
+    "forbidden_failures": ["generic-hero", "unintended-single-character-line", "multi-screen-flat-accent", "uniform-section-silhouette"]
+  },
+  "regression_baseline": {
+    "source": null,
+    "protected_qualities": []
+  },
+  "integration_contract": {
+    "art_direction_owner": "motion-site-art-directed-v9",
+    "typography_specialist": "motion-site-chinese-web-design-v6",
+    "font_selection_owner": "motion-site-chinese-web-design-v6",
+    "font_family_lock_state": "selected-from-rendered-evidence",
+    "typography_geometry_state": "locked-after-real-glyph-test",
+    "expressive_distribution": "distributed",
+    "non_hero_expressive_targets": ["chapter-one-title", "chapter-two-caption", "closing-action"],
+    "reading_protected_targets": ["hero-body", "chapter-one-body", "chapter-two-body"],
+    "layout_locked": true,
+    "media_locked": true,
+    "section_structure_locked": true,
+    "allowed_typography_changes": ["font_files", "font_tokens", "font_metrics", "text_color_tokens", "line_break_proposals", "fallbacks", "copy_zone_width", "local_grid_span", "local_alignment", "section_padding", "section_min_height"]
+  },
+  "tokens": {},
+  "sections": [
+    {
+      "id": "hero",
+      "purpose": "REPLACE",
+      "content_source": "REPLACE",
+      "layout": "full-bleed video field with copy inside a measured safe zone",
+      "alignment": "edge",
+      "type_roles": ["display", "body", "action"],
+      "expressive_type_opportunities": ["hero-title", "hero-action", "brand-mark"],
+      "reading_protected_surfaces": ["hero-body"],
+      "surface_role": "canvas",
+      "media_role": "hero-atmosphere",
+      "safe_zone": "use hero_contract copy/subject/interaction zones",
+      "layers": {"media": 0, "overlay": 1, "content": 2},
+      "responsive": {},
+      "reduced_motion": "poster remains visible",
+      "claim_status": "unknown"
+    },
+    {
+      "id": "chapter-one",
+      "purpose": "REPLACE",
+      "content_source": "REPLACE",
+      "layout": "contained editorial film",
+      "alignment": "grid",
+      "type_roles": ["heading", "body", "caption"],
+      "expressive_type_opportunities": ["chapter-one-title", "chapter-one-eyebrow"],
+      "reading_protected_surfaces": ["chapter-one-body"],
+      "surface_role": "surface-1",
+      "media_role": "process-macro",
+      "safe_zone": "contained media; no overlay",
+      "layers": {"media": 0, "content": 1},
+      "responsive": {},
+      "reduced_motion": "poster remains visible",
+      "claim_status": "unknown"
+    },
+    {
+      "id": "chapter-two",
+      "purpose": "REPLACE",
+      "content_source": "REPLACE",
+      "layout": "large outcome film with an adjacent or measured safe-zone conclusion",
+      "alignment": "grid",
+      "type_roles": ["heading", "body", "caption"],
+      "expressive_type_opportunities": ["chapter-two-title", "chapter-two-caption"],
+      "reading_protected_surfaces": ["chapter-two-body"],
+      "surface_role": "surface-2",
+      "media_role": "outcome",
+      "safe_zone": "REPLACE from reviewed first/middle/last frames",
+      "layers": {"media": 0, "overlay": 1, "content": 2},
+      "responsive": {},
+      "reduced_motion": "poster remains visible",
+      "claim_status": "unknown"
+    },
+    {
+      "id": "closing",
+      "purpose": "REPLACE",
+      "content_source": "REPLACE",
+      "layout": "sparse closing statement and one action",
+      "alignment": "edge",
+      "type_roles": ["heading", "action"],
+      "expressive_type_opportunities": ["closing-title", "closing-action"],
+      "reading_protected_surfaces": [],
+      "surface_role": "surface-3",
+      "media_role": null,
+      "safe_zone": "not applicable; preserve section whitespace",
+      "layers": {"content": 1},
+      "responsive": {},
+      "reduced_motion": "no motion required",
+      "claim_status": "not-applicable"
+    }
+  ],
+  "breakpoints": {"wide": 1440, "tablet": 768, "phone": 390}
+}

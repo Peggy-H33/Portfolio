@@ -1,0 +1,26 @@
+{
+  "provider": "SenseAudio",
+  "provider_model": "doubao-seedance-2-0-260128",
+  "provider_task_id": "4d262311-56ad-410a-b837-838c8e4d29e7",
+  "source_kind": "text-to-video",
+  "final_delivery_eligible": true,
+  "generation_date": "2026-08-21",
+  "dimensions": {"width": 1280, "height": 720},
+  "duration_seconds": 8.041667,
+  "ratio": "16:9",
+  "prompt_summary": "Dawn freshwater wetland with reeds, egrets, mist, water ripples and a left-side Chinese copy-safe field.",
+  "focal_zone": {"x": [0.58, 0.90], "y": [0.28, 0.86]},
+  "copy_safe_zone": {"x": [0.00, 0.44], "y": [0.10, 0.86]},
+  "processing_history": ["Provider-native H.264 MP4 preserved unchanged", "JPEG evidence frames extracted with FFmpeg", "Poster copied from the first evidence frame"],
+  "temporal_evidence": {
+    "static_transform_only": false,
+    "intrinsic_motion_types": ["subject_motion", "environmental_motion", "material_motion", "light_behavior"],
+    "motion_summary": "Two egrets rise from still water with changing wing shapes; concentric ripples expand, reeds sway, mist thins and reflections evolve.",
+    "first_frame": "study/frames/hero-01.jpg",
+    "middle_frame": "study/frames/hero-02.jpg",
+    "last_frame": "study/frames/hero-03.jpg",
+    "freeze_detect_over_1s": false,
+    "abrupt_scene_cut_detected": false,
+    "reviewer_passed": true
+  }
+}

@@ -1,0 +1,441 @@
+{
+  "generatedAt": "2026-08-21T04:34:55.733Z",
+  "baseUrl": "http://127.0.0.1:4182",
+  "consoleErrors": [],
+  "captures": {
+    "heroPlayingDesktop": "qa/hero-playing-desktop.png",
+    "heroPosterDesktop": "qa/hero-poster-desktop.png",
+    "fullpageDesktop": "qa/fullpage-desktop.png"
+  },
+  "metrics": {
+    "desktop": {
+      "viewport": 1440,
+      "fontsReady": "true",
+      "surfaceCount": 66,
+      "uniqueSurfaceCount": 66,
+      "horizontalOverflowPx": 0,
+      "heroMediaCoverage": 1,
+      "displayMetrics": {
+        "brand-mark": {
+          "viewport_width_px": 1440,
+          "available_width_px": 234.4,
+          "longest_line_width_px": 142.9,
+          "ratio": 0.61,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "23px",
+          "line_height": "normal",
+          "lines": null
+        },
+        "hero-title": {
+          "viewport_width_px": 1440,
+          "available_width_px": 604.8,
+          "longest_line_width_px": 395.5,
+          "ratio": 0.654,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "118.8px",
+          "line_height": "111.672px",
+          "lines": 2
+        },
+        "manifesto-quote": {
+          "viewport_width_px": 1440,
+          "available_width_px": 727.6,
+          "longest_line_width_px": 720,
+          "ratio": 0.99,
+          "font_family": "\"Long Cang\", \"Kaiti SC\", cursive",
+          "font_size": "90px",
+          "line_height": "94.5px",
+          "lines": 2
+        },
+        "timeline-afternoon-title": {
+          "viewport_width_px": 1440,
+          "available_width_px": 359.3,
+          "longest_line_width_px": 230.4,
+          "ratio": 0.641,
+          "font_family": "\"Long Cang\", \"Kaiti SC\", cursive",
+          "font_size": "57.6px",
+          "line_height": "63.36px",
+          "lines": 1
+        },
+        "stay-one-title": {
+          "viewport_width_px": 1440,
+          "available_width_px": 561.6,
+          "longest_line_width_px": 352.9,
+          "ratio": 0.628,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "103.68px",
+          "line_height": "103.68px",
+          "lines": 2
+        },
+        "stay-two-title": {
+          "viewport_width_px": 1440,
+          "available_width_px": 426.3,
+          "longest_line_width_px": 378.3,
+          "ratio": 0.888,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "77.76px",
+          "line_height": "77.76px",
+          "lines": 2
+        },
+        "stay-two-quote": {
+          "viewport_width_px": 1440,
+          "available_width_px": 426.3,
+          "longest_line_width_px": 362.5,
+          "ratio": 0.851,
+          "font_family": "\"Long Cang\", \"Kaiti SC\", cursive",
+          "font_size": "48.24px",
+          "line_height": "53.064px",
+          "lines": 1
+        },
+        "stay-three-title": {
+          "viewport_width_px": 1440,
+          "available_width_px": 426.2,
+          "longest_line_width_px": 377.2,
+          "ratio": 0.885,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "77.76px",
+          "line_height": "77.76px",
+          "lines": 2
+        },
+        "stay-three-caption": {
+          "viewport_width_px": 1440,
+          "available_width_px": 426.2,
+          "longest_line_width_px": 414.7,
+          "ratio": 0.973,
+          "font_family": "\"Long Cang\", \"Kaiti SC\", cursive",
+          "font_size": "46.08px",
+          "line_height": "53.4528px",
+          "lines": 2
+        },
+        "selector-title": {
+          "viewport_width_px": 1440,
+          "available_width_px": 727.6,
+          "longest_line_width_px": 624.5,
+          "ratio": 0.858,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "108px",
+          "line_height": "106.92px",
+          "lines": 2
+        },
+        "final-title": {
+          "viewport_width_px": 1440,
+          "available_width_px": 722.3,
+          "longest_line_width_px": 722.3,
+          "ratio": 1,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "144px",
+          "line_height": "132.48px",
+          "lines": 2
+        },
+        "footer-brand": {
+          "viewport_width_px": 1440,
+          "available_width_px": 504.5,
+          "longest_line_width_px": 144,
+          "ratio": 0.285,
+          "font_family": "\"Long Cang\", \"Kaiti SC\", cursive",
+          "font_size": "36px",
+          "line_height": "normal",
+          "lines": null
+        },
+        "dialog-title": {
+          "viewport_width_px": 1440,
+          "available_width_px": 0,
+          "longest_line_width_px": 0,
+          "ratio": 0,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "76px",
+          "line_height": "76px",
+          "lines": 1
+        }
+      }
+    },
+    "tablet": {
+      "viewport": 768,
+      "fontsReady": "true",
+      "surfaceCount": 66,
+      "uniqueSurfaceCount": 66,
+      "horizontalOverflowPx": 0,
+      "heroMediaCoverage": 1,
+      "displayMetrics": {
+        "brand-mark": {
+          "viewport_width_px": 768,
+          "available_width_px": 234.4,
+          "longest_line_width_px": 142.9,
+          "ratio": 0.61,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "23px",
+          "line_height": "normal",
+          "lines": null
+        },
+        "hero-title": {
+          "viewport_width_px": 768,
+          "available_width_px": 374.4,
+          "longest_line_width_px": 239.7,
+          "ratio": 0.64,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "72px",
+          "line_height": "67.68px",
+          "lines": 2
+        },
+        "manifesto-quote": {
+          "viewport_width_px": 768,
+          "available_width_px": 432,
+          "longest_line_width_px": 432,
+          "ratio": 1,
+          "font_family": "\"Long Cang\", \"Kaiti SC\", cursive",
+          "font_size": "54px",
+          "line_height": "56.7px",
+          "lines": 2
+        },
+        "timeline-afternoon-title": {
+          "viewport_width_px": 768,
+          "available_width_px": 161.3,
+          "longest_line_width_px": 152,
+          "ratio": 0.942,
+          "font_family": "\"Long Cang\", \"Kaiti SC\", cursive",
+          "font_size": "38px",
+          "line_height": "41.8px",
+          "lines": 1
+        },
+        "stay-one-title": {
+          "viewport_width_px": 768,
+          "available_width_px": 299.5,
+          "longest_line_width_px": 197.4,
+          "ratio": 0.659,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "58px",
+          "line_height": "58px",
+          "lines": 2
+        },
+        "stay-two-title": {
+          "viewport_width_px": 768,
+          "available_width_px": 464,
+          "longest_line_width_px": 282.2,
+          "ratio": 0.608,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "58px",
+          "line_height": "58px",
+          "lines": 2
+        },
+        "stay-two-quote": {
+          "viewport_width_px": 768,
+          "available_width_px": 678.9,
+          "longest_line_width_px": 285.6,
+          "ratio": 0.421,
+          "font_family": "\"Long Cang\", \"Kaiti SC\", cursive",
+          "font_size": "38px",
+          "line_height": "41.8px",
+          "lines": 1
+        },
+        "stay-three-title": {
+          "viewport_width_px": 768,
+          "available_width_px": 464,
+          "longest_line_width_px": 281.4,
+          "ratio": 0.606,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "58px",
+          "line_height": "58px",
+          "lines": 2
+        },
+        "stay-three-caption": {
+          "viewport_width_px": 768,
+          "available_width_px": 678.9,
+          "longest_line_width_px": 390,
+          "ratio": 0.574,
+          "font_family": "\"Long Cang\", \"Kaiti SC\", cursive",
+          "font_size": "30px",
+          "line_height": "34.8px",
+          "lines": 1
+        },
+        "selector-title": {
+          "viewport_width_px": 768,
+          "available_width_px": 388.1,
+          "longest_line_width_px": 358.5,
+          "ratio": 0.924,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "62px",
+          "line_height": "61.38px",
+          "lines": 2
+        },
+        "final-title": {
+          "viewport_width_px": 768,
+          "available_width_px": 385.2,
+          "longest_line_width_px": 385.2,
+          "ratio": 1,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "76.8px",
+          "line_height": "70.656px",
+          "lines": 2
+        },
+        "footer-brand": {
+          "viewport_width_px": 768,
+          "available_width_px": 324.5,
+          "longest_line_width_px": 144,
+          "ratio": 0.444,
+          "font_family": "\"Long Cang\", \"Kaiti SC\", cursive",
+          "font_size": "36px",
+          "line_height": "normal",
+          "lines": null
+        },
+        "dialog-title": {
+          "viewport_width_px": 768,
+          "available_width_px": 0,
+          "longest_line_width_px": 0,
+          "ratio": 0,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "53.76px",
+          "line_height": "53.76px",
+          "lines": 1
+        }
+      }
+    },
+    "phone": {
+      "viewport": 390,
+      "fontsReady": "true",
+      "surfaceCount": 66,
+      "uniqueSurfaceCount": 66,
+      "horizontalOverflowPx": 0,
+      "heroMediaCoverage": 1,
+      "displayMetrics": {
+        "brand-mark": {
+          "viewport_width_px": 390,
+          "available_width_px": 70.7,
+          "longest_line_width_px": 70.7,
+          "ratio": 1,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "21px",
+          "line_height": "normal",
+          "lines": null
+        },
+        "hero-title": {
+          "viewport_width_px": 390,
+          "available_width_px": 350,
+          "longest_line_width_px": 246.7,
+          "ratio": 0.705,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "74.1px",
+          "line_height": "71.136px",
+          "lines": 3
+        },
+        "manifesto-quote": {
+          "viewport_width_px": 390,
+          "available_width_px": 350,
+          "longest_line_width_px": 344,
+          "ratio": 0.983,
+          "font_family": "\"Long Cang\", \"Kaiti SC\", cursive",
+          "font_size": "43px",
+          "line_height": "45.15px",
+          "lines": 2
+        },
+        "timeline-afternoon-title": {
+          "viewport_width_px": 390,
+          "available_width_px": 318,
+          "longest_line_width_px": 168,
+          "ratio": 0.528,
+          "font_family": "\"Long Cang\", \"Kaiti SC\", cursive",
+          "font_size": "42px",
+          "line_height": "46.2px",
+          "lines": 1
+        },
+        "stay-one-title": {
+          "viewport_width_px": 390,
+          "available_width_px": 350,
+          "longest_line_width_px": 212.4,
+          "ratio": 0.607,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "62.4px",
+          "line_height": "62.4px",
+          "lines": 2
+        },
+        "stay-two-title": {
+          "viewport_width_px": 390,
+          "available_width_px": 350,
+          "longest_line_width_px": 303.6,
+          "ratio": 0.867,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "62.4px",
+          "line_height": "62.4px",
+          "lines": 2
+        },
+        "stay-two-quote": {
+          "viewport_width_px": 390,
+          "available_width_px": 350,
+          "longest_line_width_px": 330.7,
+          "ratio": 0.945,
+          "font_family": "\"Long Cang\", \"Kaiti SC\", cursive",
+          "font_size": "44px",
+          "line_height": "48.4px",
+          "lines": 1
+        },
+        "stay-three-title": {
+          "viewport_width_px": 390,
+          "available_width_px": 350,
+          "longest_line_width_px": 302.7,
+          "ratio": 0.865,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "62.4px",
+          "line_height": "62.4px",
+          "lines": 2
+        },
+        "stay-three-caption": {
+          "viewport_width_px": 390,
+          "available_width_px": 350,
+          "longest_line_width_px": 340,
+          "ratio": 0.971,
+          "font_family": "\"Long Cang\", \"Kaiti SC\", cursive",
+          "font_size": "34px",
+          "line_height": "39.44px",
+          "lines": 2
+        },
+        "selector-title": {
+          "viewport_width_px": 390,
+          "available_width_px": 350,
+          "longest_line_width_px": 346.9,
+          "ratio": 0.991,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "60px",
+          "line_height": "59.4px",
+          "lines": 2
+        },
+        "final-title": {
+          "viewport_width_px": 390,
+          "available_width_px": 313,
+          "longest_line_width_px": 313,
+          "ratio": 1,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "62.4px",
+          "line_height": "57.408px",
+          "lines": 2
+        },
+        "footer-brand": {
+          "viewport_width_px": 390,
+          "available_width_px": 350,
+          "longest_line_width_px": 144,
+          "ratio": 0.411,
+          "font_family": "\"Long Cang\", \"Kaiti SC\", cursive",
+          "font_size": "36px",
+          "line_height": "normal",
+          "lines": null
+        },
+        "dialog-title": {
+          "viewport_width_px": 390,
+          "available_width_px": 0,
+          "longest_line_width_px": 0,
+          "ratio": 0,
+          "font_family": "\"MaoKenWang FengYaSong\", \"Songti SC\", serif",
+          "font_size": "46px",
+          "line_height": "46px",
+          "lines": 1
+        }
+      }
+    }
+  },
+  "interactions": {
+    "globalMotionToggle": {
+      "state": "reduced",
+      "pressed": "true",
+      "allVideosPaused": true
+    },
+    "selector": "把讲究留在房间里",
+    "dialogSubmit": "林小姐，你的住法摘要已经生成。2 晚 · 江岸高处。这是页面内演示，不会发送或保存任何个人资料。"
+  }
+}

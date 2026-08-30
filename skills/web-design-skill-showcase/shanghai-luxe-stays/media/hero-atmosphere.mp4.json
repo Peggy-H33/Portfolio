@@ -1,0 +1,46 @@
+{
+  "provider": "SenseAudio",
+  "task_id": "1edd9670-24fa-4748-ab7a-710cc92b0003",
+  "status": "completed",
+  "video_url": "https://dynamic.senseaudio.cn/video/c36ce9df-0bcb-4357-9bc7-b16d019d642b",
+  "saved_path": "media/hero-atmosphere.mp4",
+  "downloaded_at": "2026-08-21T03:46:34.769203+00:00",
+  "provider_response": {
+    "id": "1db038fa-c6ec-4b41-b7cd-211b8a266695",
+    "model": "doubao-seedance-2-0-260128",
+    "task_id": "1edd9670-24fa-4748-ab7a-710cc92b0003",
+    "status": "completed",
+    "progress": 100,
+    "video_url": "https://dynamic.senseaudio.cn/video/c36ce9df-0bcb-4357-9bc7-b16d019d642b",
+    "duration": 8,
+    "is_new": true,
+    "created_at": 1787283693,
+    "completed_at": 1787283975,
+    "prompt": "",
+    "resolution": "720p",
+    "content": [
+      {
+        "type": "text",
+        "text": "8 seconds, 16:9 cinematic high-end hospitality film, a contemporary Shanghai riverside hotel suite at blue hour, floor-to-ceiling window on the RIGHT half revealing the Huangpu River bend, layered historic Bund-inspired masonry silhouettes and distant modern Shanghai towers without copying any exact building logo, foreground has dark green velvet lounge chair, warm brushed-brass reading lamp and fine linen bed edge. The sheer curtain breathes gently, river boat lights glide slowly, rain beads crawl down the glass, warm interior reflections evolve across brass. Slow stabilized dolly forward, 35mm lens, quiet luxury, ink black, celadon green and restrained amber. Keep LEFT 0-42% visually calm and darker for large Chinese copy; preserve focal room and skyline on RIGHT 58-88% from first to last frame. Loop-friendly ending. No people close-up, no embedded text, no logo, no watermark, no UI, no border, no split screen, no abrupt cut, no neon cyberpunk, no overexposure, stable exposure."
+      }
+    ],
+    "ratio": "16:9",
+    "provider_specific": {
+      "generate_audio": false
+    }
+  },
+  "source_kind": "text-to-video",
+  "provider_model": "doubao-seedance-2-0-260128",
+  "provider_task_id": "1edd9670-24fa-4748-ab7a-710cc92b0003",
+  "final_delivery_eligible": true,
+  "generation_mode": "first-party-provider",
+  "temporal_evidence": {
+    "static_transform_only": false,
+    "intrinsic_motion_types": ["environmental_motion", "light_behavior", "camera_motion"],
+    "motion_summary": "首中末帧验证窗帘呼吸、江上船灯移动、玻璃雨滴与黄铜反射持续变化，镜头推进并非唯一运动。",
+    "first_frame": "study/frames/hero-first.jpg",
+    "middle_frame": "study/frames/hero-middle.jpg",
+    "last_frame": "study/frames/hero-last.jpg",
+    "reviewer_passed": true
+  }
+}

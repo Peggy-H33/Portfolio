@@ -1,0 +1,36 @@
+{
+  "density": "standard",
+  "compact_exception_reason": null,
+  "assets": [
+    {
+      "id": "hero-riverside-suite", "role": "hero-atmosphere", "video": "media/hero-atmosphere.mp4", "poster": "media/hero-atmosphere-poster.jpg",
+      "prompt": "Cinematic contemporary Shanghai riverside hotel suite at blue hour, river bend and layered city skyline on the right, dark green velvet, brushed brass and linen in foreground; curtain, rain beads, river lights and reflections move intrinsically; left 0-42% remains darker copy-safe space; no text or logos.",
+      "subject_specific_reason": "同一画面同时出现浦江滨水城市光线和高端酒店客房的丝绒、黄铜、床品与落地窗，无法无修改地替换成普通科技或香水广告。",
+      "unrelated_brand_substitution_passed": true, "source_kind": "text-to-video", "provider_model": "doubao-seedance-2-0-260128", "provider_task_id": "1edd9670-24fa-4748-ab7a-710cc92b0003", "final_delivery_eligible": true,
+      "temporal_evidence": {"static_transform_only": false, "intrinsic_motion_types": ["environmental_motion", "light_behavior", "camera_motion"], "motion_summary": "首中末帧验证窗帘呼吸、江上船灯移动、玻璃雨滴与黄铜反射持续变化，镜头推进并非唯一运动。", "first_frame": "study/frames/hero-first.jpg", "middle_frame": "study/frames/hero-middle.jpg", "last_frame": "study/frames/hero-last.jpg", "reviewer_passed": true},
+      "target": {"ratio": "16:9", "duration_seconds": 8, "width": 1280, "height": 720}, "safe_zone": {"desktop": "left 0-42%", "tablet": "left 0-48%", "mobile": "top/left 0-62%, subject held right"},
+      "focal_points": {"first": "72%,54%", "middle": "72%,54%", "last": "72%,54%"}, "processing_history": ["SenseAudio text-to-video generation", "ffmpeg first/middle/last frame extraction", "first-frame JPEG poster export"], "integration_mode": "full-bleed", "focal_target_met": true, "regeneration_attempts": 0,
+      "desktop_media_coverage_target": 1, "layout_change_approved": false, "section_id": "hero"
+    },
+    {
+      "id": "lane-house-rain", "role": "context-environment", "video": "media/lane-house.mp4", "poster": "media/lane-house-poster.jpg",
+      "prompt": "Restored Shanghai shikumen lane-house courtyard after rain, grey brick, black timber doors, Art Deco patterned glass, warm brass wall light; rain, plane-tree leaves, water ripples and doorway light change intrinsically; copy-safe right wall; no text or logos.",
+      "subject_specific_reason": "石库门灰砖、里弄尺度、梧桐雨水与修复后的私宅门厅共同构成上海民宿语境，而非泛欧洲庭院。",
+      "unrelated_brand_substitution_passed": true, "source_kind": "text-to-video", "provider_model": "doubao-seedance-2-0-260128", "provider_task_id": "25684ca2-58f0-42e5-ae29-d33c0501407d", "final_delivery_eligible": true,
+      "temporal_evidence": {"static_transform_only": false, "intrinsic_motion_types": ["environmental_motion", "subject_motion", "light_behavior", "camera_motion"], "motion_summary": "首中末帧验证细雨、梧桐叶、院内涟漪、门扇与暖光独立变化，横移镜头只作辅助。", "first_frame": "study/frames/lane-first.jpg", "middle_frame": "study/frames/lane-middle.jpg", "last_frame": "study/frames/lane-last.jpg", "reviewer_passed": true},
+      "target": {"ratio": "16:9", "duration_seconds": 8, "width": 1280, "height": 720}, "safe_zone": {"desktop": "right 58-92%", "tablet": "right 54-94%", "mobile": "caption below media"},
+      "focal_points": {"first": "36%,56%", "middle": "38%,56%", "last": "40%,55%"}, "processing_history": ["SenseAudio text-to-video generation", "ffmpeg first/middle/last frame extraction", "middle-frame JPEG poster export"], "integration_mode": "contained", "focal_target_met": true, "regeneration_attempts": 0,
+      "desktop_media_coverage_target": null, "layout_change_approved": false, "section_id": "lane"
+    },
+    {
+      "id": "closing-night-turndown", "role": "outcome", "video": "media/closing-night.mp4", "poster": "media/closing-night-poster.jpg",
+      "prompt": "Cinematic Shanghai hotel room after midnight turndown, ink-black and ivory linen bed, folded robe, brass room key, warm ribbed-glass lamps, rainy riverside skyline and distant boat light; duvet, curtain, rain and lamp reflections move intrinsically while the camera slowly leaves; center copy-safe zone; no people, text or logos.",
+      "subject_specific_reason": "上海浦江夜景、完成夜床服务的酒店客房、黄铜房钥匙与雨窗同时出现，结尾明确属于沪上高端旅居，而不是可替换的通用卧室广告。",
+      "unrelated_brand_substitution_passed": true, "source_kind": "text-to-video", "provider_model": "doubao-seedance-2-0-260128", "provider_task_id": "6413db85-2595-4a27-a02f-e21d98e92eb3", "final_delivery_eligible": true,
+      "temporal_evidence": {"static_transform_only": false, "intrinsic_motion_types": ["environmental_motion", "material_motion", "light_behavior", "camera_motion"], "motion_summary": "首中末帧验证雨滴、船灯、帘布、床品与灯光反射持续变化，镜头后退并非唯一运动，夜床由暖亮逐步收至墨蓝。", "first_frame": "study/frames/closing-first.jpg", "middle_frame": "study/frames/closing-middle.jpg", "last_frame": "study/frames/closing-last.jpg", "reviewer_passed": true},
+      "target": {"ratio": "16:9", "duration_seconds": 8, "width": 1280, "height": 720}, "safe_zone": {"desktop": "center 28-72%, lamps on outer thirds", "tablet": "center 22-78%", "mobile": "center text with dark scrim; skyline remains behind upper half"},
+      "focal_points": {"first": "50%,50%", "middle": "50%,48%", "last": "50%,46%"}, "processing_history": ["SenseAudio text-to-video generation", "ffmpeg first/middle/last frame extraction", "first-frame JPEG poster export"], "integration_mode": "full-bleed", "focal_target_met": true, "regeneration_attempts": 0,
+      "desktop_media_coverage_target": 1, "layout_change_approved": false, "section_id": "final"
+    }
+  ]
+}

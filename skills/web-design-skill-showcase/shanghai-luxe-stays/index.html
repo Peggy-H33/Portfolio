@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="zh-CN" data-motion="auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090a09">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23090a09'/%3E%3Cpath d='M14 14h36v36H14z' fill='none' stroke='%23c8a15d' stroke-width='2'/%3E%3C/svg%3E">
+  <meta name="description" content="沪上住志：以江岸高处、里弄私宅与海派客房仪式，重新想象上海高端酒店民宿的三种住法。">
+  <title>沪上住志｜把上海，住成一场电影</title>
+  <link rel="preload" href="./fonts/maoken-fengyasong.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="./fonts/local-fonts.css">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-type-surface="skip-link">跳到主要内容</a>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="#top" aria-label="沪上住志首页" data-type-surface="brand-mark">
+      <span>沪上住志</span><small>SHANGHAI STAY NOTES</small>
+    </a>
+    <nav class="desktop-nav" aria-label="主导航" data-type-surface="primary-nav">
+      <a href="#stays">住法</a><a href="#moments">时刻</a><a href="#private">私享</a>
+    </nav>
+    <div class="header-actions">
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false" data-type-surface="motion-toggle">动效 · 开</button>
+      <button class="nav-inquiry" type="button" data-open-dialog data-type-surface="nav-cta">定制旅程 <span aria-hidden="true">↗</span></button>
+    </div>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle data-type-surface="menu-toggle">
+      <span class="menu-word">菜单</span><span class="menu-lines" aria-hidden="true"></span>
+    </button>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="移动端导航" data-mobile-menu data-type-surface="mobile-nav">
+      <a href="#stays">住法</a><a href="#moments">时刻</a><a href="#private">私享</a>
+      <button type="button" data-motion-toggle aria-pressed="false" data-type-surface="mobile-motion-toggle">动效 · 开</button>
+      <button type="button" data-open-dialog>定制旅程</button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title" data-hero-mode="cinematic-full-bleed">
+      <div class="hero-media media-shell" data-hero-media data-video-shell data-playing="false">
+        <img class="media-poster" src="./media/hero-atmosphere-poster.jpg" alt="上海江岸高层酒店套房，窗外是雨中的浦江与城市天际线">
+        <video class="motion-media" muted loop playsinline preload="metadata" poster="./media/hero-atmosphere-poster.jpg" data-video aria-hidden="true">
+          <source src="./media/hero-atmosphere.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="hero-scrim" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow reveal" data-type-surface="hero-eyebrow">沪上高端旅居策展 · 2026</p>
+        <h1 class="hero-title reveal" id="hero-title" data-type-surface="hero-title">
+          <span>把上海，</span><span>住成一场<span class="phone-break"><br></span>电影</span>
+        </h1>
+        <p class="hero-intro reveal" data-type-surface="hero-intro">从江岸清晨到梧桐深夜，挑一处住所，也挑一种与上海相处的速度。</p>
+        <div class="hero-actions reveal">
+          <a class="button button-primary" href="#stays" data-type-surface="hero-primary-cta">探索三种住法 <span aria-hidden="true">↓</span></a>
+          <button class="text-action" type="button" data-open-dialog data-type-surface="hero-secondary-cta">定制沪上住法 <span aria-hidden="true">↗</span></button>
+        </div>
+      </div>
+      <p class="hero-scroll" data-type-surface="hero-scroll-label"><span aria-hidden="true"></span>向下，入夜</p>
+      <button class="video-control hero-control" type="button" data-video-toggle aria-label="播放背景影像" data-type-surface="hero-video-control">
+        <span class="video-control-icon" aria-hidden="true">▶</span><span class="video-control-label">播放</span>
+      </button>
+    </section>
+
+    <section class="manifesto section-pad" id="moments" aria-labelledby="manifesto-title">
+      <div class="manifesto-grid">
+        <div>
+          <p class="eyebrow eyebrow-dark reveal" data-type-surface="manifesto-eyebrow">01 · 与城市同频</p>
+          <h2 class="manifesto-quote reveal" id="manifesto-title" data-type-surface="manifesto-quote"><span>不只睡一晚，</span><span>借一座城的节奏。</span></h2>
+        </div>
+        <p class="manifesto-body reveal" data-type-surface="manifesto-body">高端旅居不是把行程塞满。它把抵达、洗去风尘、看一场雨与醒来的光，重新排成一条属于你的上海时间线。酒店给你开阔的城市视野，民宿让街区走进日常；真正的选择，是此刻想离城市多近。</p>
+      </div>
+      <ol class="time-rail" aria-label="上海旅居的一天">
+        <li class="reveal">
+          <time datetime="06:20" data-type-surface="timeline-dawn-time">06:20</time>
+          <strong data-type-surface="timeline-dawn-title">江岸初醒</strong>
+          <p data-type-surface="timeline-dawn-body">窗帘先亮，早餐和城市一起醒来。</p>
+        </li>
+        <li class="reveal">
+          <time datetime="16:40" data-type-surface="timeline-afternoon-time">16:40</time>
+          <strong class="script" data-type-surface="timeline-afternoon-title">梧桐影长</strong>
+          <p data-type-surface="timeline-afternoon-body">拐进里弄，雨声把脚步放慢。</p>
+        </li>
+        <li class="reveal">
+          <time datetime="23:10" data-type-surface="timeline-night-time">23:10</time>
+          <strong data-type-surface="timeline-night-title">苏河夜泊</strong>
+          <p data-type-surface="timeline-night-body">灯光退到玻璃外，只留下房间的呼吸。</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="river-stay" id="stays" aria-labelledby="river-title">
+      <figure class="river-figure">
+        <img src="./media/river-dawn.jpg" alt="上海浦江清晨，高层酒店窗边的咖啡与城市全景">
+        <figcaption class="river-caption">
+          <p class="eyebrow reveal" data-type-surface="river-eyebrow">住法一 · 江岸高处</p>
+          <h2 class="stay-title stay-title-light reveal" id="river-title" data-type-surface="stay-one-title">云与水，<br>同时醒来</h2>
+          <p class="stay-body reveal" data-type-surface="stay-one-body">适合第一次来沪，也适合值得纪念的一晚。把浦江、早餐与一整面清晨留在窗前，城市很近，房间仍然安静。</p>
+          <div class="stay-meta reveal" data-type-surface="stay-one-meta"><span>适合</span> 初见上海 · 双人纪念旅行</div>
+          <a class="inline-link reveal" href="#choose" data-type-surface="stay-one-link">看看它是否适合你 <span aria-hidden="true">→</span></a>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="lane-stay section-pad" aria-labelledby="lane-title">
+      <div class="chapter-grid chapter-grid-lane">
+        <figure class="chapter-media media-shell reveal" data-video-shell data-playing="false">
+          <img class="media-poster" src="./media/lane-house-poster.jpg" alt="雨后的上海石库门院落，黑门向温暖的室内缓缓打开" loading="lazy">
+          <video class="motion-media" muted loop playsinline preload="none" poster="./media/lane-house-poster.jpg" data-video aria-hidden="true">
+            <source data-src="./media/lane-house.mp4" type="video/mp4">
+          </video>
+          <button class="video-control chapter-control" type="button" data-video-toggle aria-label="播放里弄影像" data-type-surface="lane-media-control"><span class="video-control-icon" aria-hidden="true">▶</span><span class="video-control-label">播放</span></button>
+        </figure>
+        <div class="chapter-copy">
+          <p class="eyebrow reveal" data-type-surface="stay-two-eyebrow">住法二 · 里弄私宅</p>
+          <h2 class="stay-title reveal" id="lane-title" data-type-surface="stay-two-title">转进里弄，<br>住进一方安静</h2>
+          <blockquote class="chapter-quote reveal" data-type-surface="stay-two-quote">“今晚，不赶路。”</blockquote>
+          <p class="stay-body reveal" data-type-surface="stay-two-body">灰砖、梧桐和一扇只为你亮起的门。这里更像住进熟悉的上海朋友家：没有大堂的距离，街角面包店和雨后的石板路就是生活的一部分。</p>
+          <div class="stay-meta reveal" data-type-surface="stay-two-meta"><span>适合</span> 再访上海 · 喜欢街区漫游</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ritual-stay section-pad" aria-labelledby="ritual-title">
+      <div class="chapter-grid chapter-grid-ritual">
+        <div class="chapter-copy">
+          <p class="eyebrow eyebrow-dark reveal" data-type-surface="ritual-eyebrow">住法三 · 海派客房</p>
+          <h2 class="stay-title stay-title-dark reveal" id="ritual-title" data-type-surface="stay-three-title">把讲究，<br>藏进一杯热茶</h2>
+          <p class="stay-body stay-body-dark reveal" data-type-surface="stay-three-body">真正的奢华很少高声说话。它是雨夜回房时已经温好的茶，是亚麻、青瓷与黄铜在同一束灯下各自安静，也是服务恰好停在不打扰的位置。</p>
+          <p class="ritual-note script reveal" data-type-surface="stay-three-caption">一盏灯，一场雨，一夜上海。</p>
+        </div>
+        <figure class="chapter-image reveal">
+          <img src="./media/room-ritual-still.jpg" alt="上海海派客房里，雨夜窗前正在倒一壶青瓷热茶">
+          <figcaption data-type-surface="ritual-media-caption">原创静帧 · 雨夜客房茶仪式</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="choose section-pad" id="choose" aria-labelledby="choose-title">
+      <p class="eyebrow reveal" data-type-surface="choose-eyebrow">02 · 选一种上海距离</p>
+      <div class="choose-heading">
+        <h2 class="choose-title reveal" id="choose-title" data-type-surface="selector-title">今晚，<br>你想住在哪里？</h2>
+        <p class="choose-intro reveal" data-type-surface="selector-intro">不比较虚构价格，只比较你与城市的距离。</p>
+      </div>
+      <div class="stay-selector">
+        <div class="selector-tabs" role="tablist" aria-label="选择住法" data-type-surface="selector-tabs">
+          <button type="button" role="tab" aria-selected="true" aria-controls="stay-detail" data-stay="river"><span>01</span>江岸高处</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="stay-detail" data-stay="lane"><span>02</span>里弄私宅</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="stay-detail" data-stay="ritual"><span>03</span>海派客房</button>
+        </div>
+        <div class="selector-detail" id="stay-detail" role="tabpanel" tabindex="0">
+          <p class="detail-label" data-type-surface="selector-detail-label">为初见上海的人</p>
+          <h3 data-type-surface="selector-detail-title">把城市放在窗前</h3>
+          <p data-type-surface="selector-detail-body">醒来就看见浦江，适合两晚以上的城市首站。白天向外探索，夜里回到一间有完整服务、也有足够留白的房间。</p>
+          <ul data-type-surface="selector-detail-facts"><li>建议节奏：2–3 晚</li><li>同行方式：双人 / 独行</li><li>城市距离：开阔但不疏远</li></ul>
+        </div>
+      </div>
+      <button class="button button-primary selector-cta" type="button" data-open-dialog data-type-surface="selector-cta">带着偏好，开始定制 <span aria-hidden="true">↗</span></button>
+    </section>
+
+    <section class="final-cta section-pad" id="private" aria-labelledby="final-title">
+      <div class="final-media media-shell" data-video-shell data-playing="false">
+        <img class="media-poster" src="./media/closing-night-poster.jpg" alt="雨夜上海酒店完成夜床服务后的安静客房">
+        <video class="motion-media" muted loop playsinline preload="none" poster="./media/closing-night-poster.jpg" data-video aria-hidden="true">
+          <source data-src="./media/closing-night.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="final-scrim" aria-hidden="true"></div>
+      <div class="final-orbit" aria-hidden="true"></div>
+      <p class="eyebrow reveal" data-type-surface="final-eyebrow">私享旅程 · 从一处好住所开始</p>
+      <h2 class="final-title reveal" id="final-title" data-type-surface="final-title">下一次醒来，<br>在上海。</h2>
+      <p class="final-body reveal" data-type-surface="final-body">告诉我们同行的人、停留的夜晚与偏爱的城市速度。我们会把它整理成一份可继续讨论的住法提案。</p>
+      <button class="button button-outline final-button reveal" type="button" data-open-dialog data-type-surface="final-cta">定制沪上住法 <span aria-hidden="true">↗</span></button>
+      <button class="video-control final-video-control" type="button" data-video-toggle aria-label="播放夜床影像" data-type-surface="final-video-control"><span class="video-control-icon" aria-hidden="true">▶</span><span class="video-control-label">播放</span></button>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-brand" data-type-surface="footer-brand">沪上住志</p>
+    <nav aria-label="页脚导航" data-type-surface="footer-nav"><a href="#top">回到页首</a><a href="#stays">三种住法</a><a href="#private">旅程定制</a></nav>
+    <p class="footer-legal" data-type-surface="footer-legal">原创概念页面 · 场景与文案均为设计演示，不代表真实酒店、房价或可预订库存。<span data-year></span></p>
+  </footer>
+
+  <dialog class="inquiry-dialog" data-dialog aria-labelledby="dialog-title">
+    <div class="dialog-head">
+      <div>
+        <p class="eyebrow eyebrow-dark" data-type-surface="dialog-eyebrow">你的上海，慢慢说</p>
+        <h2 id="dialog-title" data-type-surface="dialog-title">定制沪上住法</h2>
+      </div>
+      <button class="dialog-close" type="button" data-close-dialog aria-label="关闭定制表单" data-type-surface="dialog-close">关闭 <span aria-hidden="true">×</span></button>
+    </div>
+    <p class="dialog-intro" data-type-surface="dialog-intro">这是一份概念咨询表单。提交后只展示页面内确认状态，不会向外部发送资料。</p>
+    <form method="dialog" data-inquiry-form data-type-surface="dialog-fields">
+      <label>怎么称呼你<input name="name" autocomplete="name" required></label>
+      <label>想停留几晚<select name="nights"><option>2 晚</option><option>3 晚</option><option>4 晚及以上</option></select></label>
+      <fieldset><legend>更接近哪一种住法</legend><label><input type="radio" name="stay" value="江岸高处" checked> 江岸高处</label><label><input type="radio" name="stay" value="里弄私宅"> 里弄私宅</label><label><input type="radio" name="stay" value="海派客房"> 海派客房</label></fieldset>
+      <label>留下一句偏好<textarea name="note" rows="3"></textarea></label>
+      <button class="button button-dialog" type="submit">生成我的住法摘要 <span aria-hidden="true">→</span></button>
+    </form>
+    <div class="dialog-status" hidden data-dialog-status data-type-surface="dialog-status" aria-live="polite"></div>
+  </dialog>
+
+  <noscript><style>.reveal{opacity:1!important;transform:none!important}.motion-media{display:none}</style></noscript>
+</body>
+</html>

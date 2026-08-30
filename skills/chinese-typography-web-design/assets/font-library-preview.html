@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="中文网页设计 Skill 的完整字体标本、风格说明、授权等级与本地字体预览。">
+  <title>中文字体标本室 · 74 个字体家族</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Huninn&family=Liu+Jian+Mao+Cao&family=Long+Cang&family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;700;900&family=Noto+Serif+SC:wght@400;700;900&family=ZCOOL+KuaiLe&family=ZCOOL+QingKe+HuangYou&family=ZCOOL+XiaoWei&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+  <link href="./fonts/local-fonts.css" rel="stylesheet">
+  <link href="./official-test-fonts.css" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f1eee5;
+      --ink: #171814;
+      --muted: #6d6d63;
+      --line: rgba(23, 24, 20, .18);
+      --acid: #d8ff36;
+      --orange: #fa5e32;
+      --card: rgba(255, 254, 248, .78);
+      font-family: "Noto Sans SC", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); }
+    button, input, textarea { font: inherit; }
+    a { color: inherit; }
+    .masthead {
+      min-height: 78svh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: clamp(18px, 3vw, 44px);
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 82% 18%, rgba(250, 94, 50, .24), transparent 28%),
+        linear-gradient(135deg, transparent 48%, rgba(23, 24, 20, .08) 48.2%, transparent 48.5%);
+    }
+    .eyebrow, .counter, .meta, .badge, .status, .source { font: 600 11px/1.4 ui-monospace, monospace; letter-spacing: .05em; }
+    .topline { display: flex; justify-content: space-between; gap: 24px; }
+    .masthead h1 {
+      align-self: center;
+      max-width: 8em;
+      margin: 5vh 0;
+      font: 900 clamp(4.4rem, 15vw, 13rem)/.82 "Noto Serif SC", serif;
+      letter-spacing: -.035em;
+    }
+    .masthead h1 i { font-family: "Zhi Mang Xing", cursive; font-weight: 400; color: var(--orange); }
+    .lede { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 540px); gap: 36px; align-items: end; }
+    .lede p { margin: 0; max-width: 36em; font-size: clamp(1rem, 1.5vw, 1.35rem); line-height: 1.65; }
+    .notice { padding: 15px 18px; border: 1px solid var(--line); background: rgba(255,255,255,.35); font-size: 13px; line-height: 1.55; }
+    .controls {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: grid;
+      gap: 14px;
+      padding: 16px clamp(18px, 3vw, 44px);
+      border-bottom: 1px solid var(--line);
+      background: rgba(241, 238, 229, .92);
+      backdrop-filter: blur(16px);
+    }
+    .control-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .search { flex: 1 1 240px; min-width: 0; padding: 11px 13px; border: 1px solid var(--line); background: #fffdf6; color: inherit; }
+    .sample { flex: 3 1 520px; min-height: 48px; resize: vertical; padding: 10px 13px; border: 1px solid var(--line); background: #fffdf6; color: inherit; }
+    .chip { padding: 8px 11px; border: 1px solid var(--line); border-radius: 999px; background: transparent; cursor: pointer; }
+    .chip[aria-pressed="true"] { color: var(--paper); background: var(--ink); }
+    .summary { padding: 22px clamp(18px, 3vw, 44px) 0; color: var(--muted); font-size: 13px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      margin: 22px clamp(18px, 3vw, 44px) 64px;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+    .specimen { min-width: 0; padding: clamp(18px, 2.4vw, 32px); background: var(--card); }
+    .specimen-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+    .specimen h2 { margin: 0; font-size: 1rem; line-height: 1.35; }
+    .specimen h2 span { display: block; margin-top: 4px; color: var(--muted); font: 500 11px/1.4 ui-monospace, monospace; }
+    .badge { display: inline-flex; padding: 4px 7px; border: 1px solid currentColor; border-radius: 99px; white-space: nowrap; }
+    .badge.brand_reference, .badge.proprietary_free, .badge.brand_free { color: #a13d22; }
+    .policy { margin-top: 12px; padding: 8px 10px; border-left: 3px solid var(--orange); background: rgba(250,94,50,.08); color: #7f321e; font-size: 12px; line-height: 1.55; }
+    .glyph {
+      min-height: 2.6em;
+      margin: clamp(34px, 5vw, 74px) 0 26px;
+      font-size: clamp(2.7rem, 6.5vw, 7.4rem);
+      line-height: 1.02;
+      overflow-wrap: anywhere;
+      white-space: pre-line;
+      font-synthesis: none;
+    }
+    .style { max-width: 34em; margin: 0; font-size: 15px; line-height: 1.7; }
+    .roles { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0; padding: 0; list-style: none; }
+    .roles li { padding: 4px 7px; background: rgba(23,24,20,.065); font: 11px/1.35 ui-monospace, monospace; }
+    .details { display: grid; grid-template-columns: 1fr auto; gap: 14px; padding-top: 15px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .source { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    .font-loader { margin-top: 14px; padding: 7px 9px; border: 1px solid var(--line); background: transparent; cursor: pointer; font-size: 12px; }
+    .font-loader:hover { background: var(--acid); }
+    .font-loader:disabled { opacity: .58; cursor: default; }
+    .status { display: block; margin-top: 8px; color: #876a00; }
+    .status.loaded { color: #31702e; }
+    .empty { grid-column: 1 / -1; padding: 80px 30px; background: var(--card); text-align: center; }
+    .page-footer { padding: 0 clamp(18px, 3vw, 44px) 56px; color: var(--muted); font-size: 13px; line-height: 1.65; }
+    @media (max-width: 840px) {
+      .masthead { min-height: 70svh; }
+      .lede, .grid { grid-template-columns: 1fr; }
+      .grid { margin-inline: 12px; }
+      .controls { position: relative; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="topline"><span class="eyebrow">MOTION SITE / CHINESE TYPE LIBRARY</span><span class="counter">74 FAMILIES</span></div>
+    <h1>中文<i>花体</i><br>标本室</h1>
+    <div class="lede">
+      <p>不是只换一个字体名称，而是同时说明它的地域字形、页面角色、视觉气质、授权等级和使用风险。页面会自动载入服务器已有的开源字体和官方测试字体，在浏览器里即时试排。</p>
+      <div class="notice"><strong>官方测试字体政策：</strong>服务器中的品牌/专有字体仅用于本项目内部评估，禁止商用、公开发布或再分发，也不会随 skill 打包。该项目政策不等同于官方许可结论；正式使用前仍须逐款复核官方协议。</div>
+    </div>
+  </header>
+
+  <section class="controls" aria-label="字体筛选和试排">
+    <div class="control-row"><input class="search" id="search" type="search" aria-label="搜索字体、风格、角色或区域" placeholder="搜索字体、风格、角色或区域"><textarea class="sample" id="sample" rows="2" aria-label="输入字体试排文案">让想象先动起来。
+AI 眼镜 / 2026 / 2.4×</textarea></div>
+    <div class="control-row" id="filters"></div>
+  </section>
+  <p class="summary" id="summary" aria-live="polite"></p>
+  <main class="grid" id="grid"></main>
+  <footer class="page-footer">授权标签不是法律意见。OFL 字体按许可证使用；标记“内部测试”的官方字体在本项目中一律禁止商用、公开发布和再分发。若要正式使用，必须回到官方来源重新核验版本、网页嵌入、子集化、交付和署名条件。</footer>
+  <input id="font-file" type="file" accept=".otf,.ttf,.woff,.woff2,font/otf,font/ttf,font/woff,font/woff2" hidden>
+
+  <script>
+    const FONTS = [{"id":"source-han-sans-sc","names":["思源黑体","Source Han Sans SC","Noto Sans CJK SC"],"roles":["display_zh","body_zh","ui_zh","data"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"中性现代、字重齐全、界面感稳定，适合正文、导航和数据密集区","source":"https://github.com/adobe-fonts/source-han-sans","caution":"确认下载的是 SC/简体区域，并测试粗体、标点和数字。","family":"Source Han Sans SC"},{"id":"source-han-serif-sc","names":["思源宋体","Source Han Serif SC","Noto Serif CJK SC"],"roles":["display_zh","editorial_zh","body_zh"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"现代宋体、横细竖粗、文学与编辑气质兼具，适合长文和克制标题","source":"https://github.com/adobe-fonts/source-han-serif","caution":"细笔画在低分辨率屏幕和小字号下要复核。","family":"Source Han Serif SC"},{"id":"noto-sans-cjk-sc","names":["Noto Sans CJK SC"],"roles":["body_zh","ui_zh","fallback_zh"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"语言覆盖广、理性清晰、跨平台稳健，适合产品正文和多语言界面","source":"https://github.com/notofonts/noto-cjk","caution":"不要把 JP/TC/HK 变体当作 SC 的无损替代。","family":"Noto Sans CJK SC"},{"id":"lxgw-wenkai","names":["霞鹜文楷","LXGW WenKai"],"roles":["display_zh","editorial_zh","body_zh"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"温润楷意、手写松弛感与正文可读性平衡，适合人文、教育和生活方式页面","source":"https://github.com/lxgw/LxgwWenKai","caution":"部分字形为衍生/生成字，正式发布前逐字检查。","family":"LXGW WenKai"},{"id":"lxgw-wenkai-tc","names":["霞鹜文楷 TC","LXGW WenKai TC"],"roles":["display_zh","editorial_zh","body_zh"],"region":"TC","license":"SIL OFL 1.1","license_class":"open_source","style":"繁体字形的温润文楷，适合港台人文、出版和生活方式内容","source":"https://github.com/lxgw/LxgwWenKaiTC","caution":"仅用于繁体页面或繁体语言块。","family":"LXGW WenKai TC"},{"id":"ibm-plex","names":["IBM Plex Sans","IBM Plex Mono"],"roles":["latin","data","code"],"region":"Latin","license":"SIL OFL 1.1","license_class":"open_source","style":"工程理性、机械细节清楚，适合作为中文页面中的英文、数字、代码和数据伴侣","source":"https://github.com/IBM/plex","caution":"作为拉丁/数字辅助，不独自承担中文正文。","family":"IBM Plex Mono"},{"id":"smiley-sans","names":["得意黑","Smiley Sans"],"roles":["decorative_display","poster","playful_ui"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"窄长、上扬、带手绘美术字张力，适合年轻品牌、海报主标题和短促口号","source":"https://github.com/atelier-anchor/smiley-sans","caution":"字身窄而带手绘美术字处理；适合主标题、海报和短标签，不适合长正文、代码或密集 UI。","family":"Smiley Sans"},{"id":"ma-shan-zheng","names":["马善政体","Ma Shan Zheng"],"roles":["calligraphic_display","editorial_display"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"毛笔行楷、速度感强、笔锋外露，适合国风题字、文化活动和短标题","source":"https://github.com/google/fonts/tree/main/ofl/mashanzheng","caution":"书法笔意明显，只用于短标题/题字；正文和数字必须配无衬线 fallback。","family":"Ma Shan Zheng"},{"id":"zcool-kuaile","names":["站酷快乐体","ZCOOL KuaiLe"],"roles":["playful_display","campaign_display"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"圆润跳脱、童趣明显、节奏不齐整，适合娱乐、节庆和年轻消费活动","source":"https://github.com/google/fonts/tree/main/ofl/zcoolkuaile","caution":"圆润、活泼，适合活动、生活方式、儿童/消费页面；正式产品证明区降级使用。","family":"ZCOOL KuaiLe"},{"id":"zcool-xiaowei","names":["站酷小薇体","ZCOOL XiaoWei"],"roles":["handwritten_display","poster"],"region":"SC","license":"SIL OFL 1.1 (verify bundled OFL.txt)","license_class":"open_source","style":"纤细手写、清秀文艺、带轻微纸笔温度，适合女性向、手作和编辑短标题","source":"https://github.com/google/fonts/tree/main/ofl/zcoolxiaowei","caution":"来源和发布渠道必须保留官方 OFL.txt；只用作短句/标题，发布前做授权复核。","family":"ZCOOL XiaoWei"},{"id":"zcool-qingke-huangyou","names":["站酷庆科黄油体","ZCOOL QingKe HuangYou"],"roles":["rounded_display","retro_display","campaign_display"],"region":"SC","license":"SIL OFL 1.1 (verify bundled OFL.txt)","license_class":"open_source","style":"圆角粗笔、复古招牌感和高识别轮廓，适合餐饮、快消和趣味活动标题","source":"https://github.com/google/fonts/tree/main/ofl/zcoolqingkehuangyou","caution":"圆润复古、识别度高；不要用在小字号正文，避免整页变成卡通海报。","family":"ZCOOL QingKe HuangYou"},{"id":"iansui","names":["芫荽","Iansui"],"roles":["calligraphic_display","traditional_editorial"],"region":"TC","license":"SIL OFL 1.1","license_class":"open_source","style":"台湾楷书与手写气息，亲切自然，适合繁体散文、文化刊物和生活叙事","source":"https://github.com/ButTaiwan/iansui","caution":"繁体中文/台湾字形路线；不能作为简体中文页面的默认字体。","family":"Iansui"},{"id":"lxgw-wenkai-gb","names":["霞鹜文楷 GB","LXGW WenKai GB"],"roles":["warm_display","editorial_body","education"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"温润楷体、陆标字形、比普通宋体更有人情味","source":"https://github.com/lxgw/LxgwWenkaiGB","caution":"适合简体教育和人文页面；网页子集化需遵守保留名称附加条款。","family":"LXGW WenKai GB"},{"id":"lxgw-wenkai-lite","names":["霞鹜文楷轻便版","LXGW WenKai Lite"],"roles":["warm_body","editorial_body","app_embedding"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"轻便、温润、适合屏幕阅读","source":"https://github.com/lxgw/LxgwWenKai-Lite","caution":"字库比完整版小；确认项目文本不包含被裁掉的生僻字。","family":"LXGW WenKai Lite"},{"id":"lxgw-zhenkai-gb","names":["霞鹜臻楷 GB","LXGW ZhenKai GB"],"roles":["bold_kai_display","festive_display","poster"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"粗楷、厚实、保留书写感","source":"https://github.com/lxgw/LxgwZhenKai","caution":"后期字形含 AI 辅助补字，轮廓质量需逐字检查；只用于较短标题。","family":"LXGW ZhenKai GB"},{"id":"lxgw-marker-gothic","names":["霞鹜漫黑","LXGW Marker Gothic"],"roles":["marker_display","comic","campaign"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"马克笔手写、漫画、广告感","source":"https://github.com/lxgw/LxgwMarkerGothic","caution":"官方不推荐正文、代码和系统 UI；部分部件保留日文字体处理。","family":"LXGW Marker Gothic"},{"id":"lxgw-neo-xihei","names":["霞鹜新晰黑","LXGW Neo XiHei"],"roles":["humanist_sans","editorial_body","ui"],"region":"SC","license":"IPA Font License 1.0","license_class":"open_source_special","style":"略带人文味的清晰黑体，结构比几何黑体松弛","source":"https://github.com/lxgw/LxgwNeoXiHei","caution":"不是 OFL；修改、命名、再分发必须遵守 IPA Font License。","family":"LXGW Neo XiHei"},{"id":"lxgw-neo-zhisong","names":["霞鹜新致宋","LXGW Neo ZhiSong"],"roles":["modern_serif","editorial_body","culture"],"region":"SC","license":"IPA Font License 1.0","license_class":"open_source_special","style":"现代宋体、笔形细致、比系统宋体更具编辑气质","source":"https://github.com/lxgw/LxgwNeoZhiSong","caution":"不是 OFL；小字号细笔画和许可证兼容性都要复核。","family":"LXGW Neo ZhiSong"},{"id":"xiaolai","names":["小赖字体","Xiaolai"],"roles":["cute_handwriting","playful_display","note"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"可爱手写、轻松、像随手写下的便签","source":"https://github.com/lxgw/kose-font","caution":"不用于长正文和正式数据；注意旧版本名称 Xiaolai SC 已变更。","family":"Xiaolai"},{"id":"yozai","names":["悠哉字体","Yozai"],"roles":["casual_handwriting","lifestyle","diary"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"自然手写、日记、旅行和生活方式","source":"https://github.com/lxgw/yozai-font","caution":"适合短标题、引语和注释；必须检查简体字形与缺字 fallback。","family":"Yozai"},{"id":"black-sugar-plum-candy","names":["黑糖话梅","Black Sugar Plum Candy"],"roles":["cute_bold_display","food","youth_campaign"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"粗圆可爱、零食包装、年轻活动","source":"https://github.com/lxgw/BlackSugarPlumCandy","caution":"只用于大标题和贴纸元素；长文会显得拥挤。","family":"Black Sugar Plum Candy"},{"id":"long-cang","names":["龙藏体","Long Cang"],"roles":["brush_display","literary","poster"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"行草笔意、松弛、文学和影像感","source":"https://github.com/google/fonts/tree/main/ofl/longcang","caution":"单字重且连笔明显，只用于 2–10 字题词。","family":"Long Cang"},{"id":"zhi-mang-xing","names":["志莽行书","Zhi Mang Xing"],"roles":["running_script","energetic_display","culture"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"奔放行书、速度感、文化和运动传播","source":"https://github.com/google/fonts/tree/main/ofl/zhimangxing","caution":"可读性高度依赖字号；不用于导航、按钮和正文。","family":"Zhi Mang Xing"},{"id":"liu-jian-mao-cao","names":["刘建毛草","Liu Jian Mao Cao"],"roles":["cursive_brush","expressive_quote","poster"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"毛笔草书、强烈动势、艺术题词","source":"https://github.com/google/fonts/tree/main/ofl/liujianmaocao","caution":"识别难度高；只用于极短题词，并提供无障碍文本。","family":"Liu Jian Mao Cao"},{"id":"sarasa-gothic","names":["更纱黑体","Sarasa Gothic SC"],"roles":["developer_ui","body_zh","code","data"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"Inter/Iosevka 与思源黑体复合，现代开发者气质","source":"https://github.com/be5invis/Sarasa-Gothic","caution":"家族和区域组合很多；网页只打包实际需要的 SC UI/Mono 字重。","family":"Sarasa Gothic SC"},{"id":"maple-mono-cn","names":["Maple Mono CN","Maple Mono NF CN"],"roles":["code","terminal","data","developer_display"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"圆角等宽、中文与西文 2:1、开发者友好","source":"https://github.com/subframe7536/maple-font","caution":"适合代码和数据，不承担长篇中文正文；NF 版图标会增加体积。","family":"Maple Mono NF CN"},{"id":"lxgw-bright-code","names":["霞鹜明亮 Code","LXGW Bright Code"],"roles":["warm_code","developer_editorial","data"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"Monaspace Argon 西文搭配文楷中文，理性中带温度","source":"https://github.com/lxgw/LxgwBright-Code","caution":"不适合竖排；Lite 中文字符集必须核对项目文案。","family":"LXGW Bright Code"},{"id":"ark-pixel","names":["方舟像素字体","Ark Pixel Font"],"roles":["pixel_display","game_ui","retro"],"region":"Pan-CJK","license":"SIL OFL 1.1 (fonts); MIT (builder)","license_class":"open_source","style":"黑体像素、复古游戏、硬边数字界面","source":"https://github.com/TakWolf/ark-pixel-font","caution":"选择明确像素尺寸和 zh_cn 变体；不要缩放到非整数像素导致发糊。","family":"Ark Pixel Font"},{"id":"fusion-pixel","names":["缝合像素字体","Fusion Pixel Font"],"roles":["pixel_body","game_ui","pan_cjk"],"region":"Pan-CJK","license":"SIL OFL 1.1","license_class":"open_source","style":"多尺寸泛中日韩像素字体，适合完整复古界面","source":"https://github.com/TakWolf/fusion-pixel-font","caution":"文件变体很多；固定像素尺寸、语言区域和等宽策略后再打包。","family":"Fusion Pixel Font"},{"id":"zhuque-fangsong","names":["朱雀仿宋","Zhuque Fangsong"],"roles":["fangsong_display","culture","longform"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source_preview","style":"南宋刻本风格、传统出版、文化叙事","source":"https://github.com/TrionesType/zhuque","caution":"仍可能处于技术预览；上线前检查版本、字形覆盖和变更记录。","family":"Zhuque Fangsong"},{"id":"plangothic","names":["遍黑体","Plangothic"],"roles":["rare_glyph_body","archive","academic"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"中性黑体、扩展区覆盖、档案和学术用途","source":"https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project","caution":"体积巨大且主要价值是生僻字；普通落地页不要整包加载。","family":"Plangothic"},{"id":"chiron-hei-hk","names":["昭源黑体","Chiron Hei HK"],"roles":["tc_ui","tc_body","publishing"],"region":"HK","license":"SIL OFL 1.1","license_class":"open_source","style":"现代香港黑体、标准与印刷习惯平衡","source":"https://github.com/chiron-fonts/chiron-hei-hk","caution":"面向繁体/HK；简体页面不要把它作为默认 SC 字体。","family":"Chiron Hei HK"},{"id":"chiron-sung-hk","names":["昭源宋体","Chiron Sung HK"],"roles":["tc_editorial","tc_body","culture"],"region":"HK","license":"SIL OFL 1.1","license_class":"open_source","style":"现代香港宋体、出版感、适合繁体长文","source":"https://github.com/chiron-fonts/chiron-sung-hk","caution":"面向繁体/HK；使用官方 WOFF2 发行包并匹配正确内部家族名。","family":"Chiron Sung HK"},{"id":"douyin-sans","names":["抖音美好体","DouyinSans"],"roles":["social_display","video_title","campaign"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source_brand","style":"饱满、厚重、刚柔并济，适合社交和短视频标题","source":"https://github.com/bytedance/fonts","caution":"只有常用字符范围；长文或生僻字页面必须设置 SC fallback。","family":"DouyinSans"},{"id":"alibaba-puhuiti-3","names":["阿里巴巴普惠体 3.0","Alibaba PuHuiTi 3.0"],"roles":["commerce_ui","body_zh","global_brand"],"region":"SC","license":"Alibaba Fonts license; verify current official terms","license_class":"brand_free","style":"中性现代、商业友好、多字重、多语言","source":"https://www.alibabafonts.com/","official_download":"https://fonts.alibabadesign.com/AlibabaPuHuiTi-3/AlibabaPuHuiTi-3-55-Regular/AlibabaPuHuiTi-3-55-Regular.woff2","preview_file":"alibaba-puhuiti-3.woff2","css_family":"Alibaba PuHuiTi 3.0","test_policy":"internal_preview_only_no_commercial_no_public_redistribution","caution":"官方许可与本项目政策必须分开记录；本项目副本仅供内部测试，禁止商用、公开发布或随 Skill 再分发。","family":"Alibaba PuHuiTi 3.0"},{"id":"alimama-shuheiti","names":["阿里妈妈数黑体","Alimama ShuHeiTi"],"roles":["commerce_display","price","campaign"],"region":"SC","license":"Alibaba/Alimama free commercial license; verify official package","license_class":"brand_free","style":"饱满中正、厚实醒目、数字和价格友好","source":"https://www.alibabafonts.com/","official_download":"https://fonts.alibabadesign.com/AlimamaShuHeiTi/AlimamaShuHeiTi-Bold/AlimamaShuHeiTi-Bold.woff2","preview_file":"alimama-shuheiti.woff2","preview_weight":"700","css_family":"Alimama ShuHeiTi","test_policy":"internal_preview_only_no_commercial_no_public_redistribution","caution":"适合电商标题与数字；本项目副本仅供内部测试，禁止商用、公开发布或随 Skill 再分发。","family":"Alimama ShuHeiTi"},{"id":"alimama-shuzhiti","names":["阿里妈妈数智体","Alimama ShuZhiTi"],"roles":["variable_tech_display","data","brand_system"],"region":"SC","license":"Alibaba/Alimama license; verify official package","license_class":"brand_free","style":"轻盈科技、点阵基因、可变轴与数字秩序","source":"https://www.alibabafonts.com/","official_download":"","preview_file":"","css_family":"Alimama ShuZhiTi","test_policy":"reference_only_unverified_download","caution":"当前阿里字体官方 Webfont 清单中未核验到稳定下载文件；保留为风格参考，不得用相近字体冒充。","family":"Alimama ShuZhiTi"},{"id":"alimama-dongfang-dakai","names":["阿里妈妈东方大楷","Alimama DongFang DaKai"],"roles":["bold_calligraphy","festival","culture_campaign"],"region":"SC","license":"Alibaba/Alimama free commercial license; verify official package","license_class":"brand_free","style":"颜体风骨、丰腴浑厚、传统文化传播","source":"https://www.alibabafonts.com/","official_download":"https://fonts.alibabadesign.com/AlimamaDongFangDaKai/AlimamaDongFangDaKai-Regular/AlimamaDongFangDaKai-Regular.woff2","preview_file":"alimama-dongfang-dakai.woff2","css_family":"Alimama DongFangDaKai","test_policy":"internal_preview_only_no_commercial_no_public_redistribution","caution":"只用于短标题和文化海报；本项目副本仅供内部测试，禁止商用、公开发布或随 Skill 再分发。","family":"Alimama DongFangDaKai"},{"id":"alimama-daoliti","names":["阿里妈妈刀隶体","Alimama DaoLiTi"],"roles":["clerical_display","rugged_campaign","culture"],"region":"SC","license":"Alibaba/Alimama free commercial license; verify official package","license_class":"brand_free","style":"隶楷之间、方强稚拙、锋芒和碑刻感","source":"https://www.alibabafonts.com/","official_download":"https://fonts.alibabadesign.com/AlimamaDaoLiTi/AlimamaDaoLiTi-Regular/AlimamaDaoLiTi-Regular.woff2","preview_file":"alimama-daoliti.woff2","css_family":"Alimama DaoLiTi","test_policy":"internal_preview_only_no_commercial_no_public_redistribution","caution":"结构大胆且可读性有限；仅用于 2–8 字主视觉。本项目副本禁止商用、公开发布或再分发。","family":"Alimama DaoLiTi"},{"id":"dingtalk-jinbuti","names":["钉钉进步体","DingTalk JinBuTi"],"roles":["bold_brand_display","workplace_campaign","poster"],"region":"SC","license":"DingTalk free commercial license; verify downloaded agreement","license_class":"brand_free","style":"锐利、进取、粗壮，适合行动口号和职场传播","source":"https://www.alibabafonts.com/","official_download":"https://fonts.alibabadesign.com/DingTalkJinBuTi/DingTalkJinBuTi-Regular/DingTalkJinBuTi-Regular.ttf","preview_file":"dingtalk-jinbuti.ttf","css_family":"DingTalk JinBuTi","test_policy":"internal_preview_only_no_commercial_no_public_redistribution","caution":"免费商用不等于开源；本项目副本仍限定内部测试，禁止商用、公开发布、改造或再分发。","family":"DingTalk JinBuTi"},{"id":"misans","names":["小米 MiSans","MiSans"],"roles":["system_ui","body_zh","global_product","variable"],"region":"SC","license":"MiSans Font Intellectual Property License Agreement","license_class":"proprietary_free","style":"简约清晰、人文易读、可变字重、多语言产品","source":"https://hyperos.mi.com/font/zh/download/","official_download":"https://hyperos.mi.com/font-download/MiSans_Global_ALL.zip","preview_file":"misans.woff2","css_family":"MiSans","test_policy":"internal_preview_only_no_commercial_no_public_redistribution","caution":"协议禁止改编、二次开发和字体软件再分发，并要求按协议注明；本项目副本另行禁止商用和公开发布。","family":"MiSans"},{"id":"harmonyos-sans","names":["鸿蒙黑体","HarmonyOS Sans SC"],"roles":["system_ui","multi_device","body_zh"],"region":"SC","license":"Huawei official font license; verify package","license_class":"proprietary_free","style":"清晰、通用、跨设备、无级可变的系统字体","source":"https://developer.huawei.com/consumer/cn/design/resource-V1/","official_download":"https://developer.huawei.com/images/download/general/HarmonyOS-Sans.zip","preview_file":"harmonyos-sans.ttf","css_family":"HarmonyOS Sans SC","test_policy":"internal_preview_only_no_commercial_no_public_redistribution","caution":"官方包允许在条件下嵌入未修改副本，但不得单独分发；本项目副本进一步限定内部测试且禁止商用/公开发布。","family":"HarmonyOS Sans SC"},{"id":"oppo-sans","names":["OPPO Sans 3.0","OPPO Sans"],"roles":["consumer_tech","system_ui","body_zh"],"region":"SC","license":"OPPO free commercial license","license_class":"proprietary_free","style":"字身收窄、轻盈、结构稳定、现代科技","source":"https://www.coloros.com/article/A00000050/","official_download":"https://coloros-website-cn.allawnfs.com/font/OPPOSans3.0.zip","preview_file":"oppo-sans.otf","css_family":"OPPO Sans","test_policy":"internal_preview_only_no_commercial_no_public_redistribution","caution":"当前已核验并安装的是 3.0 官方包；不得改编、售卖或提供其他下载渠道，本项目副本禁止商用和公开发布。","family":"OPPO Sans"},{"id":"honor-sans","names":["HONOR Sans","荣耀字体"],"roles":["system_ui","variable","accessibility"],"region":"SC","license":"HONOR free commercial terms; verify package","license_class":"proprietary_free","style":"简洁生动、字重与中宫可变、强调信息效率","source":"https://developer.honor.com/cn/doc/guides/100681","official_download":"","preview_file":"","css_family":"HONOR Sans","test_policy":"reference_only_unverified_download","caution":"官方页面仅核验到交互式下载入口，尚未取得可复核直链；当前不安装，网页嵌入和再分发需单独核验。","family":"HONOR Sans"},{"id":"vivo-sans","names":["vivo Sans","vivo Sans SC"],"roles":["system_ui","reading","variable","global_product"],"region":"SC","license":"vivo official free-use terms; verify download package","license_class":"proprietary_free","style":"自然舒适、传统文字美学、连续字重调节","source":"https://www.vivo.com/hk/zh/originos","official_download":"https://h5.vivo.com.cn/mall/vivoFont/vivo%20Sans.zip","preview_file":"vivo-sans.ttf","css_family":"vivo Sans","test_policy":"internal_preview_only_no_commercial_no_public_redistribution","caution":"官网提供下载且包内含知识产权许可协议；本项目副本仅供内部测试，禁止商用、公开发布、改造或再分发。","family":"vivo Sans"},{"id":"jd-langzheng","names":["京东朗正体","JD LangZheng"],"roles":["commerce_brand","bold_display","ui"],"region":"Multi-CJK","license":"JD brand font terms; verify official download","license_class":"brand_reference","style":"稳重有力、平切笔画、扁平字面、强电商识别","source":"https://jdrdl.jd.com/Brand-Font.html","official_download":"https://jdrdl.jd.com/assets/fonts/JDLANGZHENGTI-R--GBK1-0.woff2","preview_file":"jd-langzheng.woff2","css_family":"JingDongLangZhengTi","test_policy":"internal_preview_only_no_commercial_no_public_redistribution","caution":"官方页面未在正文明确完整许可范围；本项目文件只用于内部预览，禁止商用、公开发布或再分发。","family":"JingDongLangZhengTi"},{"id":"huninn","names":["粉圆","Huninn"],"roles":["rounded_display","friendly_ui","playful_body"],"region":"TC","license":"SIL OFL 1.1","license_class":"open_source","style":"台湾圆体、珍珠般饱满亲和、标点与注音针对繁体排版调整","source":"https://github.com/justfont/Huninn","caution":"优先用于 zh-TW；简体页面不能假设全部字形符合大陆规范。","family":"Huninn"},{"id":"chenyu-luoyan-thin","names":["辰宇落雁体细体","ChenYuluoyan Thin"],"roles":["handwritten_display","diary","poetic_quote"],"region":"TC","license":"SIL OFL 1.1","license_class":"open_source","style":"纤细原子笔手写、轻柔呢喃、带学生手稿和私人信件气息","source":"https://github.com/Chenyu-otf/chenyuluoyan_thin","caution":"细笔画只用于大字号短句；选择等宽或不等宽版本后必须复核网页行距。","family":"ChenYuluoyan Thin"},{"id":"jason-handwriting-1","names":["清松手写体 1","JasonHandwriting1"],"roles":["rounded_handwriting","note","friendly_display"],"region":"TC","license":"SIL OFL 1.1","license_class":"open_source","style":"圆润自然的原子笔手写，亲和但不幼稚","source":"https://github.com/jasonhandwriting/JasonHandwriting","caution":"繁体手写路线；发布前检查简体字和标点覆盖。","family":"JasonHandwriting1"},{"id":"jason-handwriting-2","names":["清松手写体 2","JasonHandwriting2"],"roles":["slender_handwriting","diary","feminine_display"],"region":"TC","license":"SIL OFL 1.1","license_class":"open_source","style":"秀气纤细、字面收敛、适合日记与轻柔品牌语气","source":"https://github.com/jasonhandwriting/JasonHandwriting","caution":"低对比背景和小字号会损失笔画；只承担短标题或引语。","family":"JasonHandwriting2"},{"id":"jason-handwriting-3","names":["清松手写体 3","JasonHandwriting3"],"roles":["cute_handwriting","sticker","youth_campaign"],"region":"TC","license":"SIL OFL 1.1","license_class":"open_source","style":"呆萌、略显笨拙、字形节奏活泼","source":"https://github.com/jasonhandwriting/JasonHandwriting","caution":"用于贴纸和短标题；不要用于严肃证明或连续正文。","family":"JasonHandwriting3"},{"id":"jason-handwriting-4","names":["清松手写体 4","JasonHandwriting4"],"roles":["pop_handwriting","poster","promotion"],"region":"TC","license":"SIL OFL 1.1","license_class":"open_source","style":"POP 海报笔触、外向醒目、促销与活动感强","source":"https://github.com/jasonhandwriting/JasonHandwriting","caution":"保持标题短促；数字价格需另外测试基线和字宽。","family":"JasonHandwriting4"},{"id":"jason-handwriting-5","names":["清松手写体 5","JasonHandwriting5"],"roles":["running_kai","culture_display","signature"],"region":"TC","license":"SIL OFL 1.1","license_class":"open_source","style":"行楷、连贯流动、比草书更易辨识","source":"https://github.com/jasonhandwriting/JasonHandwriting","caution":"适合 2–12 字文化标题；按钮与正文使用中性字体。","family":"JasonHandwriting5"},{"id":"jason-handwriting-6","names":["清松手写体 6","JasonHandwriting6"],"roles":["kawaii_handwriting","child","social_sticker"],"region":"TC","license":"SIL OFL 1.1","license_class":"open_source","style":"Q 萌、圆鼓、贴纸感突出，适合轻社交和儿童内容","source":"https://github.com/jasonhandwriting/JasonHandwriting","caution":"同屏只作一个装饰层级，避免整页幼态化。","family":"JasonHandwriting6"},{"id":"jason-handwriting-7","names":["清松手写体 7","JasonHandwriting7"],"roles":["flowing_handwriting","fashion_quote","poetic_display"],"region":"TC","license":"SIL OFL 1.1","license_class":"open_source","style":"飘逸、长笔势、留白感强，适合诗句与时尚引语","source":"https://github.com/jasonhandwriting/JasonHandwriting","caution":"不压缩字距；避免两行以上长句和窄屏小字号。","family":"JasonHandwriting7"},{"id":"jason-handwriting-8","names":["清松手写体 8","JasonHandwriting8"],"roles":["casual_handwriting","vlog","travel_note"],"region":"TC","license":"SIL OFL 1.1","license_class":"open_source","style":"随性、速度较快、像旅途中即时写下的标题","source":"https://github.com/jasonhandwriting/JasonHandwriting","caution":"适合 VLOG、旅行和手帐；信息型正文另配无衬线。","family":"JasonHandwriting8"},{"id":"jason-handwriting-9","names":["清松手写体 9","JasonHandwriting9"],"roles":["literary_handwriting","editorial_quote","lifestyle"],"region":"TC","license":"SIL OFL 1.1","license_class":"open_source","style":"文青、克制手写、适合编辑引语与生活方式章节","source":"https://github.com/jasonhandwriting/JasonHandwriting","caution":"必须用真实段落测试重复字形造成的手写机械感。","family":"JasonHandwriting9"},{"id":"maoken-assorted-sans","names":["猫啃什锦黑","Maoken Assorted Sans"],"roles":["marker_display","cute_poster","maternal_campaign"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"可爱马克笔、笔画活泼、粗细略有手绘波动","source":"https://github.com/maoken-fonts/MaokenAssortedSans","caution":"适合母婴、可爱海报和短标题；不用于正文和密集 UI。","family":"Maoken Assorted Sans"},{"id":"maoken-yingbi-kaishu","names":["猫啃硬笔楷书","Maoken YingBi KaiShu J"],"roles":["pen_kai","serious_handwriting","education"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"有个人笔迹的硬笔楷书，端正中保留纸笔温度","source":"https://github.com/maoken-fonts/MaokenYingBiKaiShuJ","caution":"当前版本仍较早；正式项目逐字检查，尤其标题关键字。","family":"Maoken YingBi KaiShu J"},{"id":"kingnam-bobohei","names":["荆南波波黑","Kingnam Bobohei"],"roles":["wavy_handwriting","playful_display","small_display"],"region":"Multi-CJK","license":"SIL OFL 1.1","license_class":"open_source","style":"横竖微波浪、曲线流畅、俏皮动感且小字号仍较清楚","source":"https://github.com/maoken-fonts/KNBobohei","caution":"用于趣味 UI、活动标题和标签；先核验所需地区字形。","family":"Kingnam Bobohei"},{"id":"kingnam-yuanmo","names":["荆南缘默体","Kingnam Yuanmo"],"roles":["variety_bold","signage","campaign_display"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"偏扁粗黑、低重心、圆角综艺美术字，强烈占满字框","source":"https://github.com/maoken-fonts/KNYuanmo","caution":"适合店招、户外广告、VLOG 封面；长句会形成过重色块。","family":"Kingnam Yuanmo"},{"id":"longzhuti","names":["龙珠体","LongZhuTi"],"roles":["rock_display","energetic_poster","game_title"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"摇滚漫画式粗黑、边角有动作感、适合游戏与年轻海报","source":"https://github.com/maoken-fonts/LongZhuTi","caution":"GB/T 2312 为主要覆盖；超出常用字时设置 SC fallback。","family":"LongZhuTi"},{"id":"slide-fu","names":["演示佛系体","Slidefu"],"roles":["casual_brush","lifestyle_display","quote"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"松弛随缘、圆钝手写、适合生活方式和轻情绪短句","source":"https://github.com/maoken-fonts/slidefont","caution":"风格描述依据官方命名与样张归纳；发布前必须以真实标题复核。","family":"Slidefu"},{"id":"slide-youran","names":["演示悠然小楷","Slideyouran"],"roles":["small_kai","poetic_display","traditional_lifestyle"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"舒展小楷、安静含蓄、适合茶饮、诗句与文化生活","source":"https://github.com/maoken-fonts/slidefont","caution":"细小楷在屏幕上需大字号和高对比；不承担按钮。","family":"Slideyouran"},{"id":"slide-chunfeng","names":["演示春风楷","Slidechunfeng"],"roles":["soft_kai","seasonal_display","culture"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"轻柔楷意、舒缓开张，带春日和人文气息","source":"https://github.com/maoken-fonts/slidefont","caution":"风格描述依据官方命名与样张归纳；用于短标题并检查缺字。","family":"Slidechunfeng"},{"id":"slide-xiaxing","names":["演示夏行楷","Slidexiaxing"],"roles":["running_kai","dynamic_calligraphy","event_title"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"行楷速度感、热烈外放、适合活动和文化主视觉","source":"https://github.com/maoken-fonts/slidefont","caution":"只用于短句；移动端不得依靠缩小字号塞入一行。","family":"Slidexiaxing"},{"id":"slide-qiuhong","names":["演示秋鸿楷","Slideqiuhong"],"roles":["elegant_kai","editorial_display","poetic_title"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"清瘦雅致、带飞白和书卷感，适合文学与展览标题","source":"https://github.com/maoken-fonts/slidefont","caution":"风格描述依据官方命名与样张归纳；浅色背景需加强对比。","family":"Slideqiuhong"},{"id":"chill-round","names":["寒蝉圆体","Chill Round"],"roles":["rounded_display","friendly_ui","soft_brand"],"region":"SC-TC","license":"SIL OFL 1.1","license_class":"open_source","style":"全圆与半圆两条路线，柔软现代、比儿童圆体更适合产品界面","source":"https://github.com/Warren2060/ChillRound","caution":"仓库包含全圆/半圆版本；先固定具体文件和内部家族名。","family":"Chill Round"},{"id":"chill-g-sans","names":["寒蝉高黑体","Chill G Sans"],"roles":["narrow_humanist","subtitle","elegant_display"],"region":"Multi-CJK","license":"SIL OFL 1.1","license_class":"open_source","style":"窄黑、现代温润、融合手写笔意和旧字形，适合字幕与包装","source":"https://github.com/Warren2060/ChillGSans","caution":"只有中黑一个字重；不要让浏览器合成假粗体。","family":"Chill G Sans"},{"id":"unbounded-sans","names":["无界黑","Unbounded Sans"],"roles":["ultra_bold_display","game_title","campaign"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"极粗、宽阔、漫画与潮流冲击力强，适合一屏一个短标题","source":"https://github.com/maoken-fonts/unbounded-sans","caution":"主要覆盖 GB/T 2312；长标题会迅速挤压布局。","family":"Unbounded Sans"},{"id":"cubic-11","names":["俐方体 11 号","Cubic 11"],"roles":["pixel_display","retro_ui","game"],"region":"TC-SC","license":"SIL OFL 1.1","license_class":"open_source","style":"11×11 硬边点阵、复古掌机感、繁体像素字形鲜明","source":"https://github.com/ACh-K/Cubic-11","caution":"只按整数像素倍数缩放；简体覆盖有限，先跑实际文案。","family":"Cubic 11"},{"id":"genwan-serif","names":["源云明体","GenWan Serif"],"roles":["soft_serif","nostalgic_editorial","literary_body"],"region":"TC","license":"SIL OFL 1.1","license_class":"open_source","style":"模拟旧印刷墨水晕染，圆润温暖、怀旧柔和","source":"https://github.com/ButTaiwan/genwan-font","caution":"选择 TW 或 TC 版本并保持一致；不作为简体默认宋体。","family":"GenWan Serif"},{"id":"glow-sans","names":["未来荧黑","Glow Sans SC"],"roles":["geometric_display","variable_system","futuristic_body"],"region":"Multi-CJK","license":"SIL OFL 1.1 for font files; verify repository licenses","license_class":"open_source","style":"字面收敛、几何平直、清新轻快，宽度与字重轴适合动态科技排版","source":"https://github.com/welai/glow-sans","caution":"变体数量多；网页只打包实际使用的地区、字重和宽度子集。","family":"Glow Sans SC"},{"id":"maoken-fengyasong","names":["猫啃网风雅宋","MaoKenWang FengYaSong"],"roles":["display_serif","elegant_editorial","cultural_brand"],"region":"SC","license":"SIL OFL 1.1","license_class":"open_source","style":"宋体骨架更具装饰性和风雅气质，适合文化品牌与编辑标题","source":"https://github.com/maoken-fonts/fengyasong","caution":"项目处于低维护状态；发布前检查版本、缺字与小字号笔画。","family":"MaoKenWang FengYaSong"}];
+    const GROUPS = ['全部', '花体/手写', '圆体/可爱', '海报/品牌', '编辑/宋体', '技术/像素', '正文/UI'];
+    const state = {
+      group: '全部',
+      query: '',
+      sample: document.querySelector('#sample').value,
+      loaded: new Map(),
+      serverLoaded: new Set(),
+      serverLoading: new Set(),
+      serverErrors: new Map(),
+    };
+    const grid = document.querySelector('#grid');
+    const summary = document.querySelector('#summary');
+    const fileInput = document.querySelector('#font-file');
+    let loadTarget = null;
+
+    function isOfficialTestFont(font) {
+      return Boolean(font.test_policy && font.test_policy.startsWith('internal_preview_only'));
+    }
+
+    function isServerFont(font) {
+      return font.license_class.startsWith('open_source') || Boolean(font.preview_file);
+    }
+
+    function groupOf(font) {
+      const hay = `${font.roles.join(' ')} ${font.style}`.toLowerCase();
+      if (/hand|callig|kai|brush|script|diary|quote|书法|手写|楷|行草|草书|题字/.test(hay)) return '花体/手写';
+      if (/round|cute|playful|kawaii|child|圆|可爱|萌|童/.test(hay)) return '圆体/可爱';
+      if (/poster|campaign|brand|commerce|signage|bold|海报|品牌|电商|促销/.test(hay)) return '海报/品牌';
+      if (/serif|editorial|literary|宋|明体|出版|编辑|仿宋/.test(hay)) return '编辑/宋体';
+      if (/mono|code|pixel|data|developer|像素|代码|等宽/.test(hay)) return '技术/像素';
+      return '正文/UI';
+    }
+
+    async function loadServerFont(font) {
+      if (!isServerFont(font) || state.serverLoaded.has(font.family)) return;
+      state.serverLoading.add(font.family);
+      state.serverErrors.delete(font.family);
+      render();
+      try {
+        const faces = await document.fonts.load(`${font.preview_weight || 400} 48px "${font.family}"`, state.sample);
+        if (!faces.length) throw new Error('浏览器没有找到对应的服务器字体规则');
+        state.serverLoaded.add(font.family);
+      } catch (error) {
+        state.serverErrors.set(font.family, error.message || '字体文件加载失败');
+      } finally {
+        state.serverLoading.delete(font.family);
+        render();
+      }
+    }
+
+    function filteredFonts() {
+      const query = state.query.trim().toLowerCase();
+      return FONTS.filter(font => {
+        if (state.group !== '全部' && groupOf(font) !== state.group) return false;
+        if (!query) return true;
+        const hay = [font.id, ...font.names, ...font.roles, font.region, font.license_class, font.style].join(' ').toLowerCase();
+        return hay.includes(query);
+      });
+    }
+
+    function render() {
+      const list = filteredFonts();
+      const serverFonts = FONTS.filter(isServerFont);
+      const officialTests = serverFonts.filter(isOfficialTestFont);
+      summary.textContent = `显示 ${list.length} / ${FONTS.length} 个字体家族 · 当前分类：${state.group} · 服务器字体自动载入：${state.serverLoaded.size} / ${serverFonts.length}${state.autoLoading ? '（进行中）' : '（完成）'} · 官方内部测试字体：${officialTests.length}`;
+      grid.replaceChildren();
+      if (!list.length) {
+        grid.innerHTML = '<p class="empty">没有匹配结果，尝试搜索“手写”“科技”“TC”或“open_source”。</p>';
+        return;
+      }
+      list.forEach(font => {
+        const family = state.loaded.get(font.family) || font.family;
+        const localAlias = state.loaded.get(font.family);
+        const loaded = Boolean(localAlias) || state.serverLoaded.has(font.family);
+        const loading = state.serverLoading.has(font.family);
+        const manualLicense = !isServerFont(font);
+        const officialTest = isOfficialTestFont(font);
+        const statusText = localAlias
+          ? '● 已从本地文件载入'
+          : loaded
+            ? officialTest
+              ? '● 已从服务器载入 · 仅内部测试 · 禁止商用/公开分发'
+              : '● 已从服务器载入'
+            : loading
+              ? '◌ 正在从服务器载入…'
+          : manualLicense
+            ? '○ 未提供已核验服务器文件；仅可在确认官方来源后本地载入'
+            : state.serverErrors.has(font.family)
+              ? `○ 服务器加载失败：${state.serverErrors.get(font.family)}`
+              : '○ 已下载到服务器；点击“加载服务器字体”预览';
+        const card = document.createElement('article');
+        card.className = 'specimen';
+        card.dataset.id = font.id;
+        card.innerHTML = `
+          <div class="specimen-head"><h2>${font.names[0]}<span>${font.family} · ${font.region}</span></h2><span class="badge ${font.license_class}">${font.license_class}</span></div>
+          <div class="glyph"></div>
+          <p class="style">${font.style}</p>
+          ${officialTest ? '<p class="policy">本项目仅供内部测试：禁止商用、公开部署、公开分享字体 URL 或再分发字体文件。</p>' : ''}
+          <ul class="roles">${font.roles.map(role => `<li>${role}</li>`).join('')}</ul>
+          <div class="details"><span>${font.caution}</span><a class="source" href="${font.source}" target="_blank" rel="noreferrer">官方来源 ↗</a></div>
+          ${manualLicense
+            ? '<button class="font-loader" type="button">载入本地字体文件</button>'
+            : `<button class="font-loader" type="button" ${loaded || loading ? 'disabled' : ''}>${loaded ? '服务器字体已载入' : loading ? '正在载入…' : '加载服务器字体'}</button>`}
+          <span class="status ${loaded ? 'loaded' : ''}">${statusText}</span>`;
+        const glyph = card.querySelector('.glyph');
+        glyph.textContent = state.sample;
+        glyph.style.fontFamily = `"${family}", "Noto Sans SC", sans-serif`;
+        glyph.style.fontWeight = font.preview_weight || 400;
+        const loader = card.querySelector('.font-loader');
+        if (manualLicense) {
+          loader.setAttribute('aria-label', `为${font.names[0]}载入本地字体文件`);
+          loader.onclick = () => { loadTarget = font; fileInput.value = ''; fileInput.click(); };
+        } else {
+          loader.setAttribute('aria-label', `从服务器载入${font.names[0]}`);
+          loader.onclick = () => loadServerFont(font);
+        }
+        grid.append(card);
+      });
+    }
+
+    GROUPS.forEach(group => {
+      const button = document.createElement('button');
+      button.className = 'chip';
+      button.type = 'button';
+      button.textContent = group;
+      button.setAttribute('aria-pressed', String(group === state.group));
+      button.onclick = () => {
+        state.group = group;
+        document.querySelectorAll('.chip').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+        render();
+      };
+      document.querySelector('#filters').append(button);
+    });
+
+    document.querySelector('#search').addEventListener('input', event => { state.query = event.target.value; render(); });
+    document.querySelector('#sample').addEventListener('input', event => { state.sample = event.target.value; render(); });
+    fileInput.addEventListener('change', async () => {
+      if (!loadTarget || !fileInput.files[0]) return;
+      try {
+        const alias = `Specimen-${loadTarget.id}`;
+        const face = new FontFace(alias, await fileInput.files[0].arrayBuffer());
+        await face.load();
+        document.fonts.add(face);
+        state.loaded.set(loadTarget.family, alias);
+        render();
+      } catch (error) {
+        window.alert(`字体加载失败：${error.message}`);
+      }
+    });
+
+    async function autoLoadServerFonts() {
+      const serverFonts = FONTS.filter(isServerFont);
+      state.autoLoading = true;
+      render();
+      for (const font of serverFonts) {
+        await loadServerFont(font);
+      }
+      state.autoLoading = false;
+      render();
+    }
+
+    render();
+    autoLoadServerFonts();
+  </script>
+</body>
+</html>

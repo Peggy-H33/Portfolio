@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Motion Site Media Plan",
+  "type": "object",
+  "required": ["density", "assets"],
+  "properties": {
+    "density": {"enum": ["compact", "standard", "cinematic"]},
+    "compact_exception_reason": {"type": ["string", "null"]},
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "role", "video", "poster", "prompt", "subject_specific_reason", "unrelated_brand_substitution_passed", "target", "safe_zone", "focal_points", "processing_history", "integration_mode", "focal_target_met", "regeneration_attempts"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "role": {"enum": ["hero-atmosphere", "process-macro", "artifact-detail", "context-environment", "transition-bridge", "outcome"]},
+          "video": {"type": "string", "pattern": "\\.mp4$"},
+          "poster": {"type": "string", "pattern": "\\.(webp|jpg|jpeg|png)$"},
+          "prompt": {"type": "string", "minLength": 30},
+          "subject_specific_reason": {"type": "string", "minLength": 24},
+          "unrelated_brand_substitution_passed": {"type": "boolean"},
+          "provider_model": {"type": ["string", "null"]},
+          "target": {
+            "type": "object",
+            "required": ["ratio", "duration_seconds", "width", "height"],
+            "properties": {
+              "ratio": {"type": "string"},
+              "duration_seconds": {"type": "number", "exclusiveMinimum": 0},
+              "width": {"type": "integer", "minimum": 1},
+              "height": {"type": "integer", "minimum": 1}
+            }
+          },
+          "safe_zone": {
+            "type": "object",
+            "required": ["desktop", "tablet", "mobile"],
+            "properties": {
+              "desktop": {"type": "string"},
+              "tablet": {"type": "string"},
+              "mobile": {"type": "string"}
+            }
+          },
+          "focal_points": {
+            "type": "object",
+            "required": ["first", "middle", "last"],
+            "properties": {
+              "first": {"type": "string"},
+              "middle": {"type": "string"},
+              "last": {"type": "string"}
+            }
+          },
+          "processing_history": {"type": "array", "items": {"type": "string"}},
+          "integration_mode": {"enum": ["full-bleed", "near-full-bleed", "contained", "sticky", "inline"]},
+          "focal_target_met": {"type": "boolean"},
+          "regeneration_attempts": {"type": "integer", "minimum": 0},
+          "desktop_media_coverage_target": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "layout_change_approved": {"type": "boolean", "default": false},
+          "section_id": {"type": "string"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "中文网页字体设计 V6"
+  short_description: "以多款花体、逐元素断行和真实成片试排设计全站中文字体"
+  default_prompt: "Use $motion-site-chinese-web-design-v6 to create rich multi-script Chinese typography across unique page surfaces, author the line shapes, and propose bounded local copy-grid fixes from real-glyph evidence."

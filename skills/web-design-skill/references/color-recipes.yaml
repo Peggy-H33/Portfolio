@@ -1,0 +1,76 @@
+version: 1
+recipes:
+  - id: carbon-copper
+    voice: [technical, tactile, warm-dark]
+    tokens:
+      canvas: "#0C0E0F"
+      surface_1: "#151819"
+      surface_2: "#202426"
+      text_strong: "#F3F0E9"
+      text_body: "#C4C3BE"
+      text_muted: "#8C918F"
+      line: "#34393A"
+      accent: "#D68149"
+      accent_contrast: "#120B07"
+    use_when: "machined materials need human warmth"
+    avoid_when: "the subject has no material or industrial relationship"
+  - id: mineral-daylight
+    voice: [editorial, architectural, quiet]
+    tokens:
+      canvas: "#ECEDE8"
+      surface_1: "#F8F8F4"
+      surface_2: "#DDE0D8"
+      text_strong: "#151815"
+      text_body: "#40463F"
+      text_muted: "#6C756C"
+      line: "#C2C8BE"
+      accent: "#345C48"
+      accent_contrast: "#F8FBF6"
+    use_when: "architecture, material, or sustainability benefits from daylight"
+    avoid_when: "the brief asks for nocturnal cinematic immersion"
+  - id: ultraviolet-instrument
+    voice: [scientific, nocturnal, focused]
+    tokens:
+      canvas: "#07080D"
+      surface_1: "#10121A"
+      surface_2: "#171B27"
+      text_strong: "#F5F4FF"
+      text_body: "#BDC2D4"
+      text_muted: "#7E879F"
+      line: "#2A3042"
+      accent: "#8B7CFF"
+      accent_contrast: "#090812"
+    use_when: "scientific imaging or augmented perception is central"
+    avoid_when: "used merely as a generic purple-tech gradient"
+  - id: ink-carmine
+    voice: [editorial, assertive, cultural]
+    tokens:
+      canvas: "#F5F0E8"
+      surface_1: "#FFFDF8"
+      surface_2: "#E5DDD0"
+      text_strong: "#191512"
+      text_body: "#4A423B"
+      text_muted: "#776E65"
+      line: "#CFC4B6"
+      accent: "#A52C2B"
+      accent_contrast: "#FFF8F2"
+    use_when: "print/editorial history supports a red signal"
+    avoid_when: "brand context already uses a conflicting red semantic"
+  - id: ocean-terminal
+    voice: [infrastructure, calm, operational]
+    tokens:
+      canvas: "#071014"
+      surface_1: "#0D1A20"
+      surface_2: "#122832"
+      text_strong: "#EAF6F4"
+      text_body: "#AED0CC"
+      text_muted: "#6F9692"
+      line: "#244149"
+      accent: "#58D6C8"
+      accent_contrast: "#04100E"
+    use_when: "systems, networks, or monitoring need a cool field"
+    avoid_when: "luxury or heritage warmth is the page thesis"
+rules:
+  - "Create three applied palette previews; never select from swatches alone."
+  - "Verify contrast on representative video frames."
+  - "A recipe is a starting grammar; adjust to the subject and record changes."

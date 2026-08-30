@@ -1,0 +1,46 @@
+{
+  "provider": "SenseAudio",
+  "task_id": "25684ca2-58f0-42e5-ae29-d33c0501407d",
+  "status": "completed",
+  "video_url": "https://dynamic.senseaudio.cn/video/272b43a9-c735-410a-9358-a64f7a530c7e",
+  "saved_path": "media/lane-house.mp4",
+  "downloaded_at": "2026-08-21T03:41:17.095152+00:00",
+  "provider_response": {
+    "id": "2a0650d5-c8ce-4e37-ad8d-0de50b9bdff0",
+    "model": "doubao-seedance-2-0-260128",
+    "task_id": "25684ca2-58f0-42e5-ae29-d33c0501407d",
+    "status": "completed",
+    "progress": 100,
+    "video_url": "https://dynamic.senseaudio.cn/video/272b43a9-c735-410a-9358-a64f7a530c7e",
+    "duration": 8,
+    "is_new": true,
+    "created_at": 1787283075,
+    "completed_at": 1787283610,
+    "prompt": "",
+    "resolution": "720p",
+    "content": [
+      {
+        "type": "text",
+        "text": "8 seconds, 16:9 cinematic hospitality scene inside a restored Shanghai shikumen lane-house courtyard after rain, grey brick walls, black timber doors, art-deco patterned glass and a slim brass wall light, an intimate guest lounge visible through the open doorway. Fine rain continues, plane-tree leaves move in a soft breeze, water ripples in the stone courtyard and warm door light slowly grows as the door opens a little. Slow lateral camera drift at human eye level, 50mm lens, tactile brick, wet stone, aged timber, restrained warm light. Keep RIGHT 58-92% as a calm copy-safe wall and darkness; focus the doorway and rain action on LEFT/CENTER 18-55%. Loop-friendly end. No embedded text, no logo, no watermark, no UI, no border, no split screen, no abrupt cut, no crowds, no generic European villa, stable exposure."
+      }
+    ],
+    "ratio": "16:9",
+    "provider_specific": {
+      "generate_audio": false
+    }
+  },
+  "source_kind": "text-to-video",
+  "provider_model": "doubao-seedance-2-0-260128",
+  "provider_task_id": "25684ca2-58f0-42e5-ae29-d33c0501407d",
+  "final_delivery_eligible": true,
+  "generation_mode": "first-party-provider",
+  "temporal_evidence": {
+    "static_transform_only": false,
+    "intrinsic_motion_types": ["environmental_motion", "subject_motion", "light_behavior", "camera_motion"],
+    "motion_summary": "首中末帧验证细雨、梧桐叶、院内涟漪、门扇与暖光独立变化，横移镜头只作辅助。",
+    "first_frame": "study/frames/lane-first.jpg",
+    "middle_frame": "study/frames/lane-middle.jpg",
+    "last_frame": "study/frames/lane-last.jpg",
+    "reviewer_passed": true
+  }
+}

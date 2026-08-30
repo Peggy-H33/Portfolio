@@ -1,0 +1,569 @@
+{
+  "policy": "Candidates are independent per module, then must be reconciled into one global hierarchy. This output is not a font stack, pairing, route, or download list.",
+  "input": {
+    "prompt": "上海高端酒店民宿电影化长页：浦江夜色、石库门灰砖、丝绒、黄铜、晨雾与私宅尺度；克制奢华、诗意但不古典复刻，中文是第一视觉层级",
+    "locale": "zh-CN",
+    "page_type": "landing",
+    "license_scope": "open",
+    "expressive_mode": "required",
+    "requested_signature_intent": "expressive-display",
+    "requested_distribution_mode": "distributed",
+    "requested_rich_script": "off"
+  },
+  "signature_intent": "expressive-display",
+  "distribution_mode": "distributed",
+  "expressive_accent_modules": [
+    "brand_mark",
+    "caption_metadata",
+    "cta",
+    "data_price",
+    "editorial_quote",
+    "hero_display",
+    "nav_ui",
+    "poster_badge",
+    "section_heading"
+  ],
+  "expressive_candidate_required": true,
+  "signature_required": true,
+  "script_signature_required": false,
+  "rich_script_required": false,
+  "rich_script_minimums": {
+    "distinct_script_families": 2,
+    "non_hero_expressive_surfaces": 4,
+    "semantic_module_types": 3,
+    "non_hero_page_regions": 3
+  },
+  "script_signature_categories": [
+    "calligraphic",
+    "handwritten"
+  ],
+  "signature_modules": [
+    "brand_mark",
+    "editorial_quote",
+    "hero_display"
+  ],
+  "ambiguous_input": false,
+  "ambiguity_action": null,
+  "modules": {
+    "brand_mark": {
+      "module_brief": "少字轮廓、品牌记忆和与 Logo/产品的关系",
+      "selection_state": "uncommitted",
+      "candidate_policy": "至少两个轮廓不同的表现型类别加一个可比较对照；非 Hero 模块不得仅因角色名称被自动降级为中性字体。",
+      "candidates": [
+        {
+          "font_id": "ma-shan-zheng",
+          "name": "马善政体",
+          "score": 21.0,
+          "category": "calligraphic",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "毛笔行楷、速度感强、笔锋外露，适合国风题字、文化活动和短标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display、calligraph、题字",
+            "风格命中：文化、题字",
+            "页面类型命中：display、标题"
+          ],
+          "must_verify": "书法笔意明显，只用于短标题/题字；正文和数字必须配无衬线 fallback。"
+        },
+        {
+          "font_id": "smiley-sans",
+          "name": "得意黑",
+          "score": 21.0,
+          "category": "rounded-playful",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "窄长、上扬、带手绘美术字张力，适合 fashion-tech、AI 穿戴、创意科技、年轻品牌和海报主标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display、poster、decorative、品牌",
+            "风格命中：品牌、海报",
+            "页面类型命中：display、标题、品牌"
+          ],
+          "must_verify": "字身窄而带手绘美术字处理；适合主标题、海报和短标签，不适合长正文、代码或密集 UI。"
+        },
+        {
+          "font_id": "maoken-fengyasong",
+          "name": "猫啃网风雅宋",
+          "score": 25.5,
+          "category": "serif-editorial",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "宋体骨架更具装饰性和风雅气质，适合文化品牌与编辑标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：brand、display、品牌",
+            "风格命中：编辑、宋体、文化、品牌",
+            "页面类型命中：display、brand、标题"
+          ],
+          "must_verify": "项目处于低维护状态；发布前检查版本、缺字与小字号笔画。"
+        }
+      ],
+      "next_action": "用该模块的真实文字、背景和容器加载所有候选并截图；模型看过实际 glyph 后再提交一个字体。"
+    },
+    "hero_display": {
+      "module_brief": "远距离轮廓、断行、媒体安全区和情绪峰值",
+      "selection_state": "uncommitted",
+      "candidate_policy": "至少两个轮廓不同的表现型类别加一个可比较对照；非 Hero 模块不得仅因角色名称被自动降级为中性字体。",
+      "candidates": [
+        {
+          "font_id": "ma-shan-zheng",
+          "name": "马善政体",
+          "score": 21.0,
+          "category": "calligraphic",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "毛笔行楷、速度感强、笔锋外露，适合国风题字、文化活动和短标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display、calligraph、题字",
+            "风格命中：文化、题字",
+            "页面类型命中：display、标题"
+          ],
+          "must_verify": "书法笔意明显，只用于短标题/题字；正文和数字必须配无衬线 fallback。"
+        },
+        {
+          "font_id": "smiley-sans",
+          "name": "得意黑",
+          "score": 21.0,
+          "category": "rounded-playful",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "窄长、上扬、带手绘美术字张力，适合 fashion-tech、AI 穿戴、创意科技、年轻品牌和海报主标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display、poster、主标题、海报",
+            "风格命中：品牌、海报",
+            "页面类型命中：display、标题、品牌"
+          ],
+          "must_verify": "字身窄而带手绘美术字处理；适合主标题、海报和短标签，不适合长正文、代码或密集 UI。"
+        },
+        {
+          "font_id": "maoken-fengyasong",
+          "name": "猫啃网风雅宋",
+          "score": 22.5,
+          "category": "serif-editorial",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "宋体骨架更具装饰性和风雅气质，适合文化品牌与编辑标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display、serif",
+            "风格命中：编辑、宋体、文化、品牌",
+            "页面类型命中：display、brand、标题"
+          ],
+          "must_verify": "项目处于低维护状态；发布前检查版本、缺字与小字号笔画。"
+        }
+      ],
+      "next_action": "用该模块的真实文字、背景和容器加载所有候选并截图；模型看过实际 glyph 后再提交一个字体。"
+    },
+    "section_heading": {
+      "module_brief": "长页重复稳定性、章节节奏和网格关系",
+      "selection_state": "uncommitted",
+      "candidate_policy": "至少两个轮廓不同的表现型类别加一个可比较对照；非 Hero 模块不得仅因角色名称被自动降级为中性字体。",
+      "candidates": [
+        {
+          "font_id": "ma-shan-zheng",
+          "name": "马善政体",
+          "score": 21.0,
+          "category": "calligraphic",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "毛笔行楷、速度感强、笔锋外露，适合国风题字、文化活动和短标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display、editorial、calligraph、标题",
+            "风格命中：文化、题字",
+            "页面类型命中：display、标题"
+          ],
+          "must_verify": "书法笔意明显，只用于短标题/题字；正文和数字必须配无衬线 fallback。"
+        },
+        {
+          "font_id": "smiley-sans",
+          "name": "得意黑",
+          "score": 21.0,
+          "category": "rounded-playful",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "窄长、上扬、带手绘美术字张力，适合 fashion-tech、AI 穿戴、创意科技、年轻品牌和海报主标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display、sans、标题",
+            "风格命中：品牌、海报",
+            "页面类型命中：display、标题、品牌"
+          ],
+          "must_verify": "字身窄而带手绘美术字处理；适合主标题、海报和短标签，不适合长正文、代码或密集 UI。"
+        },
+        {
+          "font_id": "maoken-fengyasong",
+          "name": "猫啃网风雅宋",
+          "score": 25.5,
+          "category": "serif-editorial",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "宋体骨架更具装饰性和风雅气质，适合文化品牌与编辑标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display、editorial、serif、标题",
+            "风格命中：编辑、宋体、文化、品牌",
+            "页面类型命中：display、brand、标题"
+          ],
+          "must_verify": "项目处于低维护状态；发布前检查版本、缺字与小字号笔画。"
+        }
+      ],
+      "next_action": "用该模块的真实文字、背景和容器加载所有候选并截图；模型看过实际 glyph 后再提交一个字体。"
+    },
+    "editorial_quote": {
+      "module_brief": "作者声音、手写个性、留白和短句节奏",
+      "selection_state": "uncommitted",
+      "candidate_policy": "至少两个轮廓不同的表现型类别加一个可比较对照；非 Hero 模块不得仅因角色名称被自动降级为中性字体。",
+      "candidates": [
+        {
+          "font_id": "long-cang",
+          "name": "龙藏体",
+          "score": 19.0,
+          "category": "calligraphic",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "行草笔意、松弛、文学和影像感",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：literary、文学",
+            "风格命中：文学、行草、影像",
+            "页面类型命中：display"
+          ],
+          "must_verify": "单字重且连笔明显，只用于 2–10 字题词；适合独立音乐、作者电影和诗歌影像，不得仅以‘太中国’否决，需检查具体字形、主题和可读性。"
+        },
+        {
+          "font_id": "zcool-xiaowei",
+          "name": "站酷小薇体",
+          "score": 18.0,
+          "category": "handwritten",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "纤细手写、清秀文艺、带轻微纸笔温度，适合女性向、手作和编辑短标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：hand、手写",
+            "风格命中：编辑、纤细",
+            "页面类型命中：display、标题"
+          ],
+          "must_verify": "只用作短句/标题并保留官方 OFL.txt。气质偏清秀、女性编辑、手作与诗意商品；摇滚、工业、赛博或强动作主题不能仅因‘编辑感’选用，必须与对应表现型字体实拍比较。"
+        },
+        {
+          "font_id": "source-han-serif-sc",
+          "name": "思源宋体",
+          "score": 20.25,
+          "category": "serif-editorial",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "现代宋体、横细竖粗、文学与编辑气质兼具，适合长文和克制标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：editorial、文学",
+            "风格命中：编辑、宋体、文学",
+            "页面类型命中：display、标题"
+          ],
+          "must_verify": "细笔画在低分辨率屏幕和小字号下要复核。"
+        }
+      ],
+      "next_action": "用该模块的真实文字、背景和容器加载所有候选并截图；模型看过实际 glyph 后再提交一个字体。"
+    },
+    "body_longform": {
+      "module_brief": "连续阅读、字面、标点、行长和多断点稳定性",
+      "selection_state": "uncommitted",
+      "candidate_policy": "按模块可读性、locale、主题和许可筛选。",
+      "candidates": [
+        {
+          "font_id": "source-han-serif-sc",
+          "name": "思源宋体",
+          "score": 23.25,
+          "category": "serif-editorial",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "现代宋体、横细竖粗、文学与编辑气质兼具，适合长文和克制标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：body、serif、长文",
+            "风格命中：编辑、宋体、文学",
+            "页面类型命中：display、标题"
+          ],
+          "must_verify": "细笔画在低分辨率屏幕和小字号下要复核。"
+        },
+        {
+          "font_id": "maoken-fengyasong",
+          "name": "猫啃网风雅宋",
+          "score": 19.5,
+          "category": "serif-editorial",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "宋体骨架更具装饰性和风雅气质，适合文化品牌与编辑标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：serif",
+            "风格命中：编辑、宋体、文化、品牌",
+            "页面类型命中：display、brand、标题"
+          ],
+          "must_verify": "项目处于低维护状态；发布前检查版本、缺字与小字号笔画。"
+        },
+        {
+          "font_id": "lxgw-neo-zhisong",
+          "name": "霞鹜新致宋",
+          "score": 17.75,
+          "category": "serif-editorial",
+          "region": "SC",
+          "license_class": "open_source_special",
+          "web_character": "现代宋体、笔形细致、比系统宋体更具编辑气质",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：body、editorial_body、serif",
+            "风格命中：编辑、宋体"
+          ],
+          "must_verify": "不是 OFL；小字号细笔画和许可证兼容性都要复核。"
+        }
+      ],
+      "next_action": "用该模块的真实文字、背景和容器加载所有候选并截图；模型看过实际 glyph 后再提交一个字体。"
+    },
+    "nav_ui": {
+      "module_brief": "小字号扫描、点击宽度、状态和跨设备清晰度",
+      "selection_state": "uncommitted",
+      "candidate_policy": "至少两个轮廓不同的表现型类别加一个可比较对照；非 Hero 模块不得仅因角色名称被自动降级为中性字体。",
+      "candidates": [
+        {
+          "font_id": "ma-shan-zheng",
+          "name": "马善政体",
+          "score": 18.0,
+          "category": "calligraphic",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "毛笔行楷、速度感强、笔锋外露，适合国风题字、文化活动和短标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display、calligraph",
+            "风格命中：文化、题字",
+            "页面类型命中：display、标题"
+          ],
+          "must_verify": "书法笔意明显，只用于短标题/题字；正文和数字必须配无衬线 fallback。"
+        },
+        {
+          "font_id": "smiley-sans",
+          "name": "得意黑",
+          "score": 18.0,
+          "category": "rounded-playful",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "窄长、上扬、带手绘美术字张力，适合 fashion-tech、AI 穿戴、创意科技、年轻品牌和海报主标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：ui、display",
+            "风格命中：品牌、海报",
+            "页面类型命中：display、标题、品牌"
+          ],
+          "must_verify": "字身窄而带手绘美术字处理；适合主标题、海报和短标签，不适合长正文、代码或密集 UI。"
+        },
+        {
+          "font_id": "source-han-serif-sc",
+          "name": "思源宋体",
+          "score": 20.25,
+          "category": "serif-editorial",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "现代宋体、横细竖粗、文学与编辑气质兼具，适合长文和克制标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：body_zh、display",
+            "风格命中：编辑、宋体、文学",
+            "页面类型命中：display、标题"
+          ],
+          "must_verify": "细笔画在低分辨率屏幕和小字号下要复核。"
+        }
+      ],
+      "next_action": "用该模块的真实文字、背景和容器加载所有候选并截图；模型看过实际 glyph 后再提交一个字体。"
+    },
+    "cta": {
+      "module_brief": "动作动词识别、按钮尺寸、字重和高对比",
+      "selection_state": "uncommitted",
+      "candidate_policy": "至少两个轮廓不同的表现型类别加一个可比较对照；非 Hero 模块不得仅因角色名称被自动降级为中性字体。",
+      "candidates": [
+        {
+          "font_id": "ma-shan-zheng",
+          "name": "马善政体",
+          "score": 18.0,
+          "category": "calligraphic",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "毛笔行楷、速度感强、笔锋外露，适合国风题字、文化活动和短标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display、calligraph",
+            "风格命中：文化、题字",
+            "页面类型命中：display、标题"
+          ],
+          "must_verify": "书法笔意明显，只用于短标题/题字；正文和数字必须配无衬线 fallback。"
+        },
+        {
+          "font_id": "smiley-sans",
+          "name": "得意黑",
+          "score": 18.0,
+          "category": "rounded-playful",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "窄长、上扬、带手绘美术字张力，适合 fashion-tech、AI 穿戴、创意科技、年轻品牌和海报主标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：ui、display",
+            "风格命中：品牌、海报",
+            "页面类型命中：display、标题、品牌"
+          ],
+          "must_verify": "字身窄而带手绘美术字处理；适合主标题、海报和短标签，不适合长正文、代码或密集 UI。"
+        },
+        {
+          "font_id": "maoken-fengyasong",
+          "name": "猫啃网风雅宋",
+          "score": 19.5,
+          "category": "serif-editorial",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "宋体骨架更具装饰性和风雅气质，适合文化品牌与编辑标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display",
+            "风格命中：编辑、宋体、文化、品牌",
+            "页面类型命中：display、brand、标题"
+          ],
+          "must_verify": "项目处于低维护状态；发布前检查版本、缺字与小字号笔画。"
+        }
+      ],
+      "next_action": "用该模块的真实文字、背景和容器加载所有候选并截图；模型看过实际 glyph 后再提交一个字体。"
+    },
+    "caption_metadata": {
+      "module_brief": "小字号、日期编号、标点和视觉退后层级",
+      "selection_state": "uncommitted",
+      "candidate_policy": "至少两个轮廓不同的表现型类别加一个可比较对照；非 Hero 模块不得仅因角色名称被自动降级为中性字体。",
+      "candidates": [
+        {
+          "font_id": "zcool-xiaowei",
+          "name": "站酷小薇体",
+          "score": 21.0,
+          "category": "handwritten",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "纤细手写、清秀文艺、带轻微纸笔温度，适合女性向、手作和编辑短标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display、hand、手写",
+            "风格命中：编辑、纤细",
+            "页面类型命中：display、标题"
+          ],
+          "must_verify": "只用作短句/标题并保留官方 OFL.txt。气质偏清秀、女性编辑、手作与诗意商品；摇滚、工业、赛博或强动作主题不能仅因‘编辑感’选用，必须与对应表现型字体实拍比较。"
+        },
+        {
+          "font_id": "ma-shan-zheng",
+          "name": "马善政体",
+          "score": 18.0,
+          "category": "calligraphic",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "毛笔行楷、速度感强、笔锋外露，适合国风题字、文化活动和短标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display、calligraph",
+            "风格命中：文化、题字",
+            "页面类型命中：display、标题"
+          ],
+          "must_verify": "书法笔意明显，只用于短标题/题字；正文和数字必须配无衬线 fallback。"
+        },
+        {
+          "font_id": "source-han-serif-sc",
+          "name": "思源宋体",
+          "score": 20.25,
+          "category": "serif-editorial",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "现代宋体、横细竖粗、文学与编辑气质兼具，适合长文和克制标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：body、display",
+            "风格命中：编辑、宋体、文学",
+            "页面类型命中：display、标题"
+          ],
+          "must_verify": "细笔画在低分辨率屏幕和小字号下要复核。"
+        }
+      ],
+      "next_action": "用该模块的真实文字、背景和容器加载所有候选并截图；模型看过实际 glyph 后再提交一个字体。"
+    },
+    "data_price": {
+      "module_brief": "数字宽度、基线、tabular nums 和价格强调",
+      "selection_state": "uncommitted",
+      "candidate_policy": "至少两个轮廓不同的表现型类别加一个可比较对照；非 Hero 模块不得仅因角色名称被自动降级为中性字体。",
+      "candidates": [
+        {
+          "font_id": "zcool-xiaowei",
+          "name": "站酷小薇体",
+          "score": 21.0,
+          "category": "handwritten",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "纤细手写、清秀文艺、带轻微纸笔温度，适合女性向、手作和编辑短标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display、hand、手写",
+            "风格命中：编辑、纤细",
+            "页面类型命中：display、标题"
+          ],
+          "must_verify": "只用作短句/标题并保留官方 OFL.txt。气质偏清秀、女性编辑、手作与诗意商品；摇滚、工业、赛博或强动作主题不能仅因‘编辑感’选用，必须与对应表现型字体实拍比较。"
+        },
+        {
+          "font_id": "long-cang",
+          "name": "龙藏体",
+          "score": 16.0,
+          "category": "calligraphic",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "行草笔意、松弛、文学和影像感",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display",
+            "风格命中：文学、行草、影像",
+            "页面类型命中：display"
+          ],
+          "must_verify": "单字重且连笔明显，只用于 2–10 字题词；适合独立音乐、作者电影和诗歌影像，不得仅以‘太中国’否决，需检查具体字形、主题和可读性。"
+        },
+        {
+          "font_id": "maoken-fengyasong",
+          "name": "猫啃网风雅宋",
+          "score": 19.5,
+          "category": "serif-editorial",
+          "region": "SC",
+          "license_class": "open_source",
+          "web_character": "宋体骨架更具装饰性和风雅气质，适合文化品牌与编辑标题",
+          "evidence": [
+            "区域字形匹配 zh-CN",
+            "模块角色命中：display",
+            "风格命中：编辑、宋体、文化、品牌",
+            "页面类型命中：display、brand、标题"
+          ],
+          "must_verify": "项目处于低维护状态；发布前检查版本、缺字与小字号笔画。"
+        }
+      ],
+      "next_action": "用该模块的真实文字、背景和容器加载所有候选并截图；模型看过实际 glyph 后再提交一个字体。"
+    }
+  },
+  "committed_font_ids": [],
+  "download_command": null,
+  "selection_gate": [
+    "真实字体文件已加载",
+    "document.fonts.check 返回 true",
+    "同文案、同背景、同容器 A/B/C 截图完成",
+    "移动端断行与 locale 字形通过",
+    "许可证允许目标用途",
+    "全局计划声明一个 signature_module 和 signature_font_id",
+    "distributed 模式至少提交两个非 Hero 表现文字表面，且其中至少一个不是大标题",
+    "表现型小字号/功能文字记录最终字号、手机、200% 缩放、明暗背景和 fallback 实测",
+    "显式花体/手写/行草要求最终由 calligraphic 或 handwritten 字体承担，而不是海报黑体、圆体或像素字",
+    "rich-script 模式必须使用至少两种书写字体，并在至少三个非 Hero 区域和三个语义模块类型中形成四个非 Hero 表现文字表面",
+    "加载真实 glyph 后允许有限调整局部文案宽度、网格跨度、对齐、section padding/min-height 和明确断行；不得改动媒体主体或宏观 section 架构",
+    "桌面与手机最终截图不得出现非故意单汉字行、标点孤行或窄栏阶梯式中文标题",
+    "字体覆盖没有改变页面布局、媒体、section 结构或艺术方向"
+  ]
+}

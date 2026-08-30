@@ -1,0 +1,118 @@
+{
+  "subject": "上海高端酒店民宿原创旅居策展页",
+  "audience": "重视空间审美、私密体验与城市节奏的 2–4 晚上海旅客",
+  "page_job": "理解三种沪上高端住法并发起旅程定制意向",
+  "art_direction": {
+    "thesis": "把高处江景、里弄雨声与客房仪式剪成一部从蓝调时刻走向安静清晨的上海旅居电影",
+    "signature": "全屏酒店影像中的左侧中文电影题名",
+    "selected_type": "中文第一层级；装饰宋体为峰值、行草短句为回声、编辑宋体保护阅读",
+    "selected_layout": "edge thesis + chaptered immersion；Hero 全屏，章节交替错列，结尾安静收束",
+    "selected_color": "墨夜、骨白、旧黄铜、低饱和青瓷与灰砖"
+  },
+  "hero_contract": {
+    "mode": "cinematic-full-bleed",
+    "locked": true,
+    "desktop_media_coverage_min": 0.96,
+    "copy_safe_zone": "desktop x 7-43%, y 25-76%; phone x 7-89%, y 18-61%",
+    "subject_safe_zone": "desktop x 58-88%, y 20-82%; phone x 55-92%, y 34-77%",
+    "interaction_safe_zone": "desktop x 7-43%, y 72-88%; phone x 7-82%, y 64-79%",
+    "regeneration_policy": "regenerate-before-layout-change",
+    "mobile_transformation": "保持 100svh 全屏媒体，标题在上方安全区三行排布；视频主体用验证后的右中 object-position，不降为下半屏窗口",
+    "locked_fields": ["hero_media_mode", "media_box", "subject_focal_zone", "section_structure", "macro_grid", "color_system", "motion_system"]
+  },
+  "visual_quality_contract": {
+    "hero_subject_signals": ["浦江弯道与上海滨江层叠天际线", "丝绒、黄铜、床品与落地窗构成的高端酒店客房"],
+    "unrelated_brand_substitution_passed": true,
+    "neutral_material_area_target": 0.78,
+    "high_chroma_area_target": 0.08,
+    "max_consecutive_accent_dominant_sections": 1,
+    "fullpage_desktop_capture": "qa/fullpage-desktop.png",
+    "fullpage_phone_capture": "qa/fullpage-phone.png",
+    "forbidden_failures": ["generic-hero", "unintended-single-character-line", "punctuation-only-line", "multi-screen-flat-accent", "uniform-section-silhouette", "media-subject-obstruction"]
+  },
+  "regression_baseline": {"source": null, "protected_qualities": []},
+  "integration_contract": {
+    "art_direction_owner": "motion-site-art-directed-v10",
+    "typography_specialist": "motion-site-chinese-web-design-v6",
+    "font_selection_owner": "motion-site-chinese-web-design-v6",
+    "font_family_lock_state": "selected-from-rendered-evidence",
+    "typography_geometry_state": "locked-after-real-glyph-test",
+    "expressive_distribution": "distributed",
+    "non_hero_expressive_targets": ["manifesto-quote", "timeline-script", "stay-two-title", "footer-brand"],
+    "reading_protected_targets": ["hero-intro", "manifesto-body", "stay-one-body", "stay-two-body", "stay-three-body", "selector-detail", "dialog-fields", "footer-legal"],
+    "layout_locked": true,
+    "media_locked": true,
+    "section_structure_locked": true,
+    "allowed_typography_changes": ["font_files", "font_tokens", "font_metrics", "text_color_tokens", "line_break_proposals", "fallbacks", "copy_zone_width", "local_grid_span", "local_alignment", "section_padding", "section_min_height"]
+  },
+  "tokens": {
+    "color": {"ink": "#090a09", "charcoal": "#151714", "bone": "#ede6d8", "brass": "#c8a15d", "celadon": "#7f988b", "brick": "#5a3c34"},
+    "layout": {"max": "1680px", "desktopGutter": "6vw", "mobileGutter": "20px", "columns": 12, "gap": "24px"},
+    "layers": {"media": 0, "overlay": 1, "content": 2, "nav": 10, "modal": 100},
+    "motion": {"fast": "180ms", "base": "320ms", "scene": "760ms", "standard": "cubic-bezier(.2,.7,.2,1)", "emphasis": "cubic-bezier(.16,1,.3,1)"},
+    "type": {"display": "MaoKenWang FengYaSong", "script": "Long Cang", "reading": "LXGW Neo ZhiSong", "ui": "LXGW Neo ZhiSong"}
+  },
+  "sections": [
+    {
+      "id": "hero", "purpose": "用具体的上海高端客房与江景建立主题并引导探索", "content_source": "原创编辑文案",
+      "layout": "100svh full-bleed video with left-edge copy safe zone", "alignment": "edge",
+      "type_roles": ["brand_mark", "hero_display", "body_longform", "cta", "caption_metadata"],
+      "expressive_type_opportunities": ["brand-mark", "hero-title", "hero-scroll-label"],
+      "reading_protected_surfaces": ["hero-intro", "hero-primary-cta", "hero-secondary-cta"],
+      "surface_role": "dominant cinematic peak", "media_role": "hero-atmosphere", "safe_zone": "copy left 7-43%; subject right 58-88%",
+      "layers": {"media": 0, "scrim": 1, "content": 2, "navigation": 10},
+      "responsive": {"desktop": "full bleed", "tablet": "full bleed, wider copy zone", "phone": "100svh full bleed, three-line title"},
+      "reduced_motion": "poster remains visible; explicit play button can reveal and play video", "claim_status": "editorial"
+    },
+    {
+      "id": "manifesto", "purpose": "解释页面不是订房列表，而是围绕城市节奏选择住法", "content_source": "原创编辑文案",
+      "layout": "bone editorial field; quote left, body right, timeline below", "alignment": "grid",
+      "type_roles": ["editorial_quote", "body_longform", "caption_metadata", "data_price"],
+      "expressive_type_opportunities": ["manifesto-quote", "timeline-script"], "reading_protected_surfaces": ["manifesto-body", "timeline-body"],
+      "surface_role": "quiet explanatory recovery", "media_role": null, "safe_zone": null, "layers": {"surface": 0, "content": 2},
+      "responsive": {"desktop": "7/5 offset grid", "tablet": "5/3 grid", "phone": "single column and vertical timeline"},
+      "reduced_motion": "all content visible without transform", "claim_status": "editorial"
+    },
+    {
+      "id": "river", "purpose": "呈现适合第一次来沪或纪念旅行的江岸高层住法", "content_source": "原创虚构场景",
+      "layout": "near-full-width cinematic field with bottom-left text band", "alignment": "bottom",
+      "type_roles": ["section_heading", "body_longform", "caption_metadata", "cta"], "expressive_type_opportunities": ["stay-one-title", "stay-one-kicker"],
+      "reading_protected_surfaces": ["stay-one-body", "stay-one-link"], "surface_role": "open skyline beat", "media_role": "distinct generated riverside dawn still",
+      "safe_zone": "lower-left text band outside skyline focal point", "layers": {"media": 0, "scrim": 1, "content": 2},
+      "responsive": {"desktop": "95vh media-led", "tablet": "80vh", "phone": "74svh media then copy"}, "reduced_motion": "static poster", "claim_status": "editorial"
+    },
+    {
+      "id": "lane", "purpose": "呈现熟悉上海后更偏向私密与街区生活的里弄住法", "content_source": "原创虚构场景",
+      "layout": "asymmetric 7/5 split, film left and copy right", "alignment": "right",
+      "type_roles": ["section_heading", "editorial_quote", "body_longform", "caption_metadata"], "expressive_type_opportunities": ["stay-two-title", "stay-two-quote"],
+      "reading_protected_surfaces": ["stay-two-body"], "surface_role": "tactile courtyard chapter", "media_role": "context-environment",
+      "safe_zone": "copy right 58-92%; subject left/center 18-55%", "layers": {"media": 0, "content": 2},
+      "responsive": {"desktop": "split", "tablet": "stacked wide media", "phone": "4:5 media then copy"}, "reduced_motion": "static poster", "claim_status": "editorial"
+    },
+    {
+      "id": "ritual", "purpose": "用客房细节说明高端旅居的价值来自被照顾的日常仪式", "content_source": "原创虚构场景",
+      "layout": "asymmetric 5/7 split, copy left and macro film right", "alignment": "left",
+      "type_roles": ["section_heading", "body_longform", "caption_metadata"], "expressive_type_opportunities": ["stay-three-title", "stay-three-caption"],
+      "reading_protected_surfaces": ["stay-three-body"], "surface_role": "close material beat", "media_role": "artifact-detail",
+      "safe_zone": "copy left 0-38%; focal tea ritual center/right 52-78%", "layers": {"media": 0, "content": 2},
+      "responsive": {"desktop": "reverse split", "tablet": "stacked", "phone": "4:5 media then copy"}, "reduced_motion": "static poster", "claim_status": "editorial"
+    },
+    {
+      "id": "choose", "purpose": "让访客按同行人与节奏在三种住法之间自我定位", "content_source": "原创选择逻辑",
+      "layout": "full-width selector rail and live detail region", "alignment": "grid",
+      "type_roles": ["section_heading", "nav_ui", "body_longform", "cta"], "expressive_type_opportunities": ["selector-title", "selector-active-label"],
+      "reading_protected_surfaces": ["selector-tabs", "selector-detail", "selector-cta"], "surface_role": "decision beat", "media_role": null, "safe_zone": null,
+      "layers": {"surface": 0, "content": 2}, "responsive": {"desktop": "three-column rail", "tablet": "three-column compact", "phone": "vertical buttons and detail"},
+      "reduced_motion": "instant content change", "claim_status": "editorial"
+    },
+    {
+      "id": "final", "purpose": "以安静的上海夜色邀请访客提交定制意向", "content_source": "原创编辑文案",
+      "layout": "dark calm field with centered-lower action and editorial footer", "alignment": "mixed",
+      "type_roles": ["hero_display", "body_longform", "cta", "brand_mark", "caption_metadata"], "expressive_type_opportunities": ["final-title", "footer-brand"],
+      "reading_protected_surfaces": ["final-body", "final-cta", "footer-legal", "dialog-fields"], "surface_role": "calm outcome", "media_role": "outcome night-turndown atmosphere", "safe_zone": "copy center 28-72%; warm lamps and room detail stay on outer thirds",
+      "layers": {"surface": 0, "content": 2}, "responsive": {"desktop": "large negative space", "tablet": "reduced min-height", "phone": "left aligned action"},
+      "reduced_motion": "all content static", "claim_status": "editorial"
+    }
+  ],
+  "breakpoints": {"wide": "min-width 1680px", "desktop": "1025-1679px", "tablet": "768-1024px", "phone": "max-width 767px", "short": "max-height 720px"}
+}

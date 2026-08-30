@@ -1,0 +1,45 @@
+{
+  "provider": "SenseAudio",
+  "task_id": "6413db85-2595-4a27-a02f-e21d98e92eb3",
+  "status": "completed",
+  "video_url": "https://dynamic.senseaudio.cn/video/b237eb49-0e95-492d-8ae0-b52dce9bf2ea",
+  "saved_path": "media/closing-night.mp4",
+  "downloaded_at": "2026-08-21T04:31:47.213526+00:00",
+  "source_kind": "text-to-video",
+  "provider_model": "doubao-seedance-2-0-260128",
+  "provider_task_id": "6413db85-2595-4a27-a02f-e21d98e92eb3",
+  "final_delivery_eligible": true,
+  "temporal_evidence": {
+    "static_transform_only": false,
+    "intrinsic_motion_types": ["environmental_motion", "material_motion", "light_behavior", "camera_motion"],
+    "motion_summary": "首中末帧验证雨滴、船灯、帘布、床品与灯光反射持续变化，镜头后退并非唯一运动，夜床由暖亮逐步收至墨蓝。",
+    "first_frame": "study/frames/closing-first.jpg",
+    "middle_frame": "study/frames/closing-middle.jpg",
+    "last_frame": "study/frames/closing-last.jpg",
+    "reviewer_passed": true
+  },
+  "provider_response": {
+    "id": "167a9137-dd19-41c0-8942-bed227cf66ad",
+    "model": "doubao-seedance-2-0-260128",
+    "task_id": "6413db85-2595-4a27-a02f-e21d98e92eb3",
+    "status": "completed",
+    "progress": 100,
+    "video_url": "https://dynamic.senseaudio.cn/video/b237eb49-0e95-492d-8ae0-b52dce9bf2ea",
+    "duration": 8,
+    "is_new": true,
+    "created_at": 1787286412,
+    "completed_at": 1787286672,
+    "prompt": "",
+    "resolution": "720p",
+    "content": [
+      {
+        "type": "text",
+        "text": "8 seconds, 16:9 cinematic final chapter of a high-end Shanghai hotel stay at midnight after turndown: an ink-black and ivory linen bed seen from the doorway, a folded robe and a small brass room key on the foot bench, two warm ribbed-glass bedside lamps, floor-to-ceiling rainy window at the far side with a soft Shanghai riverside skyline and one distant boat light, no readable logos. The linen duvet settles gently, sheer curtain breathes, rain tracks move down the glass, the bedside lamps dim very slowly and brass reflections evolve. Slow stabilized dolly backward as if quietly leaving the room, 40mm lens, quiet luxury, restrained amber, celadon shadow and ink black. Keep CENTER 28-72% calm, dark and low-detail for large closing Chinese copy; keep bright lamps near outer thirds and preserve the copy zone from first to last frame. Loop-friendly ending. No people, no embedded text, no logo, no watermark, no UI, no border, no split screen, no abrupt cut, no neon cyberpunk, no excessive bloom, stable exposure."
+      }
+    ],
+    "ratio": "16:9",
+    "provider_specific": {
+      "generate_audio": false
+    }
+  }
+}

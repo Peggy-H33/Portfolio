@@ -1,0 +1,345 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/motion-site-chinese-web-design-v6/typography-module-plan.schema.json",
+  "title": "Chinese web typography override plan V6",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "locale", "page_type", "visual_voice", "user_preferences",
+    "integration_contract", "global_hierarchy", "expressive_distribution", "coverage_audit", "modules", "committed_font_ids",
+    "license_notes", "qa_screenshots"
+  ],
+  "properties": {
+    "schema_version": {"const": "6.0"},
+    "locale": {"enum": ["zh-CN", "zh-TW", "zh-HK"]},
+    "page_type": {"type": "string", "minLength": 1},
+    "visual_voice": {"type": "array", "minItems": 2, "items": {"type": "string"}},
+    "user_preferences": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "integration_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "art_direction_owner", "input_page_plan", "host_hero_mode", "layout_locked",
+        "media_locked", "section_structure_locked", "art_direction_locked",
+        "allowed_changes", "applied_out_of_scope_changes"
+      ],
+      "properties": {
+        "art_direction_owner": {"enum": ["motion-site-art-directed-v9", "existing-project", "user-provided-page"]},
+        "input_page_plan": {"type": ["string", "null"]},
+        "host_hero_mode": {"type": ["string", "null"]},
+        "layout_locked": {"const": true},
+        "media_locked": {"const": true},
+        "section_structure_locked": {"const": true},
+        "art_direction_locked": {"const": true},
+        "allowed_changes": {
+          "type": "array",
+          "minItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "font_files", "font_tokens", "font_metrics", "text_color_tokens",
+              "line_break_proposals", "fallbacks", "font_loading", "copy_zone_width",
+              "local_grid_span", "local_alignment", "section_padding", "section_min_height"
+            ]
+          }
+        },
+        "applied_out_of_scope_changes": {"type": "array", "maxItems": 0}
+      }
+    },
+    "global_hierarchy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expressive_required", "signature_intent", "script_signature_required", "rich_script_required", "signature_module", "signature_font_id",
+        "signature_style_category", "signature_coverage", "first_visual_language",
+        "hierarchy_reason", "repetition_policy"
+      ],
+      "properties": {
+        "expressive_required": {"type": "boolean"},
+        "signature_intent": {"enum": ["script-floral", "expressive-display", "restrained"]},
+        "script_signature_required": {"type": "boolean"},
+        "rich_script_required": {"type": "boolean"},
+        "signature_module": {"enum": ["brand_mark", "hero_display", "editorial_quote"]},
+        "signature_font_id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+        "signature_style_category": {
+          "enum": ["calligraphic", "handwritten", "rounded-playful", "impact-display", "pixel-mono", "serif-editorial", "neutral-ui"]
+        },
+        "signature_coverage": {"enum": ["full-primary-phrase", "core-phrase"]},
+        "first_visual_language": {"enum": ["Chinese", "balanced", "Latin-user-required"]},
+        "hierarchy_reason": {"type": "string", "minLength": 20},
+        "repetition_policy": {"type": "string", "minLength": 20}
+      }
+    },
+    "expressive_distribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode", "expressive_surface_ids", "non_hero_expressive_surface_ids", "expressive_module_types", "expressive_page_regions",
+        "reading_protected_surface_ids", "expressive_font_ids",
+        "min_non_hero_expressive_surfaces", "max_active_families", "distribution_reason"
+      ],
+      "properties": {
+        "mode": {"enum": ["distributed", "concentrated", "restrained"]},
+        "expressive_surface_ids": {
+          "type": "array", "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9-]+$"}
+        },
+        "non_hero_expressive_surface_ids": {
+          "type": "array", "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9-]+$"}
+        },
+        "expressive_module_types": {
+          "type": "array", "uniqueItems": true,
+          "items": {"enum": ["brand_mark", "hero_display", "section_heading", "editorial_quote", "body_longform", "nav_ui", "cta", "data_price", "code_terminal", "caption_metadata", "form_control", "poster_badge"]}
+        },
+        "expressive_page_regions": {
+          "type": "array", "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9-]+$"}
+        },
+        "reading_protected_surface_ids": {
+          "type": "array", "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9-]+$"}
+        },
+        "expressive_font_ids": {
+          "type": "array", "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9-]+$"}
+        },
+        "min_non_hero_expressive_surfaces": {"type": "integer", "minimum": 0},
+        "max_active_families": {"type": "integer", "minimum": 1, "maximum": 6},
+        "distribution_reason": {"type": "string", "minLength": 24}
+      }
+    },
+    "coverage_audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope", "dom_marker_attribute", "visible_text_surface_ids",
+        "covered_text_surface_ids", "uncovered_text_surface_ids", "coverage_reason"
+      ],
+      "properties": {
+        "scope": {"enum": ["full-page", "component"]},
+        "dom_marker_attribute": {"const": "data-type-surface"},
+        "visible_text_surface_ids": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9-]+$"}
+        },
+        "covered_text_surface_ids": {
+          "type": "array", "minItems": 1, "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9-]+$"}
+        },
+        "uncovered_text_surface_ids": {
+          "type": "array", "maxItems": 0,
+          "items": {"type": "string", "pattern": "^[a-z0-9-]+$"}
+        },
+        "coverage_reason": {"type": "string", "minLength": 24}
+      }
+    },
+    "modules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "module_id", "selector", "surface_ids", "page_regions", "text", "font_id", "font_family", "style_category",
+          "visual_priority", "role_reason", "art_direction_relationship", "font_weight",
+          "font_size", "line_height", "letter_spacing", "max_width", "color", "background",
+          "alignment", "fallback", "locale_verified", "font_loaded", "license",
+          "layout_change_required", "media_change_required", "geometry_adjustments", "rejected_candidates"
+        ],
+        "properties": {
+          "module_id": {
+            "enum": [
+              "brand_mark", "hero_display", "section_heading", "editorial_quote",
+              "body_longform", "nav_ui", "cta", "data_price", "code_terminal",
+              "caption_metadata", "form_control", "poster_badge"
+            ]
+          },
+          "selector": {"type": "string", "minLength": 1},
+          "surface_ids": {
+            "type": "array", "minItems": 1, "uniqueItems": true,
+            "items": {"type": "string", "pattern": "^[a-z0-9-]+$"}
+          },
+          "page_regions": {
+            "type": "array", "minItems": 1, "uniqueItems": true,
+            "items": {"type": "string", "pattern": "^[a-z0-9-]+$"}
+          },
+          "text": {"type": "string", "minLength": 1},
+          "font_id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+          "font_family": {"type": "string", "minLength": 1},
+          "style_category": {
+            "enum": ["calligraphic", "handwritten", "rounded-playful", "impact-display", "pixel-mono", "serif-editorial", "neutral-ui"]
+          },
+          "visual_priority": {"enum": ["signature", "support-display", "reading", "utility"]},
+          "role_reason": {"type": "string", "minLength": 12},
+          "art_direction_relationship": {"type": "string", "minLength": 16},
+          "font_weight": {"oneOf": [{"type": "integer", "minimum": 100, "maximum": 1000}, {"type": "string"}]},
+          "font_width_axis": {"oneOf": [{"type": "number"}, {"type": "null"}]},
+          "font_size": {"type": "string", "minLength": 1},
+          "line_height": {"oneOf": [{"type": "number"}, {"type": "string"}]},
+          "letter_spacing": {"type": "string", "minLength": 1},
+          "max_width": {"type": "string", "minLength": 1},
+          "color": {"type": "string", "minLength": 1},
+          "background": {"type": "string", "minLength": 1},
+          "alignment": {"type": "string", "minLength": 1},
+          "allowed_line_breaks": {"type": "array", "items": {"type": "string"}},
+          "fallback": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+          "locale_verified": {"const": true},
+          "font_loaded": {"const": true},
+          "layout_change_required": {"const": false},
+          "media_change_required": {"const": false},
+          "geometry_adjustments": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["state", "changes", "evidence"],
+            "properties": {
+              "state": {"enum": ["unchanged", "approved"]},
+              "changes": {
+                "type": "array", "uniqueItems": true,
+                "items": {"enum": ["copy_zone_width", "local_grid_span", "local_alignment", "section_padding", "section_min_height", "headline_max_width", "explicit_line_breaks"]}
+              },
+              "evidence": {"type": "string", "minLength": 12}
+            }
+          },
+          "license": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["class", "source", "verified_for_target"],
+            "properties": {
+              "class": {"type": "string"},
+              "source": {"type": "string"},
+              "verified_for_target": {"type": "boolean"},
+              "notes": {"type": "string"}
+            }
+          },
+          "rejected_candidates": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["font_id", "style_category", "font_loaded", "rendered_reason", "screenshot"],
+              "properties": {
+                "font_id": {"type": "string"},
+                "style_category": {
+                  "enum": ["calligraphic", "handwritten", "rounded-playful", "impact-display", "pixel-mono", "serif-editorial", "neutral-ui"]
+                },
+                "font_loaded": {"const": true},
+                "rendered_reason": {"type": "string", "minLength": 16},
+                "screenshot": {"type": "string", "minLength": 1}
+              }
+            }
+          },
+          "legibility_checks": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "tested_css_sizes", "minimum_css_px", "phone_verified", "zoom_200_verified",
+              "bright_dark_verified", "fallback_verified", "result"
+            ],
+            "properties": {
+              "tested_css_sizes": {
+                "type": "array", "minItems": 1, "uniqueItems": true,
+                "items": {"type": "string", "minLength": 1}
+              },
+              "minimum_css_px": {"type": "number", "minimum": 10},
+              "phone_verified": {"const": true},
+              "zoom_200_verified": {"const": true},
+              "bright_dark_verified": {"const": true},
+              "fallback_verified": {"const": true},
+              "result": {"const": "pass"}
+            }
+          },
+          "line_break_checks": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["desktop_lines", "phone_lines", "desktop_fit", "phone_fit", "measurement_method", "single_character_line_intentional", "punctuation_only_line", "evidence"],
+            "properties": {
+              "desktop_lines": {"type": "array", "minItems": 1, "maxItems": 5, "items": {"type": "string", "minLength": 1}},
+              "phone_lines": {"type": "array", "minItems": 1, "maxItems": 6, "items": {"type": "string", "minLength": 1}},
+              "desktop_fit": {
+                "type": "object", "additionalProperties": false,
+                "required": ["surface_id", "viewport_width_px", "available_width_px", "longest_line_width_px", "ratio"],
+                "properties": {
+                  "surface_id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+                  "viewport_width_px": {"type": "number", "exclusiveMinimum": 0},
+                  "available_width_px": {"type": "number", "exclusiveMinimum": 0},
+                  "longest_line_width_px": {"type": "number", "minimum": 0},
+                  "ratio": {"type": "number", "minimum": 0, "maximum": 1}
+                }
+              },
+              "phone_fit": {
+                "type": "object", "additionalProperties": false,
+                "required": ["surface_id", "viewport_width_px", "available_width_px", "longest_line_width_px", "ratio"],
+                "properties": {
+                  "surface_id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+                  "viewport_width_px": {"type": "number", "exclusiveMinimum": 0},
+                  "available_width_px": {"type": "number", "exclusiveMinimum": 0},
+                  "longest_line_width_px": {"type": "number", "minimum": 0},
+                  "ratio": {"type": "number", "minimum": 0, "maximum": 1}
+                }
+              },
+              "measurement_method": {"type": "string", "minLength": 20},
+              "single_character_line_intentional": {"type": "boolean"},
+              "single_character_reason": {"type": "string"},
+              "punctuation_only_line": {"const": false},
+              "evidence": {"type": "string", "minLength": 12}
+            }
+          }
+        }
+      }
+    },
+    "committed_font_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[a-z0-9-]+$"}
+    },
+    "license_notes": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "qa_screenshots": {"type": "array", "minItems": 2, "items": {"type": "string"}}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "global_hierarchy": {
+            "properties": {"expressive_required": {"const": true}}
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "global_hierarchy": {
+            "properties": {
+              "signature_style_category": {
+                "enum": ["calligraphic", "handwritten", "rounded-playful", "impact-display", "pixel-mono"]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "global_hierarchy": {
+            "properties": {"script_signature_required": {"const": true}}
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "global_hierarchy": {
+            "properties": {
+              "signature_intent": {"const": "script-floral"},
+              "expressive_required": {"const": true},
+              "signature_style_category": {
+                "enum": ["calligraphic", "handwritten"]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

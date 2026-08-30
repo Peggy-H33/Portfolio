@@ -1,0 +1,144 @@
+{
+  "density": "cinematic",
+  "compact_exception_reason": null,
+  "assets": [
+    {
+      "id": "hero-wetland",
+      "role": "hero-atmosphere",
+      "video": "assets/media/hero-wetland.mp4",
+      "poster": "assets/media/hero-wetland-poster.jpg",
+      "prompt": "Cinematic dawn in a restored freshwater wetland in eastern China, calm shallow water and native reeds, two egrets lift from the right half of frame, concentric ripples expand, fine mist changes and reeds move in a light wind; cool natural palette, documentary realism, restrained camera drift, leave a dark quiet copy-safe water field on the left, no text, no logo, no artificial timelapse.",
+      "subject_specific_reason": "浅水扩散涟漪、原生芦苇和白鹭起飞共同指向湿地修复与雨水停留，无法无损替换成普通品牌广告背景。",
+      "unrelated_brand_substitution_passed": true,
+      "source_kind": "text-to-video",
+      "provider_model": "doubao-seedance-2-0-260128",
+      "provider_task_id": "4d262311-56ad-410a-b837-838c8e4d29e7",
+      "final_delivery_eligible": true,
+      "temporal_evidence": {
+        "static_transform_only": false,
+        "intrinsic_motion_types": ["subject_motion", "environmental_motion", "material_motion", "light_behavior"],
+        "motion_summary": "Two egrets rise from still water with changing wing shapes; concentric ripples expand, reeds sway, mist thins and reflections evolve.",
+        "first_frame": "study/frames/hero-01.jpg",
+        "middle_frame": "study/frames/hero-02.jpg",
+        "last_frame": "study/frames/hero-03.jpg",
+        "freeze_detect_over_1s": false,
+        "abrupt_scene_cut_detected": false,
+        "reviewer_passed": true
+      },
+      "target": {"ratio": "16:9", "duration_seconds": 8.041667, "width": 1280, "height": 720},
+      "safe_zone": {
+        "desktop": "copy x=0–44%, y=10–86%; egret and reeds x=58–90%, y=28–86%",
+        "tablet": "copy x=4–52%, y=16–78%; retain right-side egret flight path",
+        "mobile": "title x=6–94%, y=12–38%; object-position 53% retains birds at right"
+      },
+      "focal_points": {
+        "first": "Two egrets rest and begin to lift above the right-side shallow water.",
+        "middle": "Wing silhouettes open while ripples expand through the center-right water.",
+        "last": "Birds advance through mist; reed movement and water reflections remain visible."
+      },
+      "processing_history": [
+        "Provider-native H.264 MP4 preserved unchanged",
+        "JPEG evidence frames extracted with FFmpeg",
+        "Poster copied from the first evidence frame"
+      ],
+      "integration_mode": "full-bleed",
+      "focal_target_met": true,
+      "regeneration_attempts": 0,
+      "desktop_media_coverage_target": 1,
+      "layout_change_approved": false,
+      "section_id": "hero-rain-thread"
+    },
+    {
+      "id": "river-memory",
+      "role": "process-macro",
+      "video": "assets/media/river-memory.mp4",
+      "poster": "assets/media/river-memory-poster.jpg",
+      "prompt": "Cinematic documentary macro view of a clear mountain stream flowing through moss-covered stone, exposed roots and a few fallen leaves; current, foam, eddies and underwater caustics must visibly deform over time, gentle leaf and moss movement, one continuous shot, cool green-blue natural light, preserve a dark upper-left copy field, no text, no logo, no slideshow or still-image zoom.",
+      "subject_specific_reason": "绕石而行的水流、持续变化的泡沫和根系边缘把生态连通性变成可见过程，而不是可替换的抽象自然纹理。",
+      "unrelated_brand_substitution_passed": true,
+      "source_kind": "text-to-video",
+      "provider_model": "doubao-seedance-2-0-260128",
+      "provider_task_id": "30bd1fa2-a36e-4632-bd78-b61d6d6e0401",
+      "final_delivery_eligible": true,
+      "temporal_evidence": {
+        "static_transform_only": false,
+        "intrinsic_motion_types": ["environmental_motion", "material_motion", "light_behavior"],
+        "motion_summary": "Current, foam and eddies continuously deform around rocks while leaves shift, moss tips move and underwater light caustics travel.",
+        "first_frame": "study/frames/river-01.jpg",
+        "middle_frame": "study/frames/river-02.jpg",
+        "last_frame": "study/frames/river-03.jpg",
+        "freeze_detect_over_1s": false,
+        "abrupt_scene_cut_detected": false,
+        "reviewer_passed": true
+      },
+      "target": {"ratio": "16:9", "duration_seconds": 8.041667, "width": 1280, "height": 720},
+      "safe_zone": {
+        "desktop": "copy x=4–38%, y=10–42%; center and right current stay unobstructed",
+        "tablet": "copy x=4–50%, y=10–46%; preserve center current",
+        "mobile": "copy x=6–78%, y=10–48%; caption occupies lower-right dark water"
+      },
+      "focal_points": {
+        "first": "Clear current enters between mossy rocks with a branch crossing the foreground.",
+        "middle": "White foam bends through the central channel as leaves and caustics shift.",
+        "last": "Flow continues around the same stones with visibly changed eddies and reflections."
+      },
+      "processing_history": [
+        "Provider-native H.264 MP4 preserved unchanged",
+        "JPEG evidence frames extracted with FFmpeg",
+        "Poster copied from the first evidence frame"
+      ],
+      "integration_mode": "full-bleed",
+      "focal_target_met": true,
+      "regeneration_attempts": 0,
+      "desktop_media_coverage_target": 1,
+      "layout_change_approved": false,
+      "section_id": "river-memory"
+    },
+    {
+      "id": "city-rain-garden",
+      "role": "context-environment",
+      "video": "assets/media/city-rain-garden.mp4",
+      "poster": "assets/media/city-rain-garden-poster.jpg",
+      "prompt": "Cinematic post-rain contemporary Chinese residential block with a visible narrow drainage channel leading into a planted rain garden, permeable gravel edge and tall native grasses; real water moves through the channel, wet reflections change, plants move and one umbrella-carrying pedestrian crosses the midground, architectural documentary realism, one continuous shot, left concrete wall remains a darker copy-safe field, no text, no logo.",
+      "subject_specific_reason": "排水沟、可渗透砾石边缘、雨水花园和行人尺度共同说明城市生态基础设施，不能被普通建筑形象片等价替换。",
+      "unrelated_brand_substitution_passed": true,
+      "source_kind": "text-to-video",
+      "provider_model": "doubao-seedance-2-0-260128",
+      "provider_task_id": "4dd6cb33-e625-4794-ab79-bf82d0f454c1",
+      "final_delivery_eligible": true,
+      "temporal_evidence": {
+        "static_transform_only": false,
+        "intrinsic_motion_types": ["subject_motion", "environmental_motion", "material_motion", "light_behavior"],
+        "motion_summary": "Water travels through the drainage channel, grasses shift, an umbrella-carrying pedestrian crosses the midground and wet reflections change.",
+        "first_frame": "study/frames/city-01.jpg",
+        "middle_frame": "study/frames/city-02.jpg",
+        "last_frame": "study/frames/city-03.jpg",
+        "freeze_detect_over_1s": false,
+        "abrupt_scene_cut_detected": false,
+        "reviewer_passed": true
+      },
+      "target": {"ratio": "16:9", "duration_seconds": 8.041667, "width": 1280, "height": 720},
+      "safe_zone": {
+        "desktop": "copy x=4–44%, y=16–64%; rain garden x=52–92%, y=42–92%",
+        "tablet": "copy x=4–52%, y=12–62%; drainage path remains visible below",
+        "mobile": "copy x=6–94%, y=14–54%; object-position 70% preserves channel and planting"
+      },
+      "focal_points": {
+        "first": "Wet channel and rain-garden grasses form a clear water path through the block.",
+        "middle": "Pedestrian and reflections shift while water continues down the channel.",
+        "last": "Channel flow and plant motion persist with changed highlights and pedestrian position."
+      },
+      "processing_history": [
+        "Provider-native H.264 MP4 preserved unchanged",
+        "JPEG evidence frames extracted with FFmpeg",
+        "Poster copied from the first evidence frame"
+      ],
+      "integration_mode": "full-bleed",
+      "focal_target_met": true,
+      "regeneration_attempts": 0,
+      "desktop_media_coverage_target": 1,
+      "layout_change_approved": false,
+      "section_id": "city-symbiosis"
+    }
+  ]
+}

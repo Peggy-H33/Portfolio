@@ -1,0 +1,26 @@
+{
+  "provider": "SenseAudio",
+  "provider_model": "doubao-seedance-2-0-260128",
+  "provider_task_id": "30bd1fa2-a36e-4632-bd78-b61d6d6e0401",
+  "source_kind": "text-to-video",
+  "final_delivery_eligible": true,
+  "generation_date": "2026-08-21",
+  "dimensions": {"width": 1280, "height": 720},
+  "duration_seconds": 8.041667,
+  "ratio": "16:9",
+  "prompt_summary": "Clear mountain stream moving through moss, stone, roots and fallen leaves with a dark upper-left copy area.",
+  "focal_zone": {"x": [0.20, 0.84], "y": [0.20, 0.88]},
+  "copy_safe_zone": {"x": [0.00, 0.36], "y": [0.08, 0.38]},
+  "processing_history": ["Provider-native H.264 MP4 preserved unchanged", "JPEG evidence frames extracted with FFmpeg", "Poster copied from the first evidence frame"],
+  "temporal_evidence": {
+    "static_transform_only": false,
+    "intrinsic_motion_types": ["environmental_motion", "material_motion", "light_behavior"],
+    "motion_summary": "Current, foam and eddies continuously deform around rocks while leaves shift, moss tips move and underwater light caustics travel.",
+    "first_frame": "study/frames/river-01.jpg",
+    "middle_frame": "study/frames/river-02.jpg",
+    "last_frame": "study/frames/river-03.jpg",
+    "freeze_detect_over_1s": false,
+    "abrupt_scene_cut_detected": false,
+    "reviewer_passed": true
+  }
+}

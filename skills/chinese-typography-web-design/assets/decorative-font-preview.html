@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>中文展示字体路线试排</title>
+    <style>
+      :root { font-family: system-ui, sans-serif; color: #171915; background: #e9e6dc; }
+      body { max-width: 1200px; margin: 0 auto; padding: 32px; }
+      .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+      .sample { min-height: 220px; padding: 28px; background: #faf8f0; border: 1px solid #bbb8ad; }
+      .sample small { display: block; margin-bottom: 26px; font: 12px/1.4 ui-monospace, monospace; color: #6a6c63; }
+      .sample h2 { margin: 0 0 18px; font-size: clamp(2rem, 5vw, 4.3rem); line-height: 1.05; font-weight: 400; }
+      .sample p { max-width: 30em; line-height: 1.75; }
+      .smiley h2 { font-family: "Smiley Sans", sans-serif; }
+      .mashan h2 { font-family: "Ma Shan Zheng", "LXGW WenKai", serif; }
+      .kuaile h2 { font-family: "ZCOOL KuaiLe", sans-serif; }
+      .xiaowei h2 { font-family: "ZCOOL XiaoWei", sans-serif; }
+      .huangyou h2 { font-family: "ZCOOL QingKe HuangYou", sans-serif; }
+      .wenkai h2 { font-family: "LXGW WenKai", serif; }
+      @media (max-width: 720px) { body { padding: 18px; } .grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <h1>先看字形气质，再决定页面方向</h1>
+    <p>本页不内置字体文件；用于确认目标机器/自托管 WOFF2 后的视觉路线。</p>
+    <div class="grid">
+      <article class="sample smiley"><small>CREATIVE TECH / 得意黑 Smiley Sans</small><h2>让想象<br>先动起来。</h2><p>窄、斜、带手绘细节。适合创意科技标题，不承载长正文。</p></article>
+      <article class="sample mashan"><small>FILM EDITORIAL / 马善政体</small><h2>一笔入戏。</h2><p>书法题字只负责第一眼，正文应回到清晰的中文无衬线。</p></article>
+      <article class="sample kuaile"><small>PLAYFUL / 站酷快乐体</small><h2>今天也要<br>有点开心。</h2><p>圆润、轻松，适合活动、教育、生活方式和年轻消费页面。</p></article>
+      <article class="sample xiaowei"><small>HANDWRITTEN / 站酷小薇体</small><h2>写给<br>正在路上的你。</h2><p>手写海报感，保持短句和较大字号，避免用于按钮与正文。</p></article>
+      <article class="sample huangyou"><small>ROUNDED RETRO / 站酷庆科黄油体</small><h2>软一点，<br>更好玩。</h2><p>圆润复古，适合电商和社媒传播，避免整站卡通化。</p></article>
+      <article class="sample wenkai"><small>WARM EDITORIAL / 霞鹜文楷</small><h2>把日常，<br>写得有温度。</h2><p>人文、教育、手作和编辑路线的温润选择。</p></article>
+    </div>
+  </body>
+</html>

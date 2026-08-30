@@ -1,0 +1,26 @@
+{
+  "provider": "SenseAudio",
+  "provider_model": "doubao-seedance-2-0-260128",
+  "provider_task_id": "4dd6cb33-e625-4794-ab79-bf82d0f454c1",
+  "source_kind": "text-to-video",
+  "final_delivery_eligible": true,
+  "generation_date": "2026-08-21",
+  "dimensions": {"width": 1280, "height": 720},
+  "duration_seconds": 8.041667,
+  "ratio": "16:9",
+  "prompt_summary": "Post-rain Chinese city block with visible drainage channel, planted rain garden, permeable edge and pedestrian-scale movement.",
+  "focal_zone": {"x": [0.52, 0.92], "y": [0.42, 0.92]},
+  "copy_safe_zone": {"x": [0.04, 0.44], "y": [0.16, 0.64]},
+  "processing_history": ["Provider-native H.264 MP4 preserved unchanged", "JPEG evidence frames extracted with FFmpeg", "Poster copied from the first evidence frame"],
+  "temporal_evidence": {
+    "static_transform_only": false,
+    "intrinsic_motion_types": ["subject_motion", "environmental_motion", "material_motion", "light_behavior"],
+    "motion_summary": "Water travels through the drainage channel, grasses shift, an umbrella-carrying pedestrian crosses the midground and wet reflections change.",
+    "first_frame": "study/frames/city-01.jpg",
+    "middle_frame": "study/frames/city-02.jpg",
+    "last_frame": "study/frames/city-03.jpg",
+    "freeze_detect_over_1s": false,
+    "abrupt_scene_cut_detected": false,
+    "reviewer_passed": true
+  }
+}
