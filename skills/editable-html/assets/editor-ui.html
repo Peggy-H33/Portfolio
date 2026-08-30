@@ -1,0 +1,281 @@
+<style>
+  :host {
+    all: initial;
+    color-scheme: light;
+    --eh-accent: #f97316;
+    --eh-accent-strong: #ea580c;
+    --eh-ink: #3d2b1f;
+    --eh-muted: #8b735b;
+    --eh-line: #ead8c3;
+    --eh-paper: rgba(255, 253, 249, 0.97);
+    font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  button, select, input { font: inherit; }
+
+  .eh-toolbar {
+    position: fixed;
+    z-index: 2147483001;
+    top: 12px;
+    left: 50%;
+    width: min(1180px, calc(100vw - 24px));
+    max-height: min(42vh, 280px);
+    overflow: auto;
+    transform: translateX(-50%);
+    padding: 9px 10px 7px;
+    border: 1px solid rgba(219, 191, 159, 0.82);
+    border-radius: 14px;
+    background: var(--eh-paper);
+    box-shadow: 0 12px 34px rgba(68, 43, 18, 0.2), 0 2px 8px rgba(68, 43, 18, 0.08);
+    backdrop-filter: blur(18px) saturate(1.15);
+    -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  }
+
+  .eh-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .eh-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 32px;
+    padding-right: 8px;
+    border-right: 1px solid var(--eh-line);
+  }
+
+  .eh-group:last-of-type { border-right: 0; padding-right: 0; }
+
+  .eh-button,
+  .eh-select,
+  .eh-color {
+    min-height: 32px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: var(--eh-ink);
+    background: transparent;
+    cursor: pointer;
+    transition: background 140ms ease, border-color 140ms ease, color 140ms ease, transform 140ms ease;
+  }
+
+  .eh-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-width: 32px;
+    padding: 5px 9px;
+    white-space: nowrap;
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .eh-button:hover,
+  .eh-color:hover {
+    border-color: #f2c992;
+    background: #fff0dd;
+  }
+
+  .eh-button:active { transform: translateY(1px); }
+
+  .eh-button:focus-visible,
+  .eh-select:focus-visible,
+  .eh-color:focus-within {
+    outline: 2px solid rgba(249, 115, 22, 0.35);
+    outline-offset: 1px;
+  }
+
+  .eh-button[aria-pressed="true"],
+  .eh-button.eh-active {
+    border-color: var(--eh-accent);
+    color: #fff;
+    background: var(--eh-accent);
+  }
+
+  .eh-button.eh-primary {
+    border-color: var(--eh-accent);
+    color: #fff;
+    background: var(--eh-accent);
+    font-weight: 700;
+  }
+
+  .eh-button.eh-primary:hover {
+    border-color: var(--eh-accent-strong);
+    background: var(--eh-accent-strong);
+  }
+
+  .eh-button.eh-danger { color: #b42318; }
+
+  .eh-select {
+    height: 32px;
+    padding: 0 26px 0 8px;
+    border-color: var(--eh-line);
+    background: #fff;
+    font-size: 12px;
+  }
+
+  .eh-color {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    padding: 3px 5px;
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .eh-color-swatch {
+    display: block;
+    width: 19px;
+    height: 4px;
+    margin-top: 3px;
+    border-radius: 999px;
+    background: var(--eh-color-value);
+  }
+
+  .eh-color input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .eh-status {
+    min-height: 17px;
+    padding: 5px 3px 0;
+    color: var(--eh-muted);
+    font-size: 11px;
+    line-height: 1.2;
+  }
+
+  .eh-mode-switch {
+    position: fixed;
+    z-index: 2147483003;
+    right: max(14px, env(safe-area-inset-right));
+    bottom: max(14px, env(safe-area-inset-bottom));
+    display: flex;
+    gap: 3px;
+    padding: 4px;
+    border: 1px solid rgba(219, 191, 159, 0.85);
+    border-radius: 12px;
+    background: var(--eh-paper);
+    box-shadow: 0 8px 24px rgba(68, 43, 18, 0.2);
+    backdrop-filter: blur(16px) saturate(1.15);
+    -webkit-backdrop-filter: blur(16px) saturate(1.15);
+  }
+
+  .eh-mode-switch .eh-button { min-height: 34px; padding: 6px 11px; }
+
+  .eh-imagebar {
+    position: fixed;
+    z-index: 2147483002;
+    display: flex;
+    gap: 3px;
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    color: #fff;
+    background: rgba(48, 35, 25, 0.96);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  }
+
+  .eh-imagebar .eh-button { color: #ffe5c7; }
+  .eh-imagebar .eh-button:hover { border-color: transparent; background: rgba(249, 115, 22, 0.28); }
+  .eh-imagebar .eh-danger { color: #ffaaa3; }
+
+  .eh-file { display: none; }
+
+  @media (max-width: 680px) {
+    .eh-toolbar { top: 8px; width: calc(100vw - 16px); padding: 7px; border-radius: 12px; }
+    .eh-group { padding-right: 5px; }
+    .eh-button { padding-inline: 7px; }
+    .eh-label-long { display: none; }
+    .eh-mode-switch .eh-label-long { display: inline; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eh-button, .eh-select, .eh-color { transition: none; }
+  }
+</style>
+
+<div class="eh-toolbar" id="eh-toolbar" role="toolbar" aria-label="页面编辑工具栏" hidden>
+  <div class="eh-tools">
+    <div class="eh-group" aria-label="历史记录">
+      <button class="eh-button" type="button" data-command="undo" title="撤销">↶ <span class="eh-label-long">撤销</span></button>
+      <button class="eh-button" type="button" data-command="redo" title="重做">↷ <span class="eh-label-long">重做</span></button>
+    </div>
+
+    <div class="eh-group" aria-label="段落与字号">
+      <select class="eh-select" id="eh-block" title="段落样式" aria-label="段落样式">
+        <option value="p">正文</option>
+        <option value="h1">标题 1</option>
+        <option value="h2">标题 2</option>
+        <option value="h3">标题 3</option>
+        <option value="blockquote">引用</option>
+      </select>
+      <select class="eh-select" id="eh-size" title="字号" aria-label="字号">
+        <option value="">字号</option>
+        <option value="12px">12</option>
+        <option value="14px">14</option>
+        <option value="16px">16</option>
+        <option value="18px">18</option>
+        <option value="20px">20</option>
+        <option value="24px">24</option>
+        <option value="28px">28</option>
+        <option value="36px">36</option>
+        <option value="48px">48</option>
+      </select>
+    </div>
+
+    <div class="eh-group" aria-label="文字格式">
+      <button class="eh-button" type="button" data-command="bold" title="加粗"><strong>B</strong></button>
+      <button class="eh-button" type="button" data-command="italic" title="斜体"><em>I</em></button>
+      <button class="eh-button" type="button" data-command="underline" title="下划线"><u>U</u></button>
+      <button class="eh-button" type="button" data-command="strikeThrough" title="删除线"><s>S</s></button>
+      <label class="eh-color" title="文字颜色" style="--eh-color-value:#e85d04">A
+        <span class="eh-color-swatch" id="eh-fore-swatch"></span>
+        <input type="color" id="eh-fore-color" value="#e85d04" aria-label="文字颜色">
+      </label>
+      <label class="eh-color" title="背景高亮" style="--eh-color-value:#ffe8c7">🖍
+        <span class="eh-color-swatch" id="eh-back-swatch"></span>
+        <input type="color" id="eh-back-color" value="#ffe8c7" aria-label="背景高亮颜色">
+      </label>
+    </div>
+
+    <div class="eh-group" aria-label="格式工具">
+      <button class="eh-button" type="button" id="eh-painter" title="先选中样板文字，再点格式刷，然后选中目标文字">🖌 <span class="eh-label-long">格式刷</span></button>
+      <button class="eh-button" type="button" data-command="removeFormat" title="清除格式">⌫ <span class="eh-label-long">清除格式</span></button>
+    </div>
+
+    <div class="eh-group" aria-label="图片">
+      <button class="eh-button" type="button" id="eh-insert-image" title="在光标处插入图片">🖼 <span class="eh-label-long">插入图片</span></button>
+      <input class="eh-file" type="file" id="eh-image-file" accept="image/*" multiple>
+    </div>
+
+    <div class="eh-group" aria-label="输出">
+      <button class="eh-button eh-primary" type="button" id="eh-save" title="下载包含当前修改和编辑器的新 HTML 文件">💾 <span>保存 HTML</span></button>
+      <button class="eh-button" type="button" id="eh-print" title="打印或导出 PDF">🖨 <span class="eh-label-long">打印</span></button>
+    </div>
+  </div>
+  <div class="eh-status" id="eh-status" role="status" aria-live="polite">编辑模式：可直接修改文字；点击图片可缩放或删除。</div>
+</div>
+
+<div class="eh-mode-switch" role="group" aria-label="页面模式">
+  <button class="eh-button" type="button" id="eh-read-mode" data-mode="read" aria-pressed="true" title="关闭页面编辑">📖 <span class="eh-label-long">阅读</span></button>
+  <button class="eh-button" type="button" id="eh-edit-mode" data-mode="edit" aria-pressed="false" title="打开页面编辑器">✏️ <span class="eh-label-long">编辑</span></button>
+</div>
+
+<div class="eh-imagebar" id="eh-imagebar" role="toolbar" aria-label="图片工具" hidden>
+  <button class="eh-button" type="button" id="eh-image-smaller" title="缩小图片">－ 缩小</button>
+  <button class="eh-button" type="button" id="eh-image-bigger" title="放大图片">＋ 放大</button>
+  <button class="eh-button eh-danger" type="button" id="eh-image-delete" title="删除图片">🗑 删除</button>
+</div>

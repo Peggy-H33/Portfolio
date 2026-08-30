@@ -1,0 +1,44 @@
+#eh-editor-host {
+  display: block;
+  position: static;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  isolation: isolate;
+  z-index: 2147483000;
+}
+
+html.eh-mode-edit [data-editable-html-root] {
+  outline: none;
+  caret-color: auto;
+}
+
+html.eh-mode-edit [data-editable-html-root] img {
+  cursor: pointer;
+}
+
+[data-editable-html-root] img.eh-image-selected {
+  border-radius: 2px;
+  box-shadow: 0 0 0 3px #f97316, 0 0 0 7px rgba(249, 115, 22, 0.2) !important;
+}
+
+html.eh-format-painting,
+html.eh-format-painting [data-editable-html-root],
+html.eh-format-painting [data-editable-html-root] * {
+  cursor: crosshair !important;
+}
+
+@media print {
+  #eh-editor-host,
+  #eh-editor-template,
+  #eh-editor-page-style {
+    display: none !important;
+  }
+
+  [data-editable-html-root] img.eh-image-selected {
+    box-shadow: none !important;
+  }
+}

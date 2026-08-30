@@ -1,0 +1,6 @@
+interface:
+  display_name: "可编辑 HTML"
+  short_description: "把单文件 HTML 变成可切换阅读与编辑模式的可保存页面"
+  default_prompt: "使用 $editable-html 生成一个可切换阅读与编辑模式、可保存修改的单文件 HTML。"
+policy:
+  allow_implicit_invocation: true
