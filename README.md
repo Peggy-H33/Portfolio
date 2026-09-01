@@ -54,49 +54,50 @@ Portfolio/
 
 ## English Version
 
-> A review-ready portfolio for AI Product Manager and technical product roles, covering product research, competitive analysis, solution design, PRDs, flows and interaction design, high-fidelity vibe-coded prototypes, and hands-on Python / Stata work.
+### Han Peijing | AI Product Management Internship Projects & Portfolio
 
-This repository shows how I move a problem from research and judgment to a product proposal that can be discussed and reviewed. The product management cases were independently followed during an AI product management internship. Interactive demos were primarily built through vibe coding to validate flows, states, and page experience, while the coding and Skill collections demonstrate my technical foundation and ability to build reusable AI workflows.
+> Repository contents: PRDs, market research, competitive analysis, product solution design, process and interaction design, vibe-coded prototypes, independent vibe-coding projects, and Python / Stata code collections.
+
+The product-related deliverables in this repository come from projects I independently managed during an AI product management internship. The interactive demos were also independently created, primarily through vibe coding. The code collections come from previous research and mathematical-modeling competitions, demonstrating extensive data-processing and analytical experience as well as the ability to understand and work with code.
 
 ### Portfolio Guide
 
 | Top-level folder | What it contains | Reviewable evidence |
 | --- | --- | --- |
-| [product-management](./product-management/) | Three project groups independently followed during an AI PM internship | Market and competitor research, product proposals, PRDs, flow diagrams, page design, and high-fidelity interactive demos |
+| [product-management](./product-management/) | Three projects independently managed during an AI product management internship | Market research and competitive analysis, product proposals, PRDs, flow diagrams, page design, and high-fidelity interactive demos |
 | [product-evaluations](./product-evaluations/) | Evaluation methods for generative design products | Rubrics, P0 quality gates, and deduction rules for web / PPT / prototype and image outputs |
-| [skills](./skills/) | AI Skills created independently or with collaborators | An editable-HTML utility Skill, a web-design Skill Tree, a Chinese typography Skill, and generated showcases |
+| [skills](./skills/) | AI Skills created independently or with collaborators | An editable-HTML utility Skill, a web-design Skill, a typography Skill, and generated showcases |
 | [coding](./coding/) | Research and competition code archive | Python, Stata, data processing, machine learning, visualization, regression, and mathematical modeling |
-| [vibe-coding](./vibe-coding/) | Personal vibe-coding projects | Current artifacts are available; full case-study documentation is still being organized |
+| [vibe-coding](./vibe-coding/) | Personal vibe-coding projects | Website design and independent projects |
 
 ### Selected Work
 
 | Project | Product problem | Key deliverables |
 | --- | --- | --- |
-| [Agent Team Product Research & Design](./product-management/agent-team-product-research-and-design/) | Studied multi-agent collaboration patterns and designed Agent Team proposals for a local desktop agent product and a web-based design product | [Market and competitor research](./product-management/agent-team-product-research-and-design/competitive-research-and-analysis/), [desktop proposal](./product-management/agent-team-product-research-and-design/sowork-desktop-agent-team/), and [web-design Agent Team proposal](./product-management/agent-team-product-research-and-design/web-design-agent-team/). Both product tracks have progressed through Phase 1, with selected capabilities still under research and iteration |
-| [Authentication & Token Plan Payment Flow Refactor](./product-management/authentication-and-token-plan-payment-flow-refactor/) | Redesigned functional product pages, authentication redirects, promotional entry points, top-up, and renewal logic | [Complete PRD](./product-management/authentication-and-token-plan-payment-flow-refactor/authentication-and-token-plan-payment-flow-refactor-prd.md) + [high-fidelity vibe-coded demo](./product-management/authentication-and-token-plan-payment-flow-refactor/interactive-demo.html) |
-| [SenseAudio Image / Video Generation Page Revision](./product-management/senseaudio-image-video-generation-page-revision/) | Reworked creation input, asset-center discovery, generation tasks, and creation management | [Complete PRD](./product-management/senseaudio-image-video-generation-page-revision/senseaudio-image-video-generation-page-revision-prd.md) + [web and H5 demos](./product-management/senseaudio-image-video-generation-page-revision/demo/), with a local backend that can connect to the real SenseAudio API |
-| [Web Design Skills](./skills/web-design/) | Distilled 300+ front-end design prompts into a reusable Skill Tree | [Core web-design Skill](./skills/web-design/web-design-skill/), [Chinese typography Skill](./skills/web-design/chinese-typography-web-design/), and [generated showcases](./skills/web-design/web-design-skill-showcase/) |
-| [Research Data Analysis & Machine Learning](./coding/Machine%20Learning%20%26%20Data%20Processing%20%26%20Dynamic%20Interactive%20Graphics%20Design/) | Prepared research data and delivered modeling, statistical analysis, and visual communication | Python / Stata data processing, random forests, regression analysis, geospatial visualization, and an interactive data map |
+| [Agent Team Product Solution Design](./product-management/agent-team-product-research-and-design/) | Researched multi-agent collaboration patterns and designed Agent Team product solutions for a local desktop agent product and a web-based design product | [Market research and competitive analysis](./product-management/agent-team-product-research-and-design/competitive-research-and-analysis/), [desktop proposal](./product-management/agent-team-product-research-and-design/sowork-desktop-agent-team/), and [Agent Team proposal for a web-based design product](./product-management/agent-team-product-research-and-design/web-design-agent-team/). Both product tracks have progressed through Phase 1, with selected capabilities still under research and iteration |
+| [Authentication & Token Plan Payment Flow Refactor](./product-management/authentication-and-token-plan-payment-flow-refactor/) | Defined functional product pages, authentication redirects, promotional entry points, top-up, and renewal logic | [Complete PRD](./product-management/authentication-and-token-plan-payment-flow-refactor/authentication-and-token-plan-payment-flow-refactor-prd.md) + [high-fidelity vibe-coded interactive demo](./product-management/authentication-and-token-plan-payment-flow-refactor/interactive-demo.html) |
+| [SenseAudio Image / Video Generation Functional Page](./product-management/senseaudio-image-video-generation-page-revision/) | Organized product feature modules and designed user interactions and front-end pages | [Complete PRD](./product-management/senseaudio-image-video-generation-page-revision/senseaudio-image-video-generation-page-revision-prd.md) + [web and H5 demos](./product-management/senseaudio-image-video-generation-page-revision/demo/), with a local backend that can connect to real APIs |
+| [Web Design Skills](./skills/web-design/) | Distilled patterns from a large collection of high-quality front-end web designs into a reusable workflow structured as a dedicated Skill Tree | [Core web-design Skill](./skills/web-design/web-design-skill/), [Chinese typography Skill](./skills/web-design/chinese-typography-web-design/), and [generated showcases](./skills/web-design/web-design-skill-showcase/) |
+| [Data Analysis, Machine Learning, Modeling & Regression](./coding/Machine%20Learning%20%26%20Data%20Processing%20%26%20Dynamic%20Interactive%20Graphics%20Design/) | Processed research data and delivered modeling, statistical analysis, and result communication | Python / Stata data processing, machine learning, regression analysis, geospatial visualization, and an interactive data map |
 
 ### Repository Structure
 
 ```text
 Portfolio/
-├── product-management/       Product research, PRDs, flows, and vibe-coded prototypes
-├── product-evaluations/      Product evaluation and quality rubrics
-├── skills/                   Self-authored and co-created AI Skills
-├── coding/                   Python, Stata, and mathematical-modeling code
-└── vibe-coding/              Personal vibe-coding projects (documentation in progress)
+├── product-management/       AI PM deliverables: PRDs, flow diagrams, product proposals, and vibe-coded prototypes
+├── product-evaluations/      Product evaluation standards
+├── skills/                   Self-authored and collaboratively developed Skills
+├── coding/                   Python / Stata code collections
+└── vibe-coding/              Personal vibe-coding projects: websites, implemented ideas, and more
 ```
 
 ### Suggested Review Path
 
-1. Start with [product-management](./product-management/) for product research and execution evidence.
-2. Open [product-evaluations](./product-evaluations/) for AI-output quality judgment.
-3. Review [skills](./skills/) for AI workflow and tool-building work.
-4. Visit [coding](./coding/) for the underlying data and programming foundation.
-5. See [vibe-coding](./vibe-coding/) for personal prototypes; this section is still being expanded.
+1. For AI product management experience and product thinking, start with [product-management](./product-management/).
+2. For evaluation-standard design for AI products, review [product-evaluations](./product-evaluations/).
+3. For AI workflow design and foundational tool building, see [skills](./skills/).
+4. For data-processing and coding capabilities, visit [coding](./coding/).
 
 ### About Vibe Coding
 
-In this repository, vibe coding means using AI-assisted programming to turn product requirements into interactive prototypes that can be operated and reviewed. It is an implementation method for product communication and validation; requirement breakdown, business rules, page states, interaction paths, and acceptance criteria remain the central product work demonstrated by these cases.
+The vibe-coding work in this repository falls into two categories: professional experience and personal projects. In the professional cases, I primarily use AI-assisted programming to turn product requirements into operable, reviewable high-fidelity interactive prototypes. This supports requirement clarification, design reviews, stakeholder presentations, and acceptance testing. However, specific business rules, page states, interaction paths, and acceptance criteria still need to be documented; see the PRDs for those details. In personal projects, I use vibe coding for front-end website design and to turn independent ideas into working projects, independently handling front-end design, backend API setup, workflow design, and related implementation work.
