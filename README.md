@@ -22,34 +22,33 @@
 
 | 项目 | 我解决的问题 | 主要产出 |
 | --- | --- | --- |
-| [AgentTeam产品方案设计](./product-management/agent-team-product-research-and-design/) | 研究mutiagent协作形态，并分别为桌面端本地Agent产品和Web端设计产品制定 Agent Team 方案 | [市场与竞品研究](./product-management/agent-team-product-research-and-design/competitive-research-and-analysis/)、[桌面端方案](./product-management/agent-team-product-research-and-design/sowork-desktop-agent-team/)、[Web 设计 Agent Team 方案](./product-management/agent-team-product-research-and-design/web-design-agent-team/)；两套产品均已推进一期，部分能力仍在研究与迭代 |
-| [登录与 Token Plan 支付流程重构](./product-management/authentication-and-token-plan-payment-flow-refactor/) | 梳理功能型产品页面、登录跳转、推广入口、充值及续费逻辑 | [完整 PRD](./product-management/authentication-and-token-plan-payment-flow-refactor/authentication-and-token-plan-payment-flow-refactor-prd.md) + [Vibe Coding 高保真交互 Demo](./product-management/authentication-and-token-plan-payment-flow-refactor/interactive-demo.html) |
-| [SenseAudio 图片 / 视频生成页面改版](./product-management/senseaudio-image-video-generation-page-revision/) | 重构创作输入、素材中心、生成任务和作品管理体验 | [完整 PRD](./product-management/senseaudio-image-video-generation-page-revision/senseaudio-image-video-generation-page-revision-prd.md) + [Web / H5 两版 Demo](./product-management/senseaudio-image-video-generation-page-revision/demo/)；包含可连接真实 SenseAudio API 的本地后端 |
-| [Web Design Skills](./skills/web-design/) | 将 300+ 网页前端设计 Prompt 按 Skill Tree 蒸馏成可复用的设计工作流 | [整体网页设计 Skill](./skills/web-design/web-design-skill/)、[中文字体 Skill](./skills/web-design/chinese-typography-web-design/)与[生成案例](./skills/web-design/web-design-skill-showcase/) |
-| [科研数据分析与机器学习](./coding/Machine%20Learning%20%26%20Data%20Processing%20%26%20Dynamic%20Interactive%20Graphics%20Design/) | 处理研究数据并完成建模、统计分析与结果表达 | Python / Stata 数据处理、随机森林、回归分析、地理可视化及交互式数据地图 |
+| [AgentTeam产品方案设计](./product-management/agent-team-product-research-and-design/) | 研究Muti-Agent协作形态，并分别为桌面端本地Agent产品和Web端设计产品设计AgentTeam产品方案 | [市场调研与竞品研究](./product-management/agent-team-product-research-and-design/competitive-research-and-analysis/)、[桌面端方案](./product-management/agent-team-product-research-and-design/sowork-desktop-agent-team/)、[Web端设计类产品AgentTeam方案](./product-management/agent-team-product-research-and-design/web-design-agent-team/)；两套产品均已推进一期，部分能力仍在研究与迭代 |
+| [登录与TokenPlan支付流程重构](./product-management/authentication-and-token-plan-payment-flow-refactor/) | 梳理功能型产品页面、登录跳转、推广入口、充值及续费逻辑 | [完整 PRD](./product-management/authentication-and-token-plan-payment-flow-refactor/authentication-and-token-plan-payment-flow-refactor-prd.md) + [vibecoding 高保真交互Demo](./product-management/authentication-and-token-plan-payment-flow-refactor/interactive-demo.html) |
+| [SenseAudio图片视频生成功能性页面](./product-management/senseaudio-image-video-generation-page-revision/) | 产品功能模块组织、用户交互设计，前端页面设计 | [完整 PRD](./product-management/senseaudio-image-video-generation-page-revision/senseaudio-image-video-generation-page-revision-prd.md) + [Web/H5两版Demo](./product-management/senseaudio-image-video-generation-page-revision/demo/)；包含可连接真实API的本地后端 |
+| [Web Design Skills](./skills/web-design/) | 将收集的大量优秀网页前端设计按特定的Skill Tree蒸馏成可复用的设计工作流 | [整体网页设计 Skill](./skills/web-design/web-design-skill/)、[中文字体 Skill](./skills/web-design/chinese-typography-web-design/)与[生成案例](./skills/web-design/web-design-skill-showcase/) |
+| [数据分析、机器学习、建模与回归分析](./coding/Machine%20Learning%20%26%20Data%20Processing%20%26%20Dynamic%20Interactive%20Graphics%20Design/) | 处理研究数据并完成建模、统计分析与结果表达 | Python、Stata数据处理、机器学习、回归分析、地理可视化及交互式数据地图 |
 
 ## 仓库结构
 
 ```text
 Portfolio/
-├── product-management/       AI 产品研究、PRD、流程与 Vibe Coding 原型
-├── product-evaluations/      产品评测标准与质量规则
-├── skills/                   自制及协作开发的 AI Skills
-├── coding/                   Python / Stata / 数学建模代码
-└── vibe-coding/              个人 Vibe Coding 项目（持续整理中）
+├── product-management/       AI产品经理项目产出：PRD、流程图、产品方案、vibecoding原型
+├── product-evaluations/      产品评测标准
+├── skills/                   自制及协作开发的一些Skill
+├── coding/                   Python/Stata代码集
+└── vibe-coding/              个人vibecoding项目（个人网站、落地项目等）
 ```
 
 ## 建议浏览顺序
 
-1. 如果你关注产品研究与落地能力，请先阅读 [product-management](./product-management/)；
-2. 如果你关注 AI 生成产品的质量判断，请查看 [product-evaluations](./product-evaluations/)；
-3. 如果你关注 AI 工作流设计与工具构建，请查看 [skills](./skills/)；
-4. 如果你关注数据与编程基础，请查看 [coding](./coding/)；
-5. 个人 Vibe Coding 项目位于 [vibe-coding](./vibe-coding/)，该部分仍在继续补充。
+1. AI产品经理项目经历与AI产品相关思考，请先阅读 [product-management](./product-management/)；
+2. AI类产品的测评标准设计，请查看 [product-evaluations](./product-evaluations/)；
+3. 如果你关注AI工作流设计与基础工具构建，请查看 [skills](./skills/)；
+4. 数据处理与代码能力，请查看 [coding](./coding/)；
 
 ## 关于 Vibe Coding
 
-本仓库中的 Vibe Coding 指使用 AI 辅助编程，把产品需求快速转化为可操作、可评审的交互原型。它主要承担产品表达和验证作用；需求拆解、业务规则、页面状态、交互路径与验收标准仍是这些作品重点展示的产品工作。
+本仓库中的vibecoding作品分为工作经历和个人项目两部分，工作经历中主要通过使用AI辅助编程，把产品需求快速转化为可操作、可评审的高保真交互原型，便于明确需求、评审展示、方便验收，但是具体的业务规则、页面状态、交互路径与验收标准仍需通过撰写文档呈现，详见PRD部分；个人项目中主要通过vibecoding制作网页前端设计、自由想法的落地项目等，会独立完成前端设计、后端接口搭建、工作流设计等工作。
 
 ---
 
