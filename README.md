@@ -1,26 +1,28 @@
-# Han Peijing | AI 产品与技术作品集
+# Han Peijing | AI产品经理实习项目经历与作品集
 
 [English Version](#english-version)
 
-> 面向 AI 产品经理与技术型产品岗位的可审阅作品集：覆盖产品研究、竞品分析、方案设计、PRD、流程与交互设计、Vibe Coding 高保真原型，以及 Python / Stata 数据分析与机器学习实践。
+> 仓库主要内容：覆盖PRD、市场调研、竞品分析、产品方案设计、流程与交互设计、vibecoding原型制作、独立vibecoding项目、以及Python、Stata相关代码集。
 
-这个仓库集中展示我如何把一个问题从研究和判断推进到可沟通、可评审的产品方案。产品管理项目来自 AI 产品经理实习期间独立跟进的工作；交互 Demo 主要通过 Vibe Coding 完成，用于快速验证流程、状态和页面体验；代码与 Skill 则补充展示我的技术理解和 AI 工具构建能力。
+仓库中的产品相关产出为AI产品经理实习期间独立跟进的工作；
+交互Demo主要通过vibecoding独立完成；
+代码集来自之前的科研经历与建模竞赛，有丰富的数据处理、分析能力，以及较强的代码理解能力。
 
 ## 作品集导航
 
 | 一级目录 | 主要内容 | 可查看的证据 |
 | --- | --- | --- |
-| [product-management](./product-management/) | AI 产品经理实习期间独立跟进的 3 组项目 | 市场与竞品研究、产品方案、PRD、流程图、页面设计、高保真交互 Demo |
-| [product-evaluations](./product-evaluations/) | 设计类生成产品的评测方法 | 面向网页 / PPT / 原型及图片生成结果的评分规则、P0 门槛和扣分标准 |
-| [skills](./skills/) | 自主制作及与同伴协作完成的 AI Skills | 可编辑 HTML 工具型 Skill、网页设计 Skill Tree、中文字体 Skill 与生成案例 |
+| [product-management](./product-management/) | AI产品经理实习期间独立跟进的3组项目 | 市场调研与竞品分析、产品方案、PRD、流程图、页面设计、高保真交互 Demo |
+| [product-evaluations](./product-evaluations/) | 设计类生成产品的评测方法 | 面向网页/PPT/原型及图片生成结果的评分规则、P0 门槛和扣分标准 |
+| [skills](./skills/) | 自主制作及与同伴协作完成的AI Skills | 可编辑HTML工具型Skill、网页设计Skill、字体Skill以及生成案例 |
 | [coding](./coding/) | 过往科研与竞赛代码集 | Python、Stata、数据处理、机器学习、可视化、回归分析与数学建模 |
-| [vibe-coding](./vibe-coding/) | 个人 Vibe Coding 项目 | 当前项目可浏览，完整项目说明与复盘仍在持续整理 |
+| [vibe-coding](./vibe-coding/) | 个人vibecoding项目 | 网站设计，独立项目|
 
 ## 重点项目
 
 | 项目 | 我解决的问题 | 主要产出 |
 | --- | --- | --- |
-| [Agent Team 产品研究与设计](./product-management/agent-team-product-research-and-design/) | 研究多 Agent 协作形态，并分别为桌面端本地 Agent 产品和 Web 端设计产品制定 Agent Team 方案 | [市场与竞品研究](./product-management/agent-team-product-research-and-design/competitive-research-and-analysis/)、[桌面端方案](./product-management/agent-team-product-research-and-design/sowork-desktop-agent-team/)、[Web 设计 Agent Team 方案](./product-management/agent-team-product-research-and-design/web-design-agent-team/)；两套产品均已推进一期，部分能力仍在研究与迭代 |
+| [AgentTeam产品方案设计](./product-management/agent-team-product-research-and-design/) | 研究mutiagent协作形态，并分别为桌面端本地Agent产品和Web端设计产品制定 Agent Team 方案 | [市场与竞品研究](./product-management/agent-team-product-research-and-design/competitive-research-and-analysis/)、[桌面端方案](./product-management/agent-team-product-research-and-design/sowork-desktop-agent-team/)、[Web 设计 Agent Team 方案](./product-management/agent-team-product-research-and-design/web-design-agent-team/)；两套产品均已推进一期，部分能力仍在研究与迭代 |
 | [登录与 Token Plan 支付流程重构](./product-management/authentication-and-token-plan-payment-flow-refactor/) | 梳理功能型产品页面、登录跳转、推广入口、充值及续费逻辑 | [完整 PRD](./product-management/authentication-and-token-plan-payment-flow-refactor/authentication-and-token-plan-payment-flow-refactor-prd.md) + [Vibe Coding 高保真交互 Demo](./product-management/authentication-and-token-plan-payment-flow-refactor/interactive-demo.html) |
 | [SenseAudio 图片 / 视频生成页面改版](./product-management/senseaudio-image-video-generation-page-revision/) | 重构创作输入、素材中心、生成任务和作品管理体验 | [完整 PRD](./product-management/senseaudio-image-video-generation-page-revision/senseaudio-image-video-generation-page-revision-prd.md) + [Web / H5 两版 Demo](./product-management/senseaudio-image-video-generation-page-revision/demo/)；包含可连接真实 SenseAudio API 的本地后端 |
 | [Web Design Skills](./skills/web-design/) | 将 300+ 网页前端设计 Prompt 按 Skill Tree 蒸馏成可复用的设计工作流 | [整体网页设计 Skill](./skills/web-design/web-design-skill/)、[中文字体 Skill](./skills/web-design/chinese-typography-web-design/)与[生成案例](./skills/web-design/web-design-skill-showcase/) |
