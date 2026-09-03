@@ -1,0 +1,14 @@
+{
+  "name": "personal-portfolio-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A two-page, scroll-driven personal portfolio rendered from a 600-frame Canvas sequence.",
+  "scripts": {
+    "test": "npm run test:state && npm run test:browser",
+    "test:state": "node tests/state-machine.test.js",
+    "test:browser": "node tests/browser.test.js"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

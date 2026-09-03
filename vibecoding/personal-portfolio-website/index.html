@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Peijing Han — a 600-frame, scroll-driven cinematic portfolio."
+    />
+    <title>PORTFOLIO — Peijing Han</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css?v=web-1440p-600-v1" />
+  </head>
+  <body>
+    <canvas id="frame-canvas" aria-hidden="true"></canvas>
+
+    <p class="visually-hidden" id="boot-status" role="status" aria-live="polite">
+      Loading opening frame
+    </p>
+
+    <header class="site-header">
+      <p>Peijing Han</p>
+    </header>
+
+    <main id="story">
+      <section class="panel panel--intro" id="intro" data-page="0" aria-labelledby="portfolio-title">
+        <h1 id="portfolio-title">PORTFOLIO</h1>
+      </section>
+
+      <section class="panel panel--project" id="project" data-page="1" aria-label="Project introductions">
+        <div class="card-grid">
+          <article class="glass-card">
+            <h2>For anyone</h2>
+          </article>
+          <article class="glass-card">
+            <h2>For recruits</h2>
+          </article>
+          <article class="glass-card">
+            <h2>For myself</h2>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <noscript>本页面需要 JavaScript 才能播放滚动帧序列。</noscript>
+    <script src="./frame-state.js?v=web-1440p-600-v1"></script>
+    <script src="./script.js?v=web-1440p-600-v1"></script>
+  </body>
+</html>
