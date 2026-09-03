@@ -26,7 +26,7 @@ Vibe Coding 高保真交互原型
 | --- | --- | --- | --- |
 | [Agent Team 产品研究与设计](./agent-team-product-research-and-design/) | 多 Agent 协作形态、团队组建、角色分工、运行流程与产品化边界 | 市场与竞品研究、桌面端本地 Agent Team 方案、Web 设计 Agent Team 方案与运行手册 | 两套产品均已推进一期，部分能力仍在研究与迭代 |
 | [登录与 Token Plan 支付流程重构](./authentication-and-token-plan-payment-flow-refactor/) | 功能型产品页面、登录跳转、推广入口、充值、续费与实例生命周期 | 完整 PRD、流程与状态规则、页面截图、Vibe Coding 高保真交互 Demo | PRD 与演示材料已完成 |
-| [SenseAudio 图片 / 视频生成页面改版](./senseaudio-image-video-generation-page-revision/) | 创作输入、图片 / 视频切换、素材中心、生成任务、作品管理与发布流程 | 完整 PRD、页面说明图、Web / H5 两版 Demo、本地 Node 后端与真实 API 对接能力 | PRD 与演示材料已完成；部分内部发布能力暂不进入开发 |
+| [SenseAudio 图片 / 视频生成页面改版](./image-video-generation-page/) | 创作输入、图片 / 视频切换、素材中心、生成任务、作品管理与发布流程 | 完整 PRD、页面说明图、Web / H5 两版 Demo、本地 Node 后端与真实 API 对接能力 | PRD 与演示材料已完成；部分内部发布能力暂不进入开发 |
 
 ## 1. Agent Team 产品研究与设计
 
@@ -67,7 +67,7 @@ agent-team-product-research-and-design/
 
 ## 3. SenseAudio 图片 / 视频生成页面改版
 
-[进入项目目录](./senseaudio-image-video-generation-page-revision/)
+[进入项目目录](./image-video-generation-page/)
 
 该项目针对图片与视频生成功能的落地页面进行改版，重点覆盖创作入口、素材检索、任务反馈和作品管理。
 
@@ -80,10 +80,10 @@ agent-team-product-research-and-design/
 
 主要文件：
 
-- [完整 PRD：senseaudio-image-video-generation-page-revision-prd.md](./senseaudio-image-video-generation-page-revision/senseaudio-image-video-generation-page-revision-prd.md)
-- [Web 产品 Demo](./senseaudio-image-video-generation-page-revision/demo/user-facing-demo.html)
-- [H5 产品 Demo](./senseaudio-image-video-generation-page-revision/demo/initial-user-facing-h5-demo.html)
-- [本地后端及启动说明](./senseaudio-image-video-generation-page-revision/demo/backend/README.md)
+- [完整 PRD：senseaudio-image-video-generation-page-revision-prd.md](./image-video-generation-page/senseaudio-image-video-generation-page-revision-prd.md)
+- [Web 产品 Demo](./image-video-generation-page/demo/user-facing-demo.html)
+- [H5 产品 Demo](./image-video-generation-page/demo/initial-user-facing-h5-demo.html)
+- [本地后端及启动说明](./image-video-generation-page/demo/backend/README.md)
 
 两版 Demo 均用于产品流程和交互评审。其中本地 Node 后端可连接真实 SenseAudio 图片 / 视频生成接口；实际调用需要按后端说明配置有效 API Key。
 
@@ -123,7 +123,7 @@ Review, validation, and iteration
 | --- | --- | --- | --- |
 | [Agent Team Product Research & Design](./agent-team-product-research-and-design/) | Multi-agent collaboration patterns, team assembly, roles, runtime flow, and product boundaries | Market and competitor research, a local desktop Agent Team proposal, a web-design Agent Team proposal, and an operating handbook | Both product tracks have progressed through Phase 1; selected capabilities remain under research and iteration |
 | [Authentication & Token Plan Payment Flow Refactor](./authentication-and-token-plan-payment-flow-refactor/) | Functional product pages, authentication redirects, promotional entry points, top-up, renewal, and instance lifecycle | Complete PRD, flow and state rules, page references, and a high-fidelity vibe-coded demo | PRD and demo artifacts completed |
-| [SenseAudio Image / Video Generation Page Revision](./senseaudio-image-video-generation-page-revision/) | Creation input, image / video switching, asset center, generation tasks, work management, and publishing flow | Complete PRD, annotated screens, web and H5 demos, plus a local Node backend capable of real API integration | PRD and demos completed; selected internal publishing capabilities are deferred |
+| [SenseAudio Image / Video Generation Page Revision](./image-video-generation-page/) | Creation input, image / video switching, asset center, generation tasks, work management, and publishing flow | Complete PRD, annotated screens, web and H5 demos, plus a local Node backend capable of real API integration | PRD and demos completed; selected internal publishing capabilities are deferred |
 
 ### 1. Agent Team Product Research & Design
 
@@ -164,7 +164,7 @@ Key files:
 
 ### 3. SenseAudio Image / Video Generation Page Revision
 
-[Open the project directory](./senseaudio-image-video-generation-page-revision/)
+[Open the project directory](./image-video-generation-page/)
 
 This project revises a functional image- and video-generation landing experience, focusing on creation entry, asset discovery, task feedback, and creation management.
 
@@ -177,10 +177,10 @@ This project revises a functional image- and video-generation landing experience
 
 Key files:
 
-- [Complete PRD: senseaudio-image-video-generation-page-revision-prd.md](./senseaudio-image-video-generation-page-revision/senseaudio-image-video-generation-page-revision-prd.md)
-- [Web product demo](./senseaudio-image-video-generation-page-revision/demo/user-facing-demo.html)
-- [H5 product demo](./senseaudio-image-video-generation-page-revision/demo/initial-user-facing-h5-demo.html)
-- [Local backend and run instructions](./senseaudio-image-video-generation-page-revision/demo/backend/README.md)
+- [Complete PRD: senseaudio-image-video-generation-page-revision-prd.md](./image-video-generation-page/senseaudio-image-video-generation-page-revision-prd.md)
+- [Web product demo](./image-video-generation-page/demo/user-facing-demo.html)
+- [H5 product demo](./image-video-generation-page/demo/initial-user-facing-h5-demo.html)
+- [Local backend and run instructions](./image-video-generation-page/demo/backend/README.md)
 
 Both demos support product-flow and interaction review. The local Node backend can connect to the real SenseAudio image and video generation APIs; actual requests require a valid API key configured according to the backend instructions.
 
