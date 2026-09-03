@@ -1,4 +1,4 @@
-# AI 产品管理项目 | AI Product Management
+# AI产品经理项目经历 | AI Product Management
 
 [English Version](#english-version)
 
