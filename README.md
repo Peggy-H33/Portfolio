@@ -16,7 +16,7 @@
 | [product-evaluations](./product-evaluations/) | 设计类生成产品的评测方法 | 面向网页/PPT/原型及图片生成结果的评分规则、P0 门槛和扣分标准 |
 | [skills](./skills/) | 自主制作及与同伴协作完成的AI Skills | 可编辑HTML工具型Skill、网页设计Skill、字体Skill以及生成案例 |
 | [coding](./coding/) | 过往科研与竞赛代码集 | Python、Stata、数据处理、机器学习、可视化、回归分析与数学建模 |
-| [vibecoding](./vibecoding/) | 个人独立完成的vibecoding项目 | [Career Studio](./vibecoding/vibecoding_careerstudio_demo/)求职产品原型、[滚动叙事个人作品集网站](./vibecoding/personal-portfolio-website/)、[Hi, Claude! 电脑桌宠](./vibecoding/hi-claude-desktop-pet/) |
+| [vibecoding](./vibecoding/) | 个人独立完成的vibecoding项目 | [Career Studio](./vibecoding/vibecoding_careerstudio_demo/)求职产品原型、[幕间 AI 角色创作平台](./vibecoding/interlude-creative-writing-platform/)、[滚动叙事个人作品集网站](./vibecoding/personal-portfolio-website/)、[Hi, Claude! 电脑桌宠](./vibecoding/hi-claude-desktop-pet/) |
 
 ## 重点项目
 
@@ -26,6 +26,7 @@
 | [登录与TokenPlan支付流程重构](./product-management/authentication-and-token-plan-payment-flow-refactor/) | 梳理功能型产品页面、登录跳转、推广入口、充值及续费逻辑 | [完整 PRD](./product-management/authentication-and-token-plan-payment-flow-refactor/authentication-and-token-plan-payment-flow-refactor-prd.md) + [vibecoding 高保真交互Demo](./product-management/authentication-and-token-plan-payment-flow-refactor/interactive-demo.html) |
 | [SenseAudio图片视频生成功能性页面](./product-management/senseaudio-image-video-generation-page-revision/) | 产品功能模块组织、用户交互设计，前端页面设计 | [完整 PRD](./product-management/senseaudio-image-video-generation-page-revision/senseaudio-image-video-generation-page-revision-prd.md) + [Web/H5两版Demo](./product-management/senseaudio-image-video-generation-page-revision/demo/)；包含可连接真实API的本地后端 |
 | [Web Design Skills](./skills/web-design/) | 将收集的大量优秀网页前端设计按特定的Skill Tree蒸馏成可复用的设计工作流 | [整体网页设计 Skill](./skills/web-design/web-design-skill/)、[中文字体 Skill](./skills/web-design/chinese-typography-web-design/)与[生成案例](./skills/web-design/web-design-skill-showcase/) |
+| [幕间（Interlude）AI 角色创作平台](./vibecoding/interlude-creative-writing-platform/) | 从个人写作兴趣出发，探索如何让角色在作者可控的世界观、记忆与行为规则下持续互动，并把新细节回流到创作过程 | [完整 PRD](./vibecoding/interlude-creative-writing-platform/PRD.md) + 可运行的 Next.js 交互原型；覆盖多角色对话、候选记忆、认知矩阵、正典确认、Skill 编辑、正文阅读与场景预演 |
 | [滚动叙事个人作品集网站](./vibecoding/personal-portfolio-website/) | 独立通过vibecoding完成个人网站设计，使用滚动操作组织两页电影式叙事 | 原生HTML/CSS/JavaScript、Canvas 600帧序列、双向状态机、触控/键盘交互与响应式验证 |
 | [Hi, Claude! 电脑桌宠](./vibecoding/hi-claude-desktop-pet/) | 将角色动画、桌面空间和鼠标输入组合成可配置的 macOS 桌宠体验 | 12 套独立动态形象、屏幕与窗口边缘巡逻、鼠标跟随和点击粒子、三语言控制面板及 Electron / CoreGraphics 实现 |
 | [数据分析、机器学习、建模与回归分析](./coding/Machine%20Learning%20%26%20Data%20Processing%20%26%20Dynamic%20Interactive%20Graphics%20Design/) | 处理研究数据并完成建模、统计分析与结果表达 | Python、Stata数据处理、机器学习、回归分析、地理可视化及交互式数据地图 |
@@ -38,7 +39,7 @@ Portfolio/
 ├── product-evaluations/      产品评测标准
 ├── skills/                   自制及协作开发的一些Skill
 ├── coding/                   Python/Stata代码集
-└── vibecoding/               个人vibecoding项目（求职产品原型、个人网站、桌面交互应用等）
+└── vibecoding/               个人vibecoding项目（求职产品原型、AI角色创作平台、个人网站、桌面交互应用等）
 ```
 
 ## 建议浏览顺序
@@ -71,7 +72,7 @@ The product-related deliverables in this repository come from projects I indepen
 | [product-evaluations](./product-evaluations/) | Evaluation methods for generative design products | Rubrics, P0 quality gates, and deduction rules for web / PPT / prototype and image outputs |
 | [skills](./skills/) | AI Skills created independently or with collaborators | An editable-HTML utility Skill, a web-design Skill, a typography Skill, and generated showcases |
 | [coding](./coding/) | Research and competition code archive | Python, Stata, data processing, machine learning, visualization, regression, and mathematical modeling |
-| [vibecoding](./vibecoding/) | Independently created vibecoding projects | The [Career Studio](./vibecoding/vibecoding_careerstudio_demo/) job-search product prototype, a [scroll-driven personal portfolio website](./vibecoding/personal-portfolio-website/), and the [Hi, Claude! desktop pet](./vibecoding/hi-claude-desktop-pet/) |
+| [vibecoding](./vibecoding/) | Independently created vibecoding projects | The [Career Studio](./vibecoding/vibecoding_careerstudio_demo/) job-search product prototype, the [Interlude AI character-creation platform](./vibecoding/interlude-creative-writing-platform/), a [scroll-driven personal portfolio website](./vibecoding/personal-portfolio-website/), and the [Hi, Claude! desktop pet](./vibecoding/hi-claude-desktop-pet/) |
 
 ### Selected Work
 
@@ -81,6 +82,7 @@ The product-related deliverables in this repository come from projects I indepen
 | [Authentication & Token Plan Payment Flow Refactor](./product-management/authentication-and-token-plan-payment-flow-refactor/) | Defined functional product pages, authentication redirects, promotional entry points, top-up, and renewal logic | [Complete PRD](./product-management/authentication-and-token-plan-payment-flow-refactor/authentication-and-token-plan-payment-flow-refactor-prd.md) + [high-fidelity vibecoding interactive demo](./product-management/authentication-and-token-plan-payment-flow-refactor/interactive-demo.html) |
 | [SenseAudio Image / Video Generation Functional Page](./product-management/senseaudio-image-video-generation-page-revision/) | Organized product feature modules and designed user interactions and front-end pages | [Complete PRD](./product-management/senseaudio-image-video-generation-page-revision/senseaudio-image-video-generation-page-revision-prd.md) + [web and H5 demos](./product-management/senseaudio-image-video-generation-page-revision/demo/), with a local backend that can connect to real APIs |
 | [Web Design Skills](./skills/web-design/) | Distilled patterns from a large collection of high-quality front-end web designs into a reusable workflow structured as a dedicated Skill Tree | [Core web-design Skill](./skills/web-design/web-design-skill/), [Chinese typography Skill](./skills/web-design/chinese-typography-web-design/), and [generated showcases](./skills/web-design/web-design-skill-showcase/) |
+| [Interlude AI Character-Creation Platform](./vibecoding/interlude-creative-writing-platform/) | Explores how fictional characters can continue interacting inside author-controlled world facts, memories, and behavioral rules, then return useful new details to the writing process | A [complete PRD](./vibecoding/interlude-creative-writing-platform/PRD.md) plus a runnable Next.js interaction prototype covering multi-character chat, candidate memories, perspective editing, canon confirmation, Skill editing, manuscript reading, and scene rehearsal |
 | [Scroll-Driven Personal Portfolio Website](./vibecoding/personal-portfolio-website/) | Independently designed and built a personal website through vibecoding, using scrolling to structure a cinematic two-page narrative | Native HTML/CSS/JavaScript, a 600-frame Canvas sequence, a reversible state machine, touch/keyboard input, and responsive verification |
 | [Hi, Claude! Desktop Pet](./vibecoding/hi-claude-desktop-pet/) | Combined character animation, desktop geometry, and mouse input into a configurable macOS desktop-pet experience | Twelve distinctly animated forms, screen- and window-edge patrol, cursor following and click particles, a three-language control panel, and an Electron / CoreGraphics implementation |
 | [Data Analysis, Machine Learning, Modeling & Regression](./coding/Machine%20Learning%20%26%20Data%20Processing%20%26%20Dynamic%20Interactive%20Graphics%20Design/) | Processed research data and delivered modeling, statistical analysis, and result communication | Python / Stata data processing, machine learning, regression analysis, geospatial visualization, and an interactive data map |
@@ -93,7 +95,7 @@ Portfolio/
 ├── product-evaluations/      Product evaluation standards
 ├── skills/                   Self-authored and collaboratively developed Skills
 ├── coding/                   Python / Stata code collections
-└── vibecoding/               Personal vibecoding projects: a job-search prototype, a personal website, and a desktop interaction app
+└── vibecoding/               Personal vibecoding projects: a job-search prototype, an AI character-creation platform, a personal website, and a desktop interaction app
 ```
 
 ### Suggested Review Path
