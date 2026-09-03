@@ -8,14 +8,13 @@
 
 | 项目 | 项目内容 | 主要材料 | 状态说明 |
 | --- | --- | --- | --- |
-| [Career Studio](./vibecoding_careerstudio_demo/) | 面向求职场景的产品概念原型，包含简历与 JD 匹配、面试记录和面试准备等流程 | [项目流程文档](./vibecoding_careerstudio_demo/Project%20Workflow%20Document.pdf) · [HTML 原型](./vibecoding_careerstudio_demo/career-studio-preview.html) | 前端原型可查看；AI 生成结果为模拟内容，不包含生产后端；完整案例说明仍在整理 |
-| [幕间（Interlude）AI 角色创作平台](./interlude-creative-writing-platform/) | 源于个人写作兴趣的创作平台，让作者创建角色 Agent、组织多角色对话，并以可控的 Memory 与 Skill 让人物在正文之外继续生活 | [项目说明](./interlude-creative-writing-platform/README.md) · [完整 PRD](./interlude-creative-writing-platform/PRD.md) · [视觉预览](./interlude-creative-writing-platform/public/og.png) | 可本地运行；当前为交互原型，模型回复与 AI 分析为预设内容，交互数据保存在浏览器本地 |
-| [滚动叙事个人作品集网站](./personal-portfolio-website/) | 独立通过vibecoding完成的网站设计作品，以滚动驱动 600 帧连续画面，构成两页电影式个人作品集叙事 | [项目说明](./personal-portfolio-website/README.md) · [HTML 入口](./personal-portfolio-website/index.html) · [页面预览](./personal-portfolio-website/tests/artifacts/page-1.png) | 可本地运行；包含响应式交互、状态机、测试和发布优化后的网页帧序列 |
+| [幕间（Interlude）AI 角色创作平台](./mujian-creative-writing-platform/) | 源于个人写作兴趣的创作平台，让作者创建角色 Agent、组织多角色对话，并以可控的 Memory 与 Skill 让人物在正文之外继续生活 | [项目说明](./mujian-creative-writing-platform/README.md) · [完整 PRD](./mujian-creative-writing-platform/PRD.md) · [视觉预览](./mujian-creative-writing-platform/public/og.png) | 可本地运行；当前为交互原型，模型回复与 AI 分析为预设内容，交互数据保存在浏览器本地 |
+| [滚动叙事个人作品集网站](./personal-portfolio-website-design/) | 独立通过vibecoding完成的网站设计作品，以滚动驱动 600 帧连续画面，构成两页电影式个人作品集叙事 | [项目说明](./personal-portfolio-website-design/README.md) · [HTML 入口](./personal-portfolio-website-design/index.html) · [页面预览](./personal-portfolio-website-design/tests/artifacts/page-1.png) | 可本地运行；包含响应式交互、状态机、测试和发布优化后的网页帧序列 |
 | [Hi, Claude! 电脑桌宠](./hi-claude-desktop-pet/) | 基于 Claude 形象制作的 macOS 桌宠，12 套角色具有不同待机和局部动画，可在屏幕或应用窗口边缘行走 | [项目说明](./hi-claude-desktop-pet/README.md) · [控制面板预览](./hi-claude-desktop-pet/docs/preview/settings-panel.png) · [Electron 源码](./hi-claude-desktop-pet/main.js) | 可从源码运行和重新打包；包含鼠标互动、窗口检测、三语言控制面板和本地设置 |
 
 ## 幕间（Interlude）AI 角色创作平台
 
-![幕间角色记忆星图预览](./interlude-creative-writing-platform/public/og.png)
+![幕间角色记忆星图预览](./mujian-creative-writing-platform/public/og.png)
 
 这个项目源于我对写作的长期兴趣：我希望笔下的人物不只存在于正文，而能在作者可控的世界观、记忆和行为规则下继续生活。为此，我把角色 Agent、多角色群聊、记忆治理和 Skill 编辑组织成一个面向小说创作者的“角色剧场”。
 
@@ -30,7 +29,7 @@
 
 ## 滚动叙事个人作品集网站
 
-![滚动叙事个人作品集网站预览](./personal-portfolio-website/tests/artifacts/page-1.png)
+![滚动叙事个人作品集网站预览](./personal-portfolio-website-design/tests/artifacts/page-1.png)
 
 这是一个独立完成的网页视觉与交互实验。页面不是通过普通长页面堆叠内容，而是把滚动输入映射到连续画面，让访问者通过滚轮、触控或键盘推进和反向查看叙事。
 
@@ -61,15 +60,14 @@
 
 ```text
 vibecoding/
-├── vibecoding_careerstudio_demo/    Career Studio 求职产品原型
-├── interlude-creative-writing-platform/  幕间 AI 角色创作平台
-├── personal-portfolio-website/      滚动叙事个人作品集网站
-└── hi-claude-desktop-pet/           Hi, Claude! macOS 电脑桌宠
+├── mujian-creative-writing-platform/    幕间 AI 角色创作平台
+├── personal-portfolio-website-design/   滚动叙事个人作品集网站
+└── hi-claude-desktop-pet/               Hi, Claude! macOS 电脑桌宠
 ```
 
 ## 后续补充计划
 
-Career Studio 的完整项目背景、个人决策、演示素材和复盘仍会继续整理；未来新增的独立项目也会按照“背景与目标 → 用户问题 → 个人职责与取舍 → Demo → 实现方式 → 验证与复盘”的结构补充。
+未来新增的独立项目会按照“背景与目标 → 用户问题 → 个人职责与取舍 → Demo → 实现方式 → 验证与复盘”的结构持续补充。
 
 [返回作品集首页](../README.md)
 
@@ -83,14 +81,13 @@ This directory contains vibecoding projects that I completed independently, incl
 
 | Project | What it is | Main artifacts | Status |
 | --- | --- | --- | --- |
-| [Career Studio](./vibecoding_careerstudio_demo/) | A product-concept prototype for job-search workflows, including resume–JD matching, interview logging, and interview preparation | [Project workflow document](./vibecoding_careerstudio_demo/Project%20Workflow%20Document.pdf) · [HTML prototype](./vibecoding_careerstudio_demo/career-studio-preview.html) | The front-end prototype is available; AI-generated results are mocked and no production backend is included. Full case-study documentation is still in progress |
-| [Interlude AI Character-Creation Platform](./interlude-creative-writing-platform/) | A writing-inspired creative platform where authors create character Agents, stage multi-character conversations, and use governed Memory and Skills to let characters continue living beyond the manuscript | [Project README](./interlude-creative-writing-platform/README.md) · [Full PRD](./interlude-creative-writing-platform/PRD.md) · [Visual preview](./interlude-creative-writing-platform/public/og.png) | Runs locally; the current version is an interaction prototype with scripted model/AI outputs and browser-local state |
-| [Scroll-Driven Personal Portfolio Website](./personal-portfolio-website/) | A website-design project built independently through vibecoding, using scrolling to drive 600 consecutive frames across a cinematic two-page portfolio narrative | [Project README](./personal-portfolio-website/README.md) · [HTML entry point](./personal-portfolio-website/index.html) · [Page preview](./personal-portfolio-website/tests/artifacts/page-1.png) | Runs locally and includes responsive interaction, a state machine, tests, and a web-optimized frame sequence |
+| [Interlude AI Character-Creation Platform](./mujian-creative-writing-platform/) | A writing-inspired creative platform where authors create character Agents, stage multi-character conversations, and use governed Memory and Skills to let characters continue living beyond the manuscript | [Project README](./mujian-creative-writing-platform/README.md) · [Full PRD](./mujian-creative-writing-platform/PRD.md) · [Visual preview](./mujian-creative-writing-platform/public/og.png) | Runs locally; the current version is an interaction prototype with scripted model/AI outputs and browser-local state |
+| [Scroll-Driven Personal Portfolio Website](./personal-portfolio-website-design/) | A website-design project built independently through vibecoding, using scrolling to drive 600 consecutive frames across a cinematic two-page portfolio narrative | [Project README](./personal-portfolio-website-design/README.md) · [HTML entry point](./personal-portfolio-website-design/index.html) · [Page preview](./personal-portfolio-website-design/tests/artifacts/page-1.png) | Runs locally and includes responsive interaction, a state machine, tests, and a web-optimized frame sequence |
 | [Hi, Claude! Desktop Pet](./hi-claude-desktop-pet/) | A Claude-inspired macOS desktop pet with 12 character forms, distinct idle / regional animations, and screen- or window-edge movement | [Project README](./hi-claude-desktop-pet/README.md) · [Control-panel preview](./hi-claude-desktop-pet/docs/preview/settings-panel.png) · [Electron source](./hi-claude-desktop-pet/main.js) | Runs and packages from source; includes mouse interaction, window detection, a three-language control panel, and local settings |
 
 ### Interlude AI Character-Creation Platform
 
-![Preview of Interlude's character-memory constellation](./interlude-creative-writing-platform/public/og.png)
+![Preview of Interlude's character-memory constellation](./mujian-creative-writing-platform/public/og.png)
 
 This project grew out of my long-standing interest in writing. I wanted fictional characters to exist beyond a static manuscript, continuing to live inside an author-controlled system of world facts, memories, and behavioral rules. I therefore designed a “character theatre” for fiction creators that brings together character Agents, multi-character chat, memory governance, and Skill editing.
 
@@ -105,7 +102,7 @@ This project grew out of my long-standing interest in writing. I wanted fictiona
 
 ### Scroll-Driven Personal Portfolio Website
 
-![Preview of the scroll-driven personal portfolio website](./personal-portfolio-website/tests/artifacts/page-1.png)
+![Preview of the scroll-driven personal portfolio website](./personal-portfolio-website-design/tests/artifacts/page-1.png)
 
 This is an independently completed visual and interaction experiment for the web. Instead of arranging content as a conventional long page, it maps user input to a continuous image sequence so visitors can move the story forward or backward with a mouse wheel, touch gesture, or keyboard.
 
@@ -136,14 +133,13 @@ Directory structure:
 
 ```text
 vibecoding/
-├── vibecoding_careerstudio_demo/    Career Studio job-search product prototype
-├── interlude-creative-writing-platform/  Interlude AI character-creation platform
-├── personal-portfolio-website/      Scroll-driven personal portfolio website
-└── hi-claude-desktop-pet/           Hi, Claude! macOS desktop pet
+├── mujian-creative-writing-platform/    Interlude AI character-creation platform
+├── personal-portfolio-website-design/   Scroll-driven personal portfolio website
+└── hi-claude-desktop-pet/               Hi, Claude! macOS desktop pet
 ```
 
 ### Planned Additions
 
-The full Career Studio context, personal decisions, demo materials, and retrospective will continue to be organized. Future independent projects will follow a consistent structure: context and objective → user problem → personal role and trade-offs → demo → implementation approach → validation and retrospective.
+Future independent projects will follow a consistent structure: context and objective → user problem → personal role and trade-offs → demo → implementation approach → validation and retrospective.
 
 [Back to portfolio home](../README.md)

@@ -19,7 +19,7 @@
 ## 技术结构
 
 ```text
-personal-portfolio-website/
+personal-portfolio-website-design/
 ├── index.html                 两页语义结构
 ├── styles.css                 字体、全屏布局与玻璃卡片样式
 ├── script.js                  帧加载、Canvas 绘制与输入控制
@@ -86,7 +86,7 @@ npm test
 ### Technical Structure
 
 ```text
-personal-portfolio-website/
+personal-portfolio-website-design/
 ├── index.html                 Semantic structure for the two pages
 ├── styles.css                 Fonts, full-screen layout, and glass-card styles
 ├── script.js                  Frame loading, Canvas rendering, and input control

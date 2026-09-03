@@ -49,7 +49,7 @@
 
 ```bash
 git clone https://github.com/Peggy-H33/Portfolio.git
-cd Portfolio/vibecoding/interlude-creative-writing-platform
+cd Portfolio/vibecoding/mujian-creative-writing-platform
 npm ci
 npm run dev
 ```
@@ -130,7 +130,7 @@ Requires Node.js `>=22.13.0`.
 
 ```bash
 git clone https://github.com/Peggy-H33/Portfolio.git
-cd Portfolio/vibecoding/interlude-creative-writing-platform
+cd Portfolio/vibecoding/mujian-creative-writing-platform
 npm ci
 npm run dev
 ```
