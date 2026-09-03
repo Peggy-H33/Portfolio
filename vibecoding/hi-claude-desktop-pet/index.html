@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+  html, body {
+    margin: 0; padding: 0; width: 100%; height: 100%;
+    background: transparent; overflow: hidden;
+    cursor: grab; -webkit-user-select: none; user-select: none;
+  }
+  body:active { cursor: grabbing; }
+  canvas { display: block; width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let dpr = window.devicePixelRatio || 1;
+
+function resize() {
+  dpr = window.devicePixelRatio || 1;
+  canvas.width = Math.round(window.innerWidth * dpr);
+  canvas.height = Math.round(window.innerHeight * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.imageSmoothingEnabled = true;
+}
+window.addEventListener('resize', resize);
+resize();
+
+// ---------- per-sprite animation specs ----------
+// rect: [x,y,w,h] in sprite pixels; legs: [x0,x1] column spans below legCutY.
+// Each region's f(t, fx) returns {dx,dy,rot,s,shear,alpha,roll,skip}.
+const S = Math.sin, FL = Math.floor, R = Math.round;
+const ANIM = {
+  '1.png': { // gaming: pad jiggles like button mashing, sparkle twinkles
+    legCutY: 52, legs: [[9,18],[22,31],[41,50],[54,63]],
+    regions: [
+      { rect: [17,33,47,19], fill: 'auto', pivot: [40,42],
+        f: (t) => ({ dy: R(S(t*9)*1.3), rot: S(t*5.3)*0.035 }) },
+      { rect: [64,0,16,13], f: (t) => ({ alpha: 0.5+0.5*S(t*5), rot: S(t*1.3)*0.2 }) },
+    ],
+  },
+  '2.png': { // cooking: pan tosses, egg pops out and lands back
+    legCutY: 46, legs: [[17,28],[34,45],[60,71],[78,89]], facing: 1,
+    regions: [
+      // egg cut FIRST (mask 'light' takes only its bright pixels; the hole inside the
+      // pan auto-fills dark) but drawn LAST (z) so it flies above the pan
+      { rect: [106,28,34,14], fill: 'auto', mask: 'light', z: 2,
+        f: (t) => { const p = (t % 2.0) / 2.0;
+          return { dy: p < 0.30 ? R(-9*S(p/0.30*Math.PI)) : 0 }; } },
+      { rect: [102,20,44,31], pivot: [104,33], z: 1,
+        f: (t) => { const p = (t % 2.0) / 2.0;
+          return { rot: p < 0.22 ? -0.18*S(p/0.22*Math.PI) : S(t*2.5)*0.02 }; } },
+    ],
+  },
+  '3.png': { // coding: code glyph flickers like typed output, sparkle twinkles
+    legCutY: 52, legs: [[3,12],[13,20]], facing: 1,
+    regions: [
+      { rect: [46,41,20,9], fill: 'auto',
+        f: (t) => ({ dx: FL(t*8)%3 === 0 ? 1 : 0, alpha: 0.8+0.2*(FL(t*13)%2) }) },
+      { rect: [64,0,18,12], f: (t) => ({ alpha: 0.5+0.5*S(t*6+1), rot: S(t*1.1)*0.2 }) },
+    ],
+  },
+  '4.png': { // reading: whole body gently rises and falls, sparkle twinkles
+    legCutY: 54, legs: [[11,20],[23,32],[43,52],[57,64]],
+    idle: { amp: 0.03, hz: 2.0, hop: 1.7 },
+    regions: [
+      { rect: [69,0,13,11], f: (t) => ({ alpha: 0.5+0.5*S(t*5.5), rot: S(t*1.2)*0.2 }) },
+    ],
+  },
+  '5.png': { // music: ear cups pulse to the beat, notes rise, head nods
+    legCutY: 52, legs: [[13,22],[23,32],[41,48],[51,60]],
+    body: (t) => ({ rot: S(t*4.4)*0.03 }),
+    regions: [
+      { rect: [0,22,16,22],  f: (t) => ({ s: 1 + Math.max(0,S(t*4.4))**2*0.12 }) },
+      { rect: [60,22,14,20], f: (t) => ({ s: 1 + Math.max(0,S(t*4.4))**2*0.12 }) },
+      { rect: [68,0,17,20],
+        f: (t) => { const k = (t*5) % 14; return { dy: -k, alpha: 1 - (k/14)*0.9 }; } },
+    ],
+  },
+  '6.png': { // brushing teeth: brush head scrubs across the mouth
+    legCutY: 46, legs: [[16,27],[31,43],[54,65],[70,81]],
+    regions: [
+      { rect: [30,24,12,6], fill: 'auto', f: (t) => ({ dx: R(S(t*10)*2) }) },
+    ],
+  },
+  '7.png': { // sleeping: slow deep breathing, Zzz floats up
+    legCutY: null, legs: [], facing: 1,
+    idle: { amp: 0.045, hz: 1.4, hop: 0.3 },
+    regions: [
+      { rect: [56,0,26,19],
+        f: (t) => { const k = (t*3.5) % 10; return { dy: -k*0.8, alpha: 1 - (k/10)*0.85 }; } },
+    ],
+  },
+  '8.png': { // minigun: barrel spins, muzzle flickers, bullets fly, body shakes
+    legCutY: 46, legs: [[15,24],[29,38],[66,76]], facing: 1,
+    body: (t) => (t % 2.4) < 1.1 ? { dx: S(t*50)*0.5 } : {},
+    regions: [
+      { rect: [26,27,56,12], fill: 'auto',
+        f: (t) => ({ roll: (t % 2.4) < 1.1 ? FL(t*30)%12 : 0 }) },
+      { rect: [96,24,13,18],
+        f: (t) => ({ alpha: (t % 2.4) < 1.1 ? (FL(t*24)%2 ? 1 : 0.25) : 0 }) },
+    ],
+  },
+  '9.png': { // painting: brush strokes around the wrist, dabs appear on canvas
+    legCutY: 50, legs: [[49,58],[59,67],[73,80],[83,90]], facing: -1,
+    regions: [
+      // mask 'dark' takes only the brush, not the white board behind it
+      { rect: [32,30,12,11], pivot: [44,40], fill: 'auto', mask: 'dark',
+        f: (t) => ({ rot: S(t*3.6)*0.16 - 0.04 }) },
+    ],
+  },
+  '10.png': { // maid: hips fixed, upper body sways side to side
+    legCutY: 56, legs: [[11,20],[21,30],[41,48],[53,60]],
+    eyeAdj: (o) => ({ dx: (o.shear || 0) * (21 - 38), dy: o.dy || 0 }),
+    regions: [
+      { rect: [0,0,75,38], shearY: 38,
+        f: (t) => ({ shear: S(t*3.4)*0.09, dy: -Math.abs(S(t*3.4))*0.8 }) },
+    ],
+  },
+  '11.png': { // watering: can tilts to pour, droplets fall onto the plant
+    legCutY: 42, legs: [[14,22],[27,36],[48,57],[62,71]], facing: 1,
+    regions: [
+      { rect: [68,22,31,24], pivot: [74,24], f: (t) => ({ rot: 0.04 + 0.07*S(t*1.4) }) },
+      { rect: [99,28,10,17], f: () => ({ skip: true }) },  // static drops removed; particles instead
+    ],
+  },
+  '12.png': { // explorer: map folds in/out, sun spins slowly, pin fades in/out
+    legCutY: 52, legs: [[14,23],[25,33],[41,49],[51,60]], facing: 1,
+    regions: [
+      { rect: [20,33,41,19], fill: 'auto',
+        f: (t) => ({ sx: 1 + 0.08*S(t*1.8), sy: 1 - 0.03*S(t*1.8) }) },
+      { rect: [57,1,14,13], pivot: [64,7], f: (t) => ({ rot: t*0.6 }) },
+      { rect: [42,0,11,11], f: (t) => ({ alpha: 0.12 + 0.88*(0.5+0.5*S(t*1.6)), dy: S(t*1.6)*1 }) },
+    ],
+  },
+};
+
+// scene overlays / local particles, drawn in sprite-local pixel space
+const EXTRAS = {
+  '8.png': (t, dt, fx) => { // bullet stream while firing
+    if ((t % 2.4) < 1.1) {
+      fx.acc = (fx.acc || 0) + dt * 16;
+      while (fx.acc >= 1) { fx.acc -= 1; fx.parts.push({ x: 104, y: 29 + Math.random()*4, vx: 150 }); }
+    }
+    for (let i = fx.parts.length - 1; i >= 0; i--) {
+      const b = fx.parts[i];
+      b.x += b.vx * dt;
+      if (b.x > 130) { fx.parts.splice(i, 1); continue; }
+      ctx.fillStyle = '#FFC65B';
+      ctx.fillRect(R(b.x), R(b.y), 3, 2);
+    }
+  },
+  '9.png': (t) => { // paint dabs pulsing on the easel canvas
+    const dabs = [[23,27,'#c75d5d'], [27,32,'#5d7fc7'], [21,34,'#d8a93f']];
+    dabs.forEach(([x, y, c], i) => {
+      const a = Math.max(0, S(t*1.8 - i*2.1));
+      if (a < 0.1) return;
+      ctx.globalAlpha = a * 0.9; ctx.fillStyle = c;
+      ctx.fillRect(x, y, 2, 2);
+    });
+    ctx.globalAlpha = 1;
+  },
+  '11.png': (t, dt, fx, region0) => { // water droplets from the can spout
+    const rot = region0 ? region0.rot || 0 : 0;
+    fx.acc = (fx.acc || 0) + dt * 9;
+    while (fx.acc >= 1) {
+      fx.acc -= 1;
+      fx.parts.push({ x: 96 + Math.random()*3, y: 33 + rot*26, vx: 14 + Math.random()*14, vy: 8 });
+    }
+    for (let i = fx.parts.length - 1; i >= 0; i--) {
+      const d = fx.parts[i];
+      d.x += d.vx * dt; d.y += d.vy * dt; d.vy += 140 * dt;
+      if (d.y > 46) { fx.parts.splice(i, 1); continue; }
+      ctx.fillStyle = '#9ed1f0'; ctx.globalAlpha = 0.85;
+      ctx.fillRect(R(d.x), R(d.y), 2, 2);
+    }
+    ctx.globalAlpha = 1;
+  },
+};
+
+// eye rects per sprite for the blink overlay (7.png sleeps, eyes already shut)
+const EYES = {
+  '1.png':  [[20,22,6,6],[48,22,7,6]],
+  '2.png':  [[28,8,8,8],[72,8,8,8]],
+  '3.png':  [[22,24,6,6],[49,24,7,6]],
+  '4.png':  [[20,20,6,6],[52,20,6,6]],
+  '5.png':  [[24,28,4,4],[48,28,4,4]],
+  '6.png':  [[26,8,8,6],[64,8,8,6]],
+  '8.png':  [[24,8,8,6],[60,8,8,6]],
+  '9.png':  [[58,26,4,4],[80,26,4,4]],
+  '10.png': [[20,18,7,6],[47,18,7,6]],
+  '11.png': [[24,8,8,6],[60,8,8,6]],
+};
+
+// ---------- sprite slicing: base + legs + animated regions ----------
+function modeRingColor(data, W, H, x, y, w, h) {
+  const count = new Map();
+  for (let yy = Math.max(0, y-2); yy < Math.min(H, y+h+2); yy++) {
+    for (let xx = Math.max(0, x-2); xx < Math.min(W, x+w+2); xx++) {
+      if (yy >= y && yy < y+h && xx >= x && xx < x+w) continue;
+      const i = (yy*W + xx) * 4;
+      if (data[i+3] > 64) {
+        const k = (data[i]<<16) | (data[i+1]<<8) | data[i+2];
+        count.set(k, (count.get(k) || 0) + 1);
+      }
+    }
+  }
+  let best = -1, bk = null;
+  for (const [k, n] of count) if (n > best) { best = n; bk = k; }
+  return bk;
+}
+
+function buildParts(img, file) {
+  const spec = ANIM[file];
+  const W = img.naturalWidth, H = img.naturalHeight;
+  const art = document.createElement('canvas');
+  art.width = W; art.height = H;
+  const actx = art.getContext('2d', { willReadFrequently: true });
+  actx.drawImage(img, 0, 0);
+  const id = actx.getImageData(0, 0, W, H);
+  const data = id.data;
+
+  // mask 'light'/'dark' cuts only bright/dim pixels, leaving the rest in the base
+  const cutRect = (x, y, w, h, fill, mask) => {
+    const sub = document.createElement('canvas');
+    sub.width = w; sub.height = h;
+    const sid = actx.getImageData(x, y, w, h);
+    const mode = fill === 'auto' ? modeRingColor(data, W, H, x, y, w, h) : null;
+    for (let yy = y; yy < y+h; yy++) for (let xx = x; xx < x+w; xx++) {
+      const i = (yy*W + xx) * 4;
+      const mx = Math.max(data[i], data[i+1], data[i+2]);
+      if (mask && data[i+3] > 64 &&
+          ((mask === 'light' && mx <= 110) || (mask === 'dark' && mx >= 210))) {
+        const j = ((yy-y)*w + (xx-x)) * 4;
+        sid.data[j+3] = 0;          // not ours: drop from the slice, keep in base
+        continue;
+      }
+      if (mode != null && data[i+3] > 64) {
+        data[i] = (mode>>16)&255; data[i+1] = (mode>>8)&255; data[i+2] = mode&255;
+      } else data[i+3] = 0;
+    }
+    sub.getContext('2d').putImageData(sid, 0, 0);
+    return sub;
+  };
+
+  const parts = { legs: [], regions: [], spec: spec || { legs: [], regions: [] } };
+  if (spec) {
+    if (spec.legCutY != null) for (const [x0, x1] of spec.legs) {
+      parts.legs.push({ x: x0, y: spec.legCutY, canvas: cutRect(x0, spec.legCutY, x1-x0, H-spec.legCutY, 'none') });
+    }
+    for (const r of spec.regions) {
+      const [x, y, w, h] = r.rect;
+      parts.regions.push({ spec: r, x, y, w, h, canvas: cutRect(x, y, w, h, r.fill || 'none', r.mask) });
+    }
+  }
+  actx.putImageData(id, 0, 0);
+  parts.base = art;
+
+  // eyelid color sampled from the face just below each eye
+  parts.eyes = (EYES[file] || []).map(([x, y, w, h]) => {
+    const sx = Math.min(W-1, x + (w>>1)), sy = Math.min(H-1, y + h + 2);
+    const i = (sy*W + sx) * 4;
+    const color = data[i+3] > 64 ? `rgb(${data[i]},${data[i+1]},${data[i+2]})` : null;
+    return { x, y, w, h, color };
+  }).filter((e) => e.color);
+  return parts;
+}
+
+const cur = { parts: null, file: '', w: 60, h: 60, natW: 60, natH: 60, foot: '#a5624a', ready: false };
+let fx = { parts: [], acc: 0 };  // per-form effect state (bullets, droplets, ...)
+window.pet.onForm((d) => {
+  const img = new Image();
+  img.onload = () => {
+    cur.parts = buildParts(img, d.file);
+    cur.file = d.file; cur.w = d.w; cur.h = d.h; cur.foot = d.foot;
+    cur.natW = img.naturalWidth; cur.natH = img.naturalHeight;
+    cur.ready = true;
+    fx = { parts: [], acc: 0 };
+  };
+  // data URL keeps the canvas untainted so getImageData works under file://
+  img.src = d.data || ('assets/robot/' + d.file + '?t=' + Date.now());
+});
+
+const ts = { edge: 'bottom', moving: false, speed: 0, gait: 'smooth', face: -1, reacting: false };
+window.pet.onTick((d) => Object.assign(ts, d));
+
+let walkPhase = 0, walkBlend = 0, rock = 0, reactT = 0;
+let nextBlink = 2 + Math.random() * 3;
+const particles = [];
+let last = performance.now();
+
+function edgeInfo() {
+  const W = window.innerWidth, H = window.innerHeight;
+  switch (ts.edge) {
+    case 'top':   return { fx: W / 2, fy: 1,     ang: Math.PI,      ax: 0, ay: 1 };
+    case 'left':  return { fx: 1,     fy: H / 2, ang: Math.PI / 2,  ax: 1, ay: 0 };
+    case 'right': return { fx: W - 1, fy: H / 2, ang: -Math.PI / 2, ax: -1, ay: 0 };
+    default:      return { fx: W / 2, fy: H - 1, ang: 0,            ax: 0, ay: -1 };
+  }
+}
+
+// ---------- particles: hearts + sparkles + dots ----------
+function spawn() {
+  const e = edgeInfo();
+  const off = cur.h * 0.5;
+  const ox = e.fx + e.ax * off, oy = e.fy + e.ay * off;
+  for (let i = 0; i < 18; i++) {
+    const a = (i / 18) * Math.PI * 2 + Math.random() * 0.4;
+    const sp = 1.5 + Math.random() * 2.3;
+    const k = Math.random();
+    const kind = k < 0.5 ? 'heart' : (k < 0.8 ? 'spark' : 'dot');
+    particles.push({
+      x: ox, y: oy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 1.4,
+      life: 1, size: 6 + Math.random() * 5, rot: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.3,
+      kind,
+      color: kind === 'heart' ? '#FF6F91' : (kind === 'spark' ? '#FFC65B' : cur.foot),
+    });
+  }
+}
+function heart(x, y, s, rot, c, al) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(s / 16, s / 16);
+  ctx.globalAlpha = al; ctx.fillStyle = c;
+  ctx.beginPath(); ctx.moveTo(0, 4);
+  ctx.bezierCurveTo(-8, -5, -8, -14, 0, -8);
+  ctx.bezierCurveTo(8, -14, 8, -5, 0, 4);
+  ctx.fill(); ctx.restore();
+}
+function spark(x, y, s, rot, c, al) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.globalAlpha = al; ctx.fillStyle = c;
+  ctx.beginPath();
+  for (let i = 0; i < 4; i++) {
+    const a = (i / 4) * Math.PI * 2, p = a + Math.PI / 4;
+    if (i === 0) ctx.moveTo(Math.cos(a) * s, Math.sin(a) * s);
+    else ctx.lineTo(Math.cos(a) * s, Math.sin(a) * s);
+    ctx.lineTo(Math.cos(p) * s * 0.34, Math.sin(p) * s * 0.34);
+  }
+  ctx.closePath(); ctx.fill(); ctx.restore();
+}
+function drawParticles(dt) {
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.x += p.vx; p.y += p.vy; p.vy += 0.06; p.vx *= 0.99; p.rot += p.vr; p.life -= dt * 1.0;
+    if (p.life <= 0) { particles.splice(i, 1); continue; }
+    const al = Math.max(0, p.life);
+    if (p.kind === 'heart') heart(p.x, p.y, p.size, p.rot, p.color, al);
+    else if (p.kind === 'spark') spark(p.x, p.y, p.size, p.rot, p.color, al);
+    else { ctx.globalAlpha = al; ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x, p.y, p.size * 0.3, 0, Math.PI * 2); ctx.fill(); }
+  }
+  ctx.globalAlpha = 1;
+}
+
+// ---------- region drawing ----------
+function drawRegion(r, o) {
+  if (o.skip) return;
+  ctx.save();
+  if (o.alpha != null) ctx.globalAlpha = o.alpha;
+  ctx.translate(o.dx || 0, o.dy || 0);
+  if (o.rot) {
+    const px = r.spec.pivot ? r.spec.pivot[0] : r.x + r.w / 2;
+    const py = r.spec.pivot ? r.spec.pivot[1] : r.y + r.h / 2;
+    ctx.translate(px, py); ctx.rotate(o.rot); ctx.translate(-px, -py);
+  }
+  const sx = o.sx != null ? o.sx : (o.s || 1);
+  const sy = o.sy != null ? o.sy : (o.s || 1);
+  if (sx !== 1 || sy !== 1) {
+    const cx = r.x + r.w / 2, cy = r.y + r.h / 2;
+    ctx.translate(cx, cy); ctx.scale(sx, sy); ctx.translate(-cx, -cy);
+  }
+  if (o.shear) {
+    const sy = r.spec.shearY || (r.y + r.h);
+    ctx.translate(0, sy); ctx.transform(1, 0, o.shear, 1, 0, 0); ctx.translate(0, -sy);
+  }
+  if (o.roll) {
+    ctx.beginPath(); ctx.rect(r.x, r.y, r.w, r.h); ctx.clip();
+    const ry = ((o.roll % r.h) + r.h) % r.h;
+    ctx.drawImage(r.canvas, r.x, r.y + ry);
+    ctx.drawImage(r.canvas, r.x, r.y + ry - r.h);
+  } else {
+    ctx.drawImage(r.canvas, r.x, r.y);
+  }
+  ctx.restore();
+}
+
+function frame(now) {
+  const dt = Math.min(0.05, (now - last) / 1000);
+  last = now;
+  const t = now / 1000;
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+  if (cur.ready) {
+    const e = edgeInfo();
+    const sw = cur.w, sh = cur.h;
+    const sway = ts.gait === 'sway';
+    const spec = cur.parts.spec;
+
+    let hop, breathe = 1;
+    const idle = spec.idle || { amp: 0.02, hz: 2.2 };
+    if (ts.moving && reactT <= 0) {
+      walkPhase += dt * (8 + ts.speed * 0.6);
+      walkBlend += (1 - walkBlend) * Math.min(1, dt * 8);
+      if (sway) { rock += (Math.sin(walkPhase) * 0.12 - rock) * 0.4; hop = Math.abs(Math.sin(walkPhase)) * 3; }
+      else { rock += (0 - rock) * 0.3; hop = Math.abs(Math.sin(walkPhase)) * 1.4; }  // smooth: gentle glide
+    } else {
+      walkBlend += (0 - walkBlend) * Math.min(1, dt * 8);
+      rock += (0 - rock) * 0.2;
+      hop = Math.sin(t * idle.hz) * 1.2 * (idle.hop == null ? 1 : idle.hop);
+      breathe = 1 + Math.sin(t * idle.hz) * idle.amp;
+    }
+
+    // click reaction: jump (no spin) + squash-stretch
+    let rsx = 1, rsy = 1;
+    if (reactT > 0) {
+      reactT = Math.max(0, reactT - dt * 1.4);
+      const p = 1 - reactT;
+      hop = Math.sin(p * Math.PI) * 22;
+      const sq = Math.sin(p * Math.PI);
+      rsx = 1 - sq * 0.08; rsy = 1 + sq * 0.12;   // stretch upward on the jump
+    }
+
+    // ground shadow under the feet
+    ctx.save();
+    ctx.globalAlpha = 0.16; ctx.fillStyle = '#000';
+    ctx.translate(e.fx, e.fy); ctx.rotate(e.ang);
+    ctx.beginPath(); ctx.ellipse(0, -1, sw * 0.4 * (1 - hop / 120), 4, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+
+    const body = spec.body ? spec.body(t, fx) : {};
+    ctx.save();
+    ctx.translate(e.fx, e.fy);
+    ctx.rotate(e.ang + rock + (body.rot || 0));
+    ctx.translate(body.dx || 0, -hop + (body.dy || 0));
+    ctx.scale(breathe * rsx, breathe * rsy);
+    // scale natural pixels to manifest size; mirror so the face leads the walk
+    const mirror = spec.facing && spec.facing !== ts.face;
+    ctx.scale((sw / cur.natW) * (mirror ? -1 : 1), sh / cur.natH);
+    ctx.translate(-cur.natW / 2, -cur.natH);   // sprite-local pixel space, (0,0) = top-left
+
+    // legs first (body bottom edge covers a lifted leg's top)
+    cur.parts.legs.forEach((leg, i) => {
+      const ph = walkPhase * 2 + (i % 2) * Math.PI;
+      const lift = Math.max(0, Math.sin(ph)) * 2.6 * walkBlend;
+      const swing = Math.sin(ph + Math.PI / 2) * 0.9 * walkBlend;
+      ctx.drawImage(leg.canvas, R(leg.x + swing), R(leg.y - lift));
+    });
+
+    ctx.drawImage(cur.parts.base, 0, 0);
+
+    // regions are sliced in array order but drawn by z (default: array index)
+    let region0 = null;
+    const outs = cur.parts.regions.map((r, i) => {
+      const o = r.spec.f ? r.spec.f(t, fx) : {};
+      if (i === 0) region0 = o;
+      return { r, o, z: r.spec.z == null ? i : r.spec.z };
+    });
+    outs.sort((a, b) => a.z - b.z).forEach(({ r, o }) => drawRegion(r, o));
+
+    const extra = EXTRAS[cur.file];
+    if (extra) extra(t, dt, fx, region0);
+
+    // blink: a face-colored lid sweeps over the eyes every few seconds
+    if (t > nextBlink + 0.16) nextBlink = t + 2.2 + Math.random() * 3.8;
+    else if (t > nextBlink && cur.parts.eyes.length) {
+      const k = Math.min(1, Math.sin((t - nextBlink) / 0.16 * Math.PI) * 1.5);
+      const adj = spec.eyeAdj ? spec.eyeAdj(region0 || {}) : {};
+      for (const ey of cur.parts.eyes) {
+        ctx.fillStyle = ey.color;
+        ctx.fillRect(ey.x + (adj.dx || 0), ey.y + (adj.dy || 0), ey.w, Math.max(1, R(ey.h * k)));
+      }
+    }
+
+    ctx.restore();
+  }
+
+  drawParticles(dt);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame((t) => { last = t; frame(t); });
+
+let down = false, moved = false, sx = 0, sy = 0;
+document.addEventListener('mousedown', (e) => {
+  if (e.button !== 0) return;
+  down = true; moved = false; sx = e.screenX; sy = e.screenY;
+  window.pet.dragStart();
+});
+document.addEventListener('mousemove', (e) => {
+  if (down && Math.hypot(e.screenX - sx, e.screenY - sy) > 5) moved = true;
+});
+document.addEventListener('mouseup', () => {
+  if (!down) return;
+  down = false;
+  window.pet.dragEnd();
+  if (!moved) { reactT = 1; spawn(); window.pet.react(); }
+});
+document.addEventListener('contextmenu', (e) => { e.preventDefault(); window.pet.openSettings(); });
+</script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8" />
+<style>
+  :root { --orange: #D97757; --orange-d: #C2603F; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 16px 18px;
+    font-family: -apple-system, "PingFang SC", "Hiragino Sans", "Helvetica Neue", sans-serif;
+    background: #FBF7F4; color: #2C211B; font-size: 13px;
+    -webkit-user-select: none; user-select: none;
+  }
+  h1 { font-size: 19px; margin: 0 0 14px; text-align: center; color: var(--orange-d); letter-spacing: .3px; }
+  .row { margin-bottom: 15px; }
+  .label { font-weight: 600; margin-bottom: 7px; display: flex; justify-content: space-between; }
+  .label .val { font-weight: 500; color: var(--orange-d); }
+  input[type=range] { width: 100%; accent-color: var(--orange); }
+  .toggle { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-top: 1px solid #EFE7E1; }
+  .switch { position: relative; width: 40px; height: 22px; }
+  .switch input { display: none; }
+  .slider { position: absolute; inset: 0; background: #D8CCC3; border-radius: 22px; transition: .15s; }
+  .slider::before { content: ""; position: absolute; width: 18px; height: 18px; left: 2px; top: 2px; background: #fff; border-radius: 50%; transition: .15s; }
+  .switch input:checked + .slider { background: var(--orange); }
+  .switch input:checked + .slider::before { transform: translateX(18px); }
+  .edges { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .chip { display: flex; align-items: center; gap: 7px; padding: 7px 9px; border: 1px solid #E6DAD2; border-radius: 8px; cursor: pointer; }
+  .chip input { accent-color: var(--orange); }
+  .num { width: 56px; padding: 4px 6px; border: 1px solid #E0D4CC; border-radius: 6px; font-size: 13px; text-align: center; }
+  .counter { display: flex; align-items: center; gap: 10px; }
+  .counter button { width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--orange); background: #fff; color: var(--orange-d); font-size: 18px; font-weight: 600; line-height: 1; }
+  .counter button:hover { background: #FFF1EB; }
+  .counter input { width: 50px; text-align: center; font-size: 15px; font-weight: 600; padding: 5px; border: 1px solid #E0D4CC; border-radius: 6px; }
+  .seg { display: flex; gap: 8px; }
+  .seg label { flex: 1; text-align: center; padding: 8px 4px; border: 1px solid #E6DAD2; border-radius: 8px; cursor: pointer; }
+  .seg input { display: none; }
+  .seg label:has(input:checked) { border-color: var(--orange); background: #FFF1EB; font-weight: 600; color: var(--orange-d); }
+  .formrow { display: flex; gap: 8px; align-items: stretch; margin-top: 4px; }
+  .arrow { width: 42px; border: 1px solid var(--orange); border-radius: 9px; background: #fff; color: var(--orange-d); font-size: 15px; cursor: pointer; }
+  .arrow:hover { background: #FFF1EB; }
+  button { font-family: inherit; font-size: 13px; cursor: pointer; }
+  .btn { flex: 1; padding: 9px; border: none; border-radius: 9px; background: var(--orange); color: #fff; font-weight: 600; }
+  .btn:hover { background: var(--orange-d); }
+  .quit { background: none; border: none; color: #B0A097; text-decoration: underline; padding: 0; margin-top: 16px; }
+</style>
+</head>
+<body>
+<h1>Hi, Claude!</h1>
+
+<div class="row">
+  <div class="seg" id="langSeg">
+    <label><input type="radio" name="lang" value="zh" /><span>中文</span></label>
+    <label><input type="radio" name="lang" value="en" /><span>English</span></label>
+    <label><input type="radio" name="lang" value="ja" /><span>日本語</span></label>
+  </div>
+</div>
+
+<div class="row">
+  <div class="label"><span data-i18n="speed">巡逻速度</span><span class="val" id="spVal">0.9×</span></div>
+  <input type="range" id="speed" min="0.2" max="2.5" step="0.1" />
+</div>
+
+<div class="row">
+  <div class="label"><span data-i18n="motion">运动形式</span></div>
+  <div class="seg">
+    <label><input type="radio" name="gait" value="smooth" /><span data-i18n="motion.smooth">➡️ 平滑移动</span></label>
+    <label><input type="radio" name="gait" value="sway" /><span data-i18n="motion.sway">↔️ 左右摇摆</span></label>
+  </div>
+</div>
+
+<div class="row">
+  <div class="label"><span data-i18n="count">桌宠数量</span></div>
+  <div class="counter">
+    <button id="minus">−</button>
+    <input type="number" id="count" min="1" max="8" />
+    <button id="plus">＋</button>
+    <span style="color:#B0A097" data-i18n="count.suffix">只(最多 8)</span>
+  </div>
+</div>
+
+<div class="toggle">
+  <span data-i18n="follow">鼠标跟随</span>
+  <label class="switch"><input type="checkbox" id="follow" /><span class="slider"></span></label>
+</div>
+<div class="toggle">
+  <span data-i18n="lock">固定当前形象</span>
+  <label class="switch"><input type="checkbox" id="lock" /><span class="slider"></span></label>
+</div>
+<div class="toggle">
+  <span data-i18n="stay">停在原地</span>
+  <label class="switch"><input type="checkbox" id="stay" /><span class="slider"></span></label>
+</div>
+<div class="toggle">
+  <span data-i18n="block">窗口阻拦</span>
+  <label class="switch"><input type="checkbox" id="block" /><span class="slider"></span></label>
+</div>
+<div class="toggle">
+  <span data-i18n="walker">窗口行者</span>
+  <label class="switch"><input type="checkbox" id="walker" /><span class="slider"></span></label>
+</div>
+<div class="toggle">
+  <span data-i18n="interval">自动换装间隔</span>
+  <span><input type="number" class="num" id="minutes" min="0.5" max="120" step="0.5" /> <span data-i18n="interval.unit">分钟</span></span>
+</div>
+
+<div class="row" style="margin-top:14px">
+  <div class="label"><span data-i18n="edges">巡逻边框</span></div>
+  <div class="edges">
+    <label class="chip"><input type="checkbox" data-edge="top" /> <span data-i18n="edge.top">上边</span></label>
+    <label class="chip"><input type="checkbox" data-edge="right" /> <span data-i18n="edge.right">右边</span></label>
+    <label class="chip"><input type="checkbox" data-edge="bottom" /> <span data-i18n="edge.bottom">下边</span></label>
+    <label class="chip"><input type="checkbox" data-edge="left" /> <span data-i18n="edge.left">左边</span></label>
+  </div>
+</div>
+
+<div class="formrow">
+  <button class="arrow" id="prev" title="prev">◀</button>
+  <button class="btn" id="rand" data-i18n="changeLook">切换形象</button>
+  <button class="arrow" id="next" title="next">▶</button>
+</div>
+
+<div style="text-align:center"><button class="quit" id="quit" data-i18n="quit">退出桌宠</button></div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+let S = null;
+
+const T = {
+  zh: {
+    speed: '巡逻速度', motion: '运动形式', 'motion.smooth': '➡️ 平滑移动', 'motion.sway': '↔️ 左右摇摆',
+    count: '桌宠数量', 'count.suffix': '只(最多 8)', follow: '鼠标跟随', lock: '固定当前形象', stay: '停在原地', block: '窗口阻拦', walker: '窗口行者',
+    interval: '自动换装间隔', 'interval.unit': '分钟', edges: '巡逻边框',
+    'edge.top': '上边', 'edge.right': '右边', 'edge.bottom': '下边', 'edge.left': '左边',
+    changeLook: '切换形象', quit: '退出桌宠',
+  },
+  en: {
+    speed: 'Patrol speed', motion: 'Movement', 'motion.smooth': '➡️ Smooth', 'motion.sway': '↔️ Sway',
+    count: 'Number of pets', 'count.suffix': '(max 8)', follow: 'Follow cursor', lock: 'Lock current look', stay: 'Stay put', block: 'Blocked by windows', walker: 'Window walker',
+    interval: 'Auto-change every', 'interval.unit': 'min', edges: 'Patrol edges',
+    'edge.top': 'Top', 'edge.right': 'Right', 'edge.bottom': 'Bottom', 'edge.left': 'Left',
+    changeLook: 'Change look', quit: 'Quit pet',
+  },
+  ja: {
+    speed: '巡回スピード', motion: '動き方', 'motion.smooth': '➡️ スムーズ', 'motion.sway': '↔️ 横揺れ',
+    count: 'ペットの数', 'count.suffix': '（最大 8）', follow: 'マウス追従', lock: '今の姿で固定', stay: 'その場にとどまる', block: 'ウィンドウで通せんぼ', walker: 'ウィンドウウォーカー',
+    interval: '自動着替え間隔', 'interval.unit': '分', edges: '巡回する辺',
+    'edge.top': '上', 'edge.right': '右', 'edge.bottom': '下', 'edge.left': '左',
+    changeLook: '姿を変える', quit: '終了',
+  },
+};
+
+function applyLang(lang) {
+  const d = T[lang] || T.zh;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const k = el.dataset.i18n;
+    if (d[k] != null) el.textContent = d[k];
+  });
+}
+
+function paint() {
+  document.querySelectorAll('input[name=lang]').forEach((r) => { r.checked = (r.value === (S.lang || 'zh')); });
+  $('speed').value = S.patrolSpeed;
+  $('spVal').textContent = Number(S.patrolSpeed).toFixed(1) + '×';
+  document.querySelectorAll('input[name=gait]').forEach((r) => { r.checked = (r.value === (S.gait || 'smooth')); });
+  $('follow').checked = !!S.follow;
+  $('lock').checked = !!S.lockForm;
+  $('stay').checked = !!S.stay;
+  $('block').checked = !!S.blockWalls;
+  $('walker').checked = !!S.windowWalker;
+  $('minutes').value = S.switchMinutes;
+  $('count').value = S.count || 1;
+  document.querySelectorAll('[data-edge]').forEach((c) => { c.checked = !!S.edges[c.dataset.edge]; });
+  applyLang(S.lang || 'zh');
+}
+
+function push() { window.cfg.set(S); }
+
+(async () => { S = await window.cfg.get(); paint(); })();
+
+document.querySelectorAll('input[name=lang]').forEach((r) => {
+  r.addEventListener('change', () => { if (r.checked) { S.lang = r.value; applyLang(r.value); push(); } });
+});
+$('speed').addEventListener('input', (e) => {
+  S.patrolSpeed = parseFloat(e.target.value);
+  $('spVal').textContent = S.patrolSpeed.toFixed(1) + '×';
+  push();
+});
+document.querySelectorAll('input[name=gait]').forEach((r) => {
+  r.addEventListener('change', () => { if (r.checked) { S.gait = r.value; push(); } });
+});
+$('follow').addEventListener('change', (e) => { S.follow = e.target.checked; push(); });
+$('lock').addEventListener('change', (e) => { S.lockForm = e.target.checked; push(); });
+$('stay').addEventListener('change', (e) => { S.stay = e.target.checked; push(); });
+$('block').addEventListener('change', (e) => { S.blockWalls = e.target.checked; push(); });
+$('walker').addEventListener('change', (e) => { S.windowWalker = e.target.checked; push(); });
+$('minutes').addEventListener('change', (e) => {
+  S.switchMinutes = Math.max(0.5, parseFloat(e.target.value) || 5);
+  e.target.value = S.switchMinutes; push();
+});
+document.querySelectorAll('[data-edge]').forEach((c) => {
+  c.addEventListener('change', () => {
+    S.edges[c.dataset.edge] = c.checked;
+    if (!Object.values(S.edges).some(Boolean)) { S.edges[c.dataset.edge] = true; c.checked = true; }
+    push();
+  });
+});
+function setCount(n) {
+  S.count = Math.max(1, Math.min(8, Math.round(n) || 1));
+  $('count').value = S.count; push();
+}
+$('minus').addEventListener('click', () => setCount((S.count || 1) - 1));
+$('plus').addEventListener('click', () => setCount((S.count || 1) + 1));
+$('count').addEventListener('change', (e) => setCount(parseInt(e.target.value, 10)));
+$('prev').addEventListener('click', () => window.cfg.prevForm());
+$('next').addEventListener('click', () => window.cfg.nextForm());
+$('rand').addEventListener('click', () => window.cfg.randomForm());
+$('quit').addEventListener('click', () => window.cfg.quit());
+</script>
+</body>
+</html>

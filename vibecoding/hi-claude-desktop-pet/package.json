@@ -1,0 +1,16 @@
+{
+  "name": "hi-claude-desktop-pet",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A local macOS desktop pet with 12 animated Claude-inspired characters, edge patrol, cursor interaction, and configurable behavior.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:window-helper": "clang -O2 -framework CoreGraphics -framework Foundation -o tools/winlist tools/winlist.m",
+    "package:mac-arm64": "electron-packager . \"Hi Claude\" --platform=darwin --arch=arm64 --out=dist --overwrite --icon=build/icon.icns --asar.unpack=\"**/tools/winlist\""
+  },
+  "devDependencies": {
+    "@electron/packager": "^20.0.1",
+    "electron": "^42.11.1"
+  }
+}
