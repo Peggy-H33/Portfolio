@@ -16,7 +16,7 @@
 | [product-evaluations](./product-evaluations/) | 设计类生成产品的评测方法 | 面向网页/PPT/原型及图片生成结果的评分规则、P0 门槛和扣分标准 |
 | [skills](./skills/) | 自主制作及与同伴协作完成的AI Skills | 可编辑HTML工具型Skill、两个在研设计Skill的公开概况，以及实际生成案例 |
 | [coding](./coding/) | 过往科研与竞赛代码集 | Python、Stata、数据处理、机器学习、可视化、回归分析与数学建模 |
-| [vibecoding](./vibecoding/) | 个人独立完成的vibecoding项目 | [幕间 AI 角色创作平台](./vibecoding/mujian-creative-writing-platform/)、[滚动叙事个人作品集网站](./vibecoding/personal-portfolio-website-design/)、[Hi, Claude! 电脑桌宠](./vibecoding/hi-claude-desktop-pet/)、[语音优先桌面工作 Agent](./vibecoding/voice-first-desktop-work-agent/) |
+| [vibecoding](./vibecoding/) | 个人独立完成的vibecoding项目 | [幕间 AI 角色创作平台](./vibecoding/mujian-creative-writing-platform/)、[滚动叙事个人作品集网站](./vibecoding/personal-portfolio-website-design/)、[Hi, Claude! 电脑桌宠](./vibecoding/hi-claude-desktop-pet/)、[语音输入特色的桌面端Agent](./vibecoding/voice-first-desktop-work-agent/) |
 
 ## 重点项目
 
@@ -27,9 +27,9 @@
 | [SenseAudio图片视频生成功能性页面](./AI-product-management/image-video-generation-page/) | 产品功能模块组织、用户交互设计，前端页面设计 | [完整 PRD](./AI-product-management/image-video-generation-page/senseaudio-image-video-generation-page-revision-prd.md) + [Web/H5两版Demo](./AI-product-management/image-video-generation-page/demo/)；包含可连接真实API的本地后端 |
 | [Web Design Skills](./skills/web-design/) | 将收集的大量优秀网页前端设计按特定的Skill Tree蒸馏成可复用的设计工作流 | [整体网页设计 Skill 概况](./skills/web-design/web-design-skill/)、[中文字体 Skill 概况](./skills/web-design/chinese-typography-web-design/)与[生成案例](./skills/web-design/web-design-skill-showcase/)；两个核心 Skill 仍在研，公开仓库不披露完整执行包 |
 | [幕间（Interlude）AI 角色创作平台](./vibecoding/mujian-creative-writing-platform/) | 从个人写作兴趣出发，探索如何让角色在作者可控的世界观、记忆与行为规则下持续互动，并把新细节回流到创作过程 | [完整 PRD](./vibecoding/mujian-creative-writing-platform/PRD.md) + 可运行的 Next.js 交互原型；覆盖多角色对话、候选记忆、认知矩阵、正典确认、Skill 编辑、正文阅读与场景预演 |
-| [滚动叙事个人作品集网站](./vibecoding/personal-portfolio-website-design/) | 独立通过vibecoding完成个人网站设计，使用滚动操作组织两页电影式叙事 | 原生HTML/CSS/JavaScript、Canvas 600帧序列、双向状态机、触控/键盘交互与响应式验证 |
+| [滚动叙事个人作品集网站设计](./vibecoding/personal-portfolio-website-design/) | 独立通过vibecoding完成的滚动叙事式网站设计，使用滚动操作组织两页电影式叙事 | 原生HTML/CSS/JavaScript、Canvas 600帧序列、双向状态机、触控/键盘交互与响应式验证 |
 | [Hi, Claude! 电脑桌宠](./vibecoding/hi-claude-desktop-pet/) | 将角色动画、桌面空间和鼠标输入组合成可配置的 macOS 桌宠体验 | 12 套独立动态形象、屏幕与窗口边缘巡逻、鼠标跟随和点击粒子、三语言控制面板及 Electron / CoreGraphics 实现 |
-| [语音优先桌面工作 Agent](./vibecoding/voice-first-desktop-work-agent/) | 以语音输入为高频入口，将 Agent 执行与个人工作管理、自动工作、项目协作和知识沉淀连接起来 | 独立完成的产品结构、[完整工作流](./vibecoding/voice-first-desktop-work-agent/docs/product-workflow.md)、高保真交互原型与跨模块状态验证；公开版仅展示说明和筛选后的截图 |
+| [语语音输入特色的桌面端Agent](./vibecoding/voice-first-desktop-work-agent/) | 以语音输入为高频入口，将 Agent 执行与个人工作管理、自动工作、项目协作和知识沉淀连接起来 | 独立完成的产品结构、[完整工作流](./vibecoding/voice-first-desktop-work-agent/docs/product-workflow.md)、高保真交互原型与跨模块状态验证；公开版仅展示说明和筛选后的截图 |
 | [数据分析、机器学习、建模与回归分析](./coding/Machine%20Learning%20%26%20Data%20Processing%20%26%20Dynamic%20Interactive%20Graphics%20Design/) | 处理研究数据并完成建模、统计分析与结果表达 | Python、Stata数据处理、机器学习、回归分析、地理可视化及交互式数据地图 |
 
 ## 仓库结构
