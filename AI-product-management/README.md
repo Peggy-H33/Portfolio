@@ -26,7 +26,7 @@ Vibe Coding 高保真交互原型
 | --- | --- | --- | --- |
 | [Agent Team 产品研究与设计](./agent-team-product-research-and-design/) | 多 Agent 协作形态、团队组建、角色分工、运行流程与产品化边界 | 市场与竞品研究、桌面端本地 Agent Team 方案、Web 设计 Agent Team 方案与运行手册 | 两套产品均已推进一期，部分能力仍在研究与迭代 |
 | [登录与 Token Plan 支付流程重构](./authentication-and-token-plan-payment-flow-refactor/) | 功能型产品页面、登录跳转、推广入口、充值、续费与实例生命周期 | 完整 PRD、流程与状态规则、页面截图、Vibe Coding 高保真交互 Demo | PRD 与演示材料已完成 |
-| [SenseAudio 图片 / 视频生成页面改版](./image-video-generation-page/) | 创作输入、图片 / 视频切换、素材中心、生成任务、作品管理与发布流程 | 完整 PRD、页面说明图、Web / H5 两版 Demo、本地 Node 后端与真实 API 对接能力 | PRD 与演示材料已完成；部分内部发布能力暂不进入开发 |
+| [图片、视频生成页面改版](./image-video-generation-page/) | 创作输入、图片 / 视频切换、素材中心、生成任务、作品管理与发布流程 | 完整 PRD、页面说明图、Web / H5 两版 Demo、本地 Node 后端与真实 API 对接能力 | PRD 与演示材料已完成；部分内部发布能力暂不进入开发 |
 
 ## 1. Agent Team 产品研究与设计
 
@@ -91,7 +91,7 @@ agent-team-product-research-and-design/
 
 - 本目录中的 HTML Demo 是通过 Vibe Coding 完成的高保真产品原型，用于验证产品流程、页面状态和交互体验，并非生产环境代码。
 - Agent Team 两套方案均已推进一期，部分功能仍处于研究、验证或迭代阶段。
-- SenseAudio Demo 的真实生成能力依赖有效 API Key、本地 Node 后端及上游接口可用性。
+- 部分 Demo 的真实生成能力依赖有效 API Key、本地 Node 后端及上游接口可用性。
 
 [返回作品集首页](../README.md)
 
