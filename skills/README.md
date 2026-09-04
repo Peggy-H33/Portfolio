@@ -9,7 +9,7 @@
 | Skill / 项目 | 类型 | 解决的问题 | 主要产出 |
 | --- | --- | --- | --- |
 | [editable-html](./editable-html/) | 工具型 Skill | 当用户提出“可编辑 HTML / 网页”需求时，为生成页面加入浏览器内编辑能力 | 阅读 / 编辑模式切换、类 Word 工具栏、文本与图片编辑、撤销 / 重做、保存 HTML、打印 |
-| [web-design](./web-design/) | 设计类 Skill 体系 | 将分散的网页设计经验转化为结构化、可执行、可验证的设计工作流 | 整体网页设计 Skill、中文字体 Skill、生成案例与 QA 过程材料 |
+| [web-design](./web-design/) | 设计类 Skill 体系 | 将分散的网页设计经验转化为结构化、可执行、可验证的设计工作流 | 两个在研核心 Skill 的公开概况、基本结构、生成案例与 QA 过程材料 |
 
 ## 1. Editable HTML
 
@@ -29,7 +29,7 @@
 
 [进入 web-design](./web-design/)
 
-该体系从 300+ 网页前端设计 Prompt 中提取可复用模式，再按照 Skill Tree 组织成设计、字体、媒体、动效、响应式和质量验证模块。
+该体系从 300+ 网页前端设计 Prompt 中提取可复用模式，再按照 Skill Tree 组织成设计、字体、媒体、动效、响应式和质量验证模块。两个核心 Skill 仍在持续研发，公开仓库仅展示能力概况和高层结构，完整执行包不公开。
 
 ```text
 300+ 网页设计 Prompts
@@ -38,8 +38,8 @@
           ↓
 Skill Tree 与执行协议
           ↓
-├── web-design-skill                 整体视觉与网页生产流程
-├── chinese-typography-web-design    中文字体选择与排版系统
+├── web-design-skill                 整体视觉与网页生产流程（公开概况版）
+├── chinese-typography-web-design    中文字体选择与排版系统（公开概况版）
 └── web-design-skill-showcase        生成案例、过程材料与 QA 证据
 ```
 
@@ -47,11 +47,11 @@ Skill Tree 与执行协议
 
 | 目录 | 作用 | 覆盖内容 |
 | --- | --- | --- |
-| [web-design-skill](./web-design/web-design-skill/) | 整体风格与页面生产 Skill | 需求提炼、视觉方向、布局构图、色彩、媒体、动效、组件、响应式与视觉 QA |
-| [chinese-typography-web-design](./web-design/chinese-typography-web-design/) | 中文字体与排版 Skill | 字体候选与授权、主题匹配、字号层级、装饰字体、版式覆盖与字体回退 |
+| [web-design-skill](./web-design/web-design-skill/) | 整体风格与页面生产 Skill | 公开问题定义、能力模块、输入输出与完整包的高层目录结构 |
+| [chinese-typography-web-design](./web-design/chinese-typography-web-design/) | 中文字体与排版 Skill | 公开字体设计问题、能力模块、协作边界与完整包的高层目录结构 |
 | [web-design-skill-showcase](./web-design/web-design-skill-showcase/) | 生成效果与验证记录 | 完整网页、字体、图片 / 视频资产、研究过程、桌面 / 移动端截图及 QA 材料 |
 
-两个核心 Skill 组合使用时，目标是生成具有清晰信息层级、主题化字体、非模板化构图、动态媒体或背景，并经过桌面端与移动端检查的网页设计。
+两个核心 Skill 组合使用时，目标是生成具有清晰信息层级、主题化字体、非模板化构图、动态媒体或背景，并经过桌面端与移动端检查的网页设计。完整规则、参考库、模板、Schema 与验证脚本因仍在研而保存在私有仓库。
 
 ### 示例项目
 
@@ -62,8 +62,8 @@ Skill Tree 与执行协议
 
 ## 使用与阅读说明
 
-- 每个 Skill 的入口是对应目录中的 `SKILL.md`；`references/`、`assets/` 和 `scripts/` 为执行所需的知识、模板和验证工具。
-- 这些目录用于展示 Skill 的设计方法和可复用结构，不等同于面向普通用户的一键安装应用。
+- `editable-html` 保留完整的 `SKILL.md` 与实现；两个 Web Design 核心 Skill 的公开目录仅提供 README 概况。
+- Web Design 完整包采用 `SKILL.md`、`references/`、`assets/`、`scripts/` 和 `agents/` 的工程结构，但具体文件不在公开仓库披露。
 - Showcase 中保留了研究与 QA 过程，便于查看生成结果之外的设计决策和验证方式。
 
 [返回作品集首页](../README.md)
@@ -79,7 +79,7 @@ This directory contains AI Skills created independently or in collaboration with
 | Skill / project | Type | Problem addressed | Main output |
 | --- | --- | --- | --- |
 | [editable-html](./editable-html/) | Utility Skill | Adds in-browser editing when a user asks for an editable HTML page | Reading / editing modes, Word-like toolbar, text and image editing, undo / redo, HTML download, and printing |
-| [web-design](./web-design/) | Design Skill system | Converts fragmented web-design experience into a structured, executable, and verifiable workflow | Core web-design Skill, Chinese typography Skill, generated showcases, and QA artifacts |
+| [web-design](./web-design/) | Design Skill system | Converts fragmented web-design experience into a structured, executable, and verifiable workflow | Public overviews and high-level architecture for two in-progress core Skills, plus generated showcases and QA artifacts |
 
 ### 1. Editable HTML
 
@@ -99,7 +99,7 @@ This directory contains AI Skills created independently or in collaboration with
 
 [Open web-design](./web-design/)
 
-This system distills reusable patterns from 300+ front-end design prompts and organizes them into a Skill Tree covering art direction, typography, media, motion, responsive behavior, and quality verification.
+This system distills reusable patterns from 300+ front-end design prompts and organizes them into a Skill Tree covering art direction, typography, media, motion, responsive behavior, and quality verification. Both core Skills remain under active development; the public repository presents their capability summaries and high-level architecture rather than the complete execution packages.
 
 ```text
 300+ web-design prompts
@@ -108,8 +108,8 @@ Pattern decomposition and classification
           ↓
 Skill Tree and execution contracts
           ↓
-├── web-design-skill                 End-to-end visual and web-production workflow
-├── chinese-typography-web-design    Chinese font selection and typography system
+├── web-design-skill                 End-to-end visual and web-production workflow (public overview)
+├── chinese-typography-web-design    Chinese font selection and typography system (public overview)
 └── web-design-skill-showcase        Generated examples, process artifacts, and QA evidence
 ```
 
@@ -117,11 +117,11 @@ Skill Tree and execution contracts
 
 | Directory | Role | Coverage |
 | --- | --- | --- |
-| [web-design-skill](./web-design/web-design-skill/) | Core style and page-production Skill | Brief extraction, visual direction, layout, color, media, motion, components, responsive design, and visual QA |
-| [chinese-typography-web-design](./web-design/chinese-typography-web-design/) | Chinese typography Skill | Font candidates and licensing, theme matching, type hierarchy, decorative fonts, page-wide coverage, and fallbacks |
+| [web-design-skill](./web-design/web-design-skill/) | Core style and page-production Skill | Public problem framing, capability modules, inputs/outputs, and high-level full-package structure |
+| [chinese-typography-web-design](./web-design/chinese-typography-web-design/) | Chinese typography Skill | Public typography problem framing, capability modules, collaboration boundary, and high-level full-package structure |
 | [web-design-skill-showcase](./web-design/web-design-skill-showcase/) | Generated work and validation records | Complete pages, fonts, image / video assets, studies, desktop / mobile screenshots, and QA artifacts |
 
-When combined, the two core Skills are designed to produce web experiences with clear information hierarchy, theme-aware typography, non-template composition, dynamic media or backgrounds, and desktop / mobile verification.
+When combined, the two core Skills are designed to produce web experiences with clear information hierarchy, theme-aware typography, non-template composition, dynamic media or backgrounds, and desktop / mobile verification. Detailed rules, references, templates, schemas, and validators remain in a private repository while development continues.
 
 #### Showcase Projects
 
@@ -132,8 +132,8 @@ When combined, the two core Skills are designed to produce web experiences with 
 
 ### Usage and Reading Notes
 
-- The entry point for each Skill is its `SKILL.md`; `references/`, `assets/`, and `scripts/` contain the supporting knowledge, templates, and validation tools.
-- These packages demonstrate Skill design and reusable structure; they are not one-click consumer applications.
+- `editable-html` retains its complete `SKILL.md` and implementation; the two public Web Design Skill folders contain README overviews only.
+- The complete Web Design packages use `SKILL.md`, `references/`, `assets/`, `scripts/`, and `agents/`, but their implementation files are intentionally excluded from the public repository.
 - The showcases retain study and QA artifacts so reviewers can inspect design decisions and validation methods, not only final outputs.
 
 [Back to portfolio home](../README.md)

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Motion Site Art Directed V9"
-  short_description: "以主题化视频、色彩预算和真实成片审美构建高级动态网页"
-  default_prompt: "Use $motion-site-art-directed-v9 to build a subject-specific cinematic landing page, let real Chinese glyphs refine local copy geometry, and pass full-page visual-finish QA."
