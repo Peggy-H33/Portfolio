@@ -12,7 +12,7 @@
 
 | 一级目录 | 主要内容 | 可查看的证据 |
 | --- | --- | --- |
-| [AI-product-management](./AI-product-management/) | AI产品经理实习期间独立跟进的3组项目 | 市场调研与竞品分析、产品方案、PRD、流程图、页面设计、高保真交互 Demo |
+| [AI-Product-Manager](./AI-Product-Manager/) | AI产品经理实习期间独立跟进的3组项目 | 市场调研与竞品分析、产品方案、PRD、流程图、页面设计、高保真交互 Demo |
 | [product-evaluations](./product-evaluations/) | 设计类生成产品的评测方法 | 面向网页/PPT/原型及图片生成结果的评分规则、P0 门槛和扣分标准 |
 | [skills](./skills/) | 自主制作及与同伴协作完成的AI Skills | 可编辑HTML工具型Skill、两个在研设计Skill的公开概况，以及实际生成案例 |
 | [coding](./coding/) | 过往科研与竞赛代码集 | Python、Stata、数据处理、机器学习、可视化、回归分析与数学建模 |
@@ -22,21 +22,21 @@
 
 | 项目 | 我解决的问题 | 主要产出 |
 | --- | --- | --- |
-| [AgentTeam产品方案设计](./AI-product-management/agent-team-product-research-and-design/) | 研究Muti-Agent协作形态，并分别为桌面端本地Agent产品和Web端设计产品设计AgentTeam产品方案 | [市场调研与竞品研究](./AI-product-management/agent-team-product-research-and-design/competitive-research-and-analysis/)、[桌面端方案](./AI-product-management/agent-team-product-research-and-design/sowork-desktop-agent-team/)、[Web端设计类产品AgentTeam方案](./AI-product-management/agent-team-product-research-and-design/web-design-agent-team/)；两套产品均已推进一期，部分能力仍在研究与迭代 |
-| [登录与TokenPlan支付流程重构](./AI-product-management/authentication-and-token-plan-payment-flow-refactor/) | 梳理功能型产品页面、登录跳转、推广入口、充值及续费逻辑 | [完整 PRD](./AI-product-management/authentication-and-token-plan-payment-flow-refactor/authentication-and-token-plan-payment-flow-refactor-prd.md) + [vibecoding 高保真交互Demo](./AI-product-management/authentication-and-token-plan-payment-flow-refactor/interactive-demo.html) |
-| [SenseAudio图片视频生成功能性页面](./AI-product-management/image-video-generation-page/) | 产品功能模块组织、用户交互设计，前端页面设计 | [完整 PRD](./AI-product-management/image-video-generation-page/senseaudio-image-video-generation-page-revision-prd.md) + [Web/H5两版Demo](./AI-product-management/image-video-generation-page/demo/)；包含可连接真实API的本地后端 |
+| [AgentTeam产品方案设计](./AI-Product-Manager/agent-team-product-research-and-design/) | 研究Muti-Agent协作形态，并分别为桌面端本地Agent产品和Web端设计产品设计AgentTeam产品方案 | [市场调研与竞品研究](./AI-Product-Manager/agent-team-product-research-and-design/competitive-research-and-analysis/)、[桌面端方案](./AI-Product-Manager/agent-team-product-research-and-design/sowork-desktop-agent-team/)、[Web端设计类产品AgentTeam方案](./AI-Product-Manager/agent-team-product-research-and-design/web-design-agent-team/)；两套产品均已推进一期，部分能力仍在研究与迭代 |
+| [登录与TokenPlan支付流程重构](./AI-Product-Manager/authentication-and-token-plan-payment-flow-refactor/) | 梳理功能型产品页面、登录跳转、推广入口、充值及续费逻辑 | [完整 PRD](./AI-Product-Manager/authentication-and-token-plan-payment-flow-refactor/authentication-and-token-plan-payment-flow-refactor-prd.md) + [vibecoding 高保真交互Demo](./AI-Product-Manager/authentication-and-token-plan-payment-flow-refactor/interactive-demo.html) |
+| [SenseAudio图片视频生成功能性页面](./AI-Product-Manager/image-video-generation-page/) | 产品功能模块组织、用户交互设计，前端页面设计 | [完整 PRD](./AI-Product-Manager/image-video-generation-page/senseaudio-image-video-generation-page-revision-prd.md) + [Web/H5两版Demo](./AI-Product-Manager/image-video-generation-page/demo/)；包含可连接真实API的本地后端 |
 | [Web Design Skills](./skills/web-design/) | 将收集的大量优秀网页前端设计按特定的Skill Tree蒸馏成可复用的设计工作流 | [整体网页设计 Skill 概况](./skills/web-design/web-design-skill/)、[中文字体 Skill 概况](./skills/web-design/chinese-typography-web-design/)与[生成案例](./skills/web-design/web-design-skill-showcase/)；两个核心 Skill 仍在研，公开仓库不披露完整执行包 |
 | [幕间（Interlude）AI 角色创作平台](./vibecoding/mujian-creative-writing-platform/) | 从个人写作兴趣出发，探索如何让角色在作者可控的世界观、记忆与行为规则下持续互动，并把新细节回流到创作过程 | [完整 PRD](./vibecoding/mujian-creative-writing-platform/PRD.md) + 可运行的 Next.js 交互原型；覆盖多角色对话、候选记忆、认知矩阵、正典确认、Skill 编辑、正文阅读与场景预演 |
 | [滚动叙事个人作品集网站设计](./vibecoding/personal-portfolio-website-design/) | 独立通过vibecoding完成的滚动叙事式网站设计，使用滚动操作组织两页电影式叙事 | 原生HTML/CSS/JavaScript、Canvas 600帧序列、双向状态机、触控/键盘交互与响应式验证 |
 | [Hi, Claude! 电脑桌宠](./vibecoding/hi-claude-desktop-pet/) | 将角色动画、桌面空间和鼠标输入组合成可配置的 macOS 桌宠体验 | 12 套独立动态形象、屏幕与窗口边缘巡逻、鼠标跟随和点击粒子、三语言控制面板及 Electron / CoreGraphics 实现 |
-| [语语音输入特色的桌面端Agent](./vibecoding/voice-first-desktop-work-agent/) | 以语音输入为高频入口，将 Agent 执行与个人工作管理、自动工作、项目协作和知识沉淀连接起来 | 独立完成的产品结构、[完整工作流](./vibecoding/voice-first-desktop-work-agent/docs/product-workflow.md)、高保真交互原型与跨模块状态验证；公开版仅展示说明和筛选后的截图 |
+| [语音输入特色的桌面端Agent](./vibecoding/voice-first-desktop-work-agent/) | 以语音输入为高频入口，将 Agent 执行与个人工作管理、自动工作、项目协作和知识沉淀连接起来 | 独立完成的产品结构、[完整工作流](./vibecoding/voice-first-desktop-work-agent/docs/product-workflow.md)、高保真交互原型与跨模块状态验证；公开版仅展示说明和筛选后的截图 |
 | [数据分析、机器学习、建模与回归分析](./coding/Machine%20Learning%20%26%20Data%20Processing%20%26%20Dynamic%20Interactive%20Graphics%20Design/) | 处理研究数据并完成建模、统计分析与结果表达 | Python、Stata数据处理、机器学习、回归分析、地理可视化及交互式数据地图 |
 
 ## 仓库结构
 
 ```text
 Portfolio/
-├── AI-product-management/    AI产品经理项目产出：PRD、流程图、产品方案、vibecoding原型
+├── AI-Product-Manager/       AI产品经理项目产出：PRD、流程图、产品方案、vibecoding原型
 ├── product-evaluations/      产品评测标准
 ├── skills/                   自制及协作开发的一些Skill
 ├── coding/                   Python/Stata代码集
@@ -45,7 +45,7 @@ Portfolio/
 
 ## 建议浏览顺序
 
-1. AI产品经理项目经历与AI产品相关思考，请先阅读 [AI-product-management](./AI-product-management/)；
+1. AI产品经理项目经历与AI产品相关思考，请先阅读 [AI-Product-Manager](./AI-Product-Manager/)；
 2. AI类产品的测评标准设计，请查看 [product-evaluations](./product-evaluations/)；
 3. 如果你关注AI工作流设计与基础工具构建，请查看 [skills](./skills/)；
 4. 数据处理与代码能力，请查看 [coding](./coding/)；
@@ -69,7 +69,7 @@ The product-related deliverables in this repository come from projects I indepen
 
 | Top-level folder | What it contains | Reviewable evidence |
 | --- | --- | --- |
-| [AI-product-management](./AI-product-management/) | Three projects independently managed during an AI product management internship | Market research and competitive analysis, product proposals, PRDs, flow diagrams, page design, and high-fidelity interactive demos |
+| [AI-Product-Manager](./AI-Product-Manager/) | Three projects independently managed during an AI product management internship | Market research and competitive analysis, product proposals, PRDs, flow diagrams, page design, and high-fidelity interactive demos |
 | [product-evaluations](./product-evaluations/) | Evaluation methods for generative design products | Rubrics, P0 quality gates, and deduction rules for web / PPT / prototype and image outputs |
 | [skills](./skills/) | AI Skills created independently or with collaborators | An editable-HTML utility Skill, public overviews of two in-progress design Skills, and generated showcases |
 | [coding](./coding/) | Research and competition code archive | Python, Stata, data processing, machine learning, visualization, regression, and mathematical modeling |
@@ -79,9 +79,9 @@ The product-related deliverables in this repository come from projects I indepen
 
 | Project | Product problem | Key deliverables |
 | --- | --- | --- |
-| [Agent Team Product Solution Design](./AI-product-management/agent-team-product-research-and-design/) | Researched multi-agent collaboration patterns and designed Agent Team product solutions for a local desktop agent product and a web-based design product | [Market research and competitive analysis](./AI-product-management/agent-team-product-research-and-design/competitive-research-and-analysis/), [desktop proposal](./AI-product-management/agent-team-product-research-and-design/sowork-desktop-agent-team/), and [Agent Team proposal for a web-based design product](./AI-product-management/agent-team-product-research-and-design/web-design-agent-team/). Both product tracks have progressed through Phase 1, with selected capabilities still under research and iteration |
-| [Authentication & Token Plan Payment Flow Refactor](./AI-product-management/authentication-and-token-plan-payment-flow-refactor/) | Defined functional product pages, authentication redirects, promotional entry points, top-up, and renewal logic | [Complete PRD](./AI-product-management/authentication-and-token-plan-payment-flow-refactor/authentication-and-token-plan-payment-flow-refactor-prd.md) + [high-fidelity vibecoding interactive demo](./AI-product-management/authentication-and-token-plan-payment-flow-refactor/interactive-demo.html) |
-| [SenseAudio Image / Video Generation Functional Page](./AI-product-management/image-video-generation-page/) | Organized product feature modules and designed user interactions and front-end pages | [Complete PRD](./AI-product-management/image-video-generation-page/senseaudio-image-video-generation-page-revision-prd.md) + [web and H5 demos](./AI-product-management/image-video-generation-page/demo/), with a local backend that can connect to real APIs |
+| [Agent Team Product Solution Design](./AI-Product-Manager/agent-team-product-research-and-design/) | Researched multi-agent collaboration patterns and designed Agent Team product solutions for a local desktop agent product and a web-based design product | [Market research and competitive analysis](./AI-Product-Manager/agent-team-product-research-and-design/competitive-research-and-analysis/), [desktop proposal](./AI-Product-Manager/agent-team-product-research-and-design/sowork-desktop-agent-team/), and [Agent Team proposal for a web-based design product](./AI-Product-Manager/agent-team-product-research-and-design/web-design-agent-team/). Both product tracks have progressed through Phase 1, with selected capabilities still under research and iteration |
+| [Authentication & Token Plan Payment Flow Refactor](./AI-Product-Manager/authentication-and-token-plan-payment-flow-refactor/) | Defined functional product pages, authentication redirects, promotional entry points, top-up, and renewal logic | [Complete PRD](./AI-Product-Manager/authentication-and-token-plan-payment-flow-refactor/authentication-and-token-plan-payment-flow-refactor-prd.md) + [high-fidelity vibecoding interactive demo](./AI-Product-Manager/authentication-and-token-plan-payment-flow-refactor/interactive-demo.html) |
+| [SenseAudio Image / Video Generation Functional Page](./AI-Product-Manager/image-video-generation-page/) | Organized product feature modules and designed user interactions and front-end pages | [Complete PRD](./AI-Product-Manager/image-video-generation-page/senseaudio-image-video-generation-page-revision-prd.md) + [web and H5 demos](./AI-Product-Manager/image-video-generation-page/demo/), with a local backend that can connect to real APIs |
 | [Web Design Skills](./skills/web-design/) | Distilled patterns from a large collection of high-quality front-end web designs into a reusable workflow structured as a dedicated Skill Tree | Public overviews of the [core web-design Skill](./skills/web-design/web-design-skill/) and [Chinese typography Skill](./skills/web-design/chinese-typography-web-design/), plus [generated showcases](./skills/web-design/web-design-skill-showcase/). The two core Skills remain under development, so their complete packages are not public |
 | [Interlude AI Character-Creation Platform](./vibecoding/mujian-creative-writing-platform/) | Explores how fictional characters can continue interacting inside author-controlled world facts, memories, and behavioral rules, then return useful new details to the writing process | A [complete PRD](./vibecoding/mujian-creative-writing-platform/PRD.md) plus a runnable Next.js interaction prototype covering multi-character chat, candidate memories, perspective editing, canon confirmation, Skill editing, manuscript reading, and scene rehearsal |
 | [Scroll-Driven Personal Portfolio Website](./vibecoding/personal-portfolio-website-design/) | Independently designed and built a personal website through vibecoding, using scrolling to structure a cinematic two-page narrative | Native HTML/CSS/JavaScript, a 600-frame Canvas sequence, a reversible state machine, touch/keyboard input, and responsive verification |
@@ -93,7 +93,7 @@ The product-related deliverables in this repository come from projects I indepen
 
 ```text
 Portfolio/
-├── AI-product-management/    AI PM deliverables: PRDs, flow diagrams, product proposals, and vibecoding prototypes
+├── AI-Product-Manager/       AI PM deliverables: PRDs, flow diagrams, product proposals, and vibecoding prototypes
 ├── product-evaluations/      Product evaluation standards
 ├── skills/                   Self-authored and collaboratively developed Skills
 ├── coding/                   Python / Stata code collections
@@ -102,7 +102,7 @@ Portfolio/
 
 ### Suggested Review Path
 
-1. For AI product management experience and product thinking, start with [AI-product-management](./AI-product-management/).
+1. For AI product management experience and product thinking, start with [AI-Product-Manager](./AI-Product-Manager/).
 2. For evaluation-standard design for AI products, review [product-evaluations](./product-evaluations/).
 3. For AI workflow design and foundational tool building, see [skills](./skills/).
 4. For data-processing and coding capabilities, visit [coding](./coding/).
