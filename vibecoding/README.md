@@ -2,16 +2,30 @@
 
 [English Version](#english-version)
 
-本目录收录我独立完成的vibecoding项目，包括产品概念原型、AI个人创作平台、个人网站设计、桌面交互应用和自由想法的落地实现。项目中会根据需要独立完成产品设计、前端设计、交互逻辑、桌面端能力、后端接口或工作流设计。
+本目录收录我独立完成的vibecoding项目，包括可运行的个人邮箱 Agent、产品概念原型、AI个人创作平台、个人网站设计、桌面交互应用和自由想法的落地实现。项目中会根据需要独立完成产品设计、前端设计、交互逻辑、桌面端能力、后端接口、Agent Harness 或工作流设计。
 
 ## 项目一览
 
 | 项目 | 项目内容 | 主要材料 | 状态说明 |
 | --- | --- | --- | --- |
+| [来信（Laixin）个人邮箱 Agent](./laixin-email-agent/) | 面向求职投递、导师联系与重要往来的本地邮箱 Agent：筛选重点来信、追踪回复、整理面试待办 | [项目说明](./laixin-email-agent/README.md) · [产品与 Harness 设计](./laixin-email-agent/docs/product-and-harness-design.md) · [Agent Loop 契约](./laixin-email-agent/AGENT_LOOP_CONTRACT.md) | 可本地运行；公开版保留完整业务代码、Agent Loop 与测试，排除真实邮箱数据、授权信息和依赖缓存 |
 | [幕间（Interlude）AI 角色创作平台](./mujian-creative-writing-platform/) | 源于个人写作兴趣的创作平台，让作者创建角色 Agent、组织多角色对话，并以可控的 Memory 与 Skill 让人物在正文之外继续生活 | [项目说明](./mujian-creative-writing-platform/README.md) · [完整 PRD](./mujian-creative-writing-platform/PRD.md) · [视觉预览](./mujian-creative-writing-platform/public/og.png) | 可本地运行；当前为交互原型，模型回复与 AI 分析为预设内容，交互数据保存在浏览器本地 |
 | [滚动叙事个人作品集网站](./personal-portfolio-website-design/) | 独立通过vibecoding完成的网站设计作品，以滚动驱动 600 帧连续画面，构成两页电影式个人作品集叙事 | [项目说明](./personal-portfolio-website-design/README.md) · [HTML 入口](./personal-portfolio-website-design/index.html) · [页面预览](./personal-portfolio-website-design/tests/artifacts/page-1.png) | 可本地运行；包含响应式交互、状态机、测试和发布优化后的网页帧序列 |
 | [Hi, Claude! 电脑桌宠](./hi-claude-desktop-pet/) | 基于 Claude 形象制作的 macOS 桌宠，12 套角色具有不同待机和局部动画，可在屏幕或应用窗口边缘行走 | [项目说明](./hi-claude-desktop-pet/README.md) · [控制面板预览](./hi-claude-desktop-pet/docs/preview/settings-panel.png) · [Electron 源码](./hi-claude-desktop-pet/main.js) | 可从源码运行和重新打包；包含鼠标互动、窗口检测、三语言控制面板和本地设置 |
 | [语音优先桌面工作 Agent](./voice-first-desktop-work-agent/) | 以语音输入为亮点、以个人工作管理为核心服务的客户端 Agent 产品方案 | [项目说明](./voice-first-desktop-work-agent/README.md) · [完整产品工作流](./voice-first-desktop-work-agent/docs/product-workflow.md) · [原型截图](./voice-first-desktop-work-agent/assets/voice-first-agent-home.png) | 公开作品集安全版：展示产品设计、工作流和筛选后的高保真截图，不公开原客户端资源或可执行实现 |
+
+## 来信（Laixin）个人邮箱 Agent
+
+“来信”服务于正在投递实习、联系导师和维护重要往来的个人邮箱用户。它通过网易 IMAP 连接本地邮箱，把“发现重点来信 → 关联投递回复 → 提取面试待办 → 用户确认”组织成可观察、可中止、可追溯的完整 Agent 工作流。
+
+| 产品 / 实现维度 | 内容 |
+| --- | --- |
+| 核心任务 | 自定义重点发件人和主题；追踪指定投递；从选定邮件生成可核对待办；定时汇总新关注邮件 |
+| Agent 循环 | 计划预览 → 观察环境 → 选择工具 → 校验权限 / ID / 预算 → 执行 → 记录 → 重规划或停止 |
+| Harness 设计 | 受限工具集、最多步骤与模型调用预算、无进展停机、澄清状态、模型失败规则降级和结构化事件轨迹 |
+| 人工控制 | 计划启动、红旗写入和待办确认均设有明确的人机边界；邮件正文不能作为指令扩大权限 |
+| 工程实现 | React + TypeScript 前端、Express 本地 API、ImapFlow、规则引擎、可选 DeepSeek 提取与 Node.js 自动化测试 |
+| 隐私边界 | 仅监听本机；邮箱授权码和模型 Key 只在内存中；公开仓库不包含 `.data/` 运行数据或真实邮件 |
 
 ## 幕间（Interlude）AI 角色创作平台
 
@@ -77,6 +91,7 @@
 
 ```text
 vibecoding/
+├── laixin-email-agent/                   来信个人邮箱 Agent
 ├── mujian-creative-writing-platform/    幕间 AI 角色创作平台
 ├── personal-portfolio-website-design/   滚动叙事个人作品集网站
 ├── hi-claude-desktop-pet/               Hi, Claude! macOS 电脑桌宠
@@ -93,16 +108,30 @@ vibecoding/
 
 ## English Version
 
-This directory contains vibecoding projects that I completed independently, including product-concept prototypes, an AI-powered personal creation platform, personal website design, desktop interaction apps, and working implementations of independent ideas. Depending on the project, I independently handle product design, front-end design, interaction logic, desktop capabilities, backend API integration, or workflow design.
+This directory contains vibecoding projects that I completed independently, including a runnable personal email Agent, product-concept prototypes, an AI-powered personal creation platform, personal website design, desktop interaction apps, and working implementations of independent ideas. Depending on the project, I independently handle product design, front-end design, interaction logic, desktop capabilities, backend API integration, Agent Harnesses, or workflow design.
 
 ### Project Overview
 
 | Project | What it is | Main artifacts | Status |
 | --- | --- | --- | --- |
+| [Laixin Personal Email Agent](./laixin-email-agent/) | A local email Agent for internship outreach, advisor contact, and important correspondence: it surfaces priority messages, tracks replies, and converts interview mail into reviewable to-dos | [Project README](./laixin-email-agent/README.md) · [Product and Harness design](./laixin-email-agent/docs/product-and-harness-design.md) · [Agent Loop contract](./laixin-email-agent/AGENT_LOOP_CONTRACT.md) | Runs locally; the public edition retains the complete application code, Agent Loop, and tests while excluding live mailbox data, credentials, and dependency caches |
 | [Interlude AI Character-Creation Platform](./mujian-creative-writing-platform/) | A writing-inspired creative platform where authors create character Agents, stage multi-character conversations, and use governed Memory and Skills to let characters continue living beyond the manuscript | [Project README](./mujian-creative-writing-platform/README.md) · [Full PRD](./mujian-creative-writing-platform/PRD.md) · [Visual preview](./mujian-creative-writing-platform/public/og.png) | Runs locally; the current version is an interaction prototype with scripted model/AI outputs and browser-local state |
 | [Scroll-Driven Personal Portfolio Website](./personal-portfolio-website-design/) | A website-design project built independently through vibecoding, using scrolling to drive 600 consecutive frames across a cinematic two-page portfolio narrative | [Project README](./personal-portfolio-website-design/README.md) · [HTML entry point](./personal-portfolio-website-design/index.html) · [Page preview](./personal-portfolio-website-design/tests/artifacts/page-1.png) | Runs locally and includes responsive interaction, a state machine, tests, and a web-optimized frame sequence |
 | [Hi, Claude! Desktop Pet](./hi-claude-desktop-pet/) | A Claude-inspired macOS desktop pet with 12 character forms, distinct idle / regional animations, and screen- or window-edge movement | [Project README](./hi-claude-desktop-pet/README.md) · [Control-panel preview](./hi-claude-desktop-pet/docs/preview/settings-panel.png) · [Electron source](./hi-claude-desktop-pet/main.js) | Runs and packages from source; includes mouse interaction, window detection, a three-language control panel, and local settings |
 | [Voice-First Desktop Work Agent](./voice-first-desktop-work-agent/) | A client-side Agent product concept with voice as the key input and personal work management as the primary service | [Project README](./voice-first-desktop-work-agent/README.md) · [Complete product workflow](./voice-first-desktop-work-agent/docs/product-workflow.md) · [Prototype preview](./voice-first-desktop-work-agent/assets/voice-first-agent-home.png) | Public-safe portfolio edition: product design, workflow, and selected high-fidelity screenshots are public; original client resources and executable implementation are excluded |
+
+### Laixin Personal Email Agent
+
+Laixin is designed for personal-email users applying for internships, contacting potential supervisors, and maintaining important correspondence. It connects to a local NetEase mailbox through IMAP and turns “find priority mail → correlate outreach replies → draft interview to-dos → obtain human confirmation” into an observable, interruptible, and auditable Agent workflow.
+
+| Product / implementation area | Details |
+| --- | --- |
+| Core tasks | User-defined priority senders and subjects, reply tracking for selected outreach, reviewable to-dos from selected mail, and scheduled briefs for new priority messages |
+| Agent loop | Plan preview → observe → choose a tool → validate permissions / IDs / budget → execute → record → replan or stop |
+| Harness design | Capability-scoped tools, step and model-call budgets, no-progress stops, clarification states, rule fallback after model failure, and structured event traces |
+| Human control | Explicit boundaries around plan start, flag writes, and to-do confirmation; message content cannot expand tool permissions |
+| Engineering | React + TypeScript UI, Express local API, ImapFlow, a rule engine, optional DeepSeek extraction, and Node.js automated tests |
+| Privacy boundary | Localhost-only service; mailbox authorization code and model key stay in memory; public files exclude `.data/` runtime state and live messages |
 
 ### Interlude AI Character-Creation Platform
 
@@ -168,6 +197,7 @@ Directory structure:
 
 ```text
 vibecoding/
+├── laixin-email-agent/                   Laixin personal email Agent
 ├── mujian-creative-writing-platform/    Interlude AI character-creation platform
 ├── personal-portfolio-website-design/   Scroll-driven personal portfolio website
 ├── hi-claude-desktop-pet/               Hi, Claude! macOS desktop pet

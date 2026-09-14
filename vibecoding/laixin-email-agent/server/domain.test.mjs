@@ -1,0 +1,9 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {defaults,classify,queryMail,scheduleDue,extractRules,validateModelDraft,safeUrl,stableId} from './domain.mjs';
+const mails=[{id:'a',sender:'招聘',address:'hr@example.com',subject:'面试安排',preview:'正文',receivedAt:'2026-09-12T03:00:00.000Z',unread:true,flagged:false},{id:'b',sender:'活动',address:'spam@example.net',subject:'活动',preview:'',receivedAt:'2026-09-11T03:00:00.000Z',unread:false,flagged:false}];
+test('classification is explicit OR rule and keeps multiple reasons',()=>{const got=classify(mails,{...defaults,senders:['hr@example.com'],keywords:['面试']},[]);assert.deepEqual(got[0].matchReasons,['关注发件人','主题包含「面试」']);assert.equal(got[1].matchReasons.length,0);});
+test('query fails closed and scoped date works',()=>{assert.equal(queryMail('来自 hr@example.com 的新邮件',mails,new Date('2026-09-12T10:00:00+08:00')).mailIds[0],'a');assert.throws(()=>queryMail('随便帮我搜全网',mails));});
+test('scheduler has deterministic date slot keys',()=>{const now=new Date('2026-09-12T12:00:00+08:00');assert.deepEqual(scheduleDue(defaults,[],now).map(x=>x.key),['2026-09-12:morning']);});
+test('stable identity includes account, mailbox, UIDVALIDITY and UID',()=>{assert.equal(stableId('a@163.com','INBOX','9',42),stableId('a@163.com','INBOX','9',42));assert.notEqual(stableId('a@163.com','INBOX','9',42),stableId('a@163.com','INBOX','10',42));});
+test('rules extraction leaves missing facts and model validation rejects invention',()=>{const mail={id:'m',subject:'x'};const text='公司：甲\n岗位：产品实习\n面试时间：周一 10:00\n链接：https://example.com/a';const todo=extractRules(mail,text);assert.equal(todo.company,'甲');assert.equal(todo.link,'https://example.com/a');assert.equal(validateModelDraft({company:'乙',role:'',time:'',link:'javascript:bad'},mail,text).company,'');assert.equal(safeUrl('https://example.com'), 'https://example.com');});
